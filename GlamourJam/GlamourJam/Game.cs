@@ -75,6 +75,7 @@ namespace GlamourJam
                 this.Exit();
 
             // TODO: Add your update logic here
+            this.Core.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -88,6 +89,7 @@ namespace GlamourJam
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            this.Core.Draw(spriteBatch, gameTime);
 
             base.Draw(gameTime);
         }
