@@ -127,6 +127,7 @@
     <Compile Include="Display\ParticleEngine\ParticleEngine.cs" />
     <Compile Include="Display\Sprite.cs" />
     <Compile Include="Display\State.cs" />
+    <Compile Include="Display\Label.cs" />
     <Compile Include="Display\TiledSprite.cs" />
     <Compile Include="Display\Tilemap\TileLayer.cs" />
     <Compile Include="Display\Tilemap\Tile.cs" />
