@@ -113,7 +113,7 @@ namespace Flakcore.Display
             parentNode.Position += this.Position;
             parentNode.Alpha = Math.Min(this.Alpha, parentNode.Alpha);
 
-            if (!Visable || !GameManager.CurrentDrawCamera.BoundingBox.Intersects(this.GetBoundingBox(parentNode.Position)))
+            if (!Visable)
                 return;
 
             this.SpriteEffects = SpriteEffects.None;
