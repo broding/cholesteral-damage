@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{929E3745-98E6-4EF2-9B1B-10B749D67FD3}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Flakcore</RootNamespace>
+    <AssemblyName>Flakcore</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaProfile>HiDef</XnaProfile>
+    <XnaCrossPlatformGroupID>227f8bdc-a6d0-492e-b58c-8fe433ab53a9</XnaCrossPlatformGroupID>
+    <XnaOutputType>Library</XnaOutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>false</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Video, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core.cs" />
+    <Compile Include="Display\Activities\AlphaTo.cs" />
+    <Compile Include="Display\Activities\MoveTo.cs" />
+    <Compile Include="Display\Activities\ScaleTo.cs" />
+    <Compile Include="Display\Activities\Sequence.cs" />
+    <Compile Include="Display\Activity.cs" />
+    <Compile Include="Display\Animation.cs" />
+    <Compile Include="Display\Camera.cs" />
+    <Compile Include="Display\Layer.cs" />
+    <Compile Include="Display\Level\Block.cs" />
+    <Compile Include="Display\Level\Builder.cs" />
+    <Compile Include="Display\Level\Dungeon.cs" />
+    <Compile Include="Display\Level\Furnisher.cs" />
+    <Compile Include="Display\Level\Level.cs" />
+    <Compile Include="Display\Level\LevelBackground.cs" />
+    <Compile Include="Display\Level\Architect.cs" />
+    <Compile Include="Display\Level\LevelObjects\End.cs" />
+    <Compile Include="Display\Level\LevelObjects\Ladder.cs" />
+    <Compile Include="Display\Level\LevelObjects\LevelObject.cs" />
+    <Compile Include="Display\Level\LevelObjects\Start.cs" />
+    <Compile Include="Display\Level\Room.cs" />
+    <Compile Include="Display\Level\RoomType.cs" />
+    <Compile Include="Display\Node.cs" />
+    <Compile Include="Display\ParticleEngine\EmitterData\BasicEmitterData.cs" />
+    <Compile Include="Display\ParticleEngine\Emitters\BasicEmitter.cs" />
+    <Compile Include="Display\ParticleEngine\IParticleModifier.cs" />
+    <Compile Include="Display\ParticleEngine\Modifiers\LinearAlpha.cs" />
+    <Compile Include="Display\ParticleEngine\Modifiers\LinearGravity.cs" />
+    <Compile Include="Display\ParticleEngine\Modifiers\LinearScale.cs" />
+    <Compile Include="Display\ParticleEngine\Modifiers\RotationRate.cs" />
+    <Compile Include="Display\ParticleEngine\Particle.cs" />
+    <Compile Include="Display\ParticleEngine\ParticleEffect.cs" />
+    <Compile Include="Display\ParticleEngine\ParticleEngine.cs" />
+    <Compile Include="Display\Sprite.cs" />
+    <Compile Include="Display\State.cs" />
+    <Compile Include="Display\TiledSprite.cs" />
+    <Compile Include="Display\Tilemap\TileLayer.cs" />
+    <Compile Include="Display\Tilemap\Tile.cs" />
+    <Compile Include="Display\Tilemap\Tilemap.cs" />
+    <Compile Include="Display\Tilemap\Tileset.cs" />
+    <Compile Include="GameManager.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="Physics\Collision.cs" />
+    <Compile Include="Physics\CollisionSolver.cs" />
+    <Compile Include="Physics\RectangleExtensions.cs" />
+    <Compile Include="Physics\Sides.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\BoundingRectangle.cs" />
+    <Compile Include="Utils\ConvertUnits.cs" />
+    <Compile Include="Utils\DebugInfo.cs" />
+    <Compile Include="Physics\QuadTree.cs" />
+    <Compile Include="Utils\Easing.cs" />
+    <Compile Include="Utils\IPoolable.cs" />
+    <Compile Include="Utils\Pool.cs" />
+    <Compile Include="Utils\Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlakCoreContent\FlakCoreContent.contentproj">
+      <Project>{806828CB-51F6-4802-B1FD-9E534CF58230}</Project>
+      <Name>FlakCoreContent</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>

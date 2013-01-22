@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlamourJam", "GlamourJam\GlamourJam\GlamourJam.csproj", "{DBD35A2F-3123-430C-8861-2D9B96FBE765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlamourJamContent", "GlamourJam\GlamourJamContent\GlamourJamContent.contentproj", "{1F8EE800-9277-4096-A76A-6A0E6D1913EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flakcore", "FlakCore\Flakcore\Flakcore.csproj", "{929E3745-98E6-4EF2-9B1B-10B749D67FD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlakCoreContent", "FlakCore\FlakCoreContent\FlakCoreContent.contentproj", "{806828CB-51F6-4802-B1FD-9E534CF58230}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBD35A2F-3123-430C-8861-2D9B96FBE765}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{DBD35A2F-3123-430C-8861-2D9B96FBE765}.Debug|x86.ActiveCfg = Debug|x86
+		{DBD35A2F-3123-430C-8861-2D9B96FBE765}.Debug|x86.Build.0 = Debug|x86
+		{DBD35A2F-3123-430C-8861-2D9B96FBE765}.Release|Any CPU.ActiveCfg = Release|x86
+		{DBD35A2F-3123-430C-8861-2D9B96FBE765}.Release|x86.ActiveCfg = Release|x86
+		{DBD35A2F-3123-430C-8861-2D9B96FBE765}.Release|x86.Build.0 = Release|x86
+		{1F8EE800-9277-4096-A76A-6A0E6D1913EB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1F8EE800-9277-4096-A76A-6A0E6D1913EB}.Debug|x86.ActiveCfg = Debug|x86
+		{1F8EE800-9277-4096-A76A-6A0E6D1913EB}.Release|Any CPU.ActiveCfg = Release|x86
+		{1F8EE800-9277-4096-A76A-6A0E6D1913EB}.Release|x86.ActiveCfg = Release|x86
+		{929E3745-98E6-4EF2-9B1B-10B749D67FD3}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{929E3745-98E6-4EF2-9B1B-10B749D67FD3}.Debug|x86.ActiveCfg = Debug|x86
+		{929E3745-98E6-4EF2-9B1B-10B749D67FD3}.Debug|x86.Build.0 = Debug|x86
+		{929E3745-98E6-4EF2-9B1B-10B749D67FD3}.Release|Any CPU.ActiveCfg = Release|x86
+		{929E3745-98E6-4EF2-9B1B-10B749D67FD3}.Release|x86.ActiveCfg = Release|x86
+		{929E3745-98E6-4EF2-9B1B-10B749D67FD3}.Release|x86.Build.0 = Release|x86
+		{806828CB-51F6-4802-B1FD-9E534CF58230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{806828CB-51F6-4802-B1FD-9E534CF58230}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{806828CB-51F6-4802-B1FD-9E534CF58230}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{806828CB-51F6-4802-B1FD-9E534CF58230}.Release|x86.ActiveCfg = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
