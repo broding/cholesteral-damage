@@ -48,6 +48,8 @@ namespace Flakcore
             GameManager.Core = core;
             GameManager.WorldBounds = Rectangle.Empty;
 
+            GameManager.FontDefault = Content.Load<SpriteFont>("DefaultFont");
+
         }
 
         /// <summary>
