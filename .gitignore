@@ -11,6 +11,14 @@
 *.cache
 *.ccgame
 !*.dll
+./*/bin/*
+./*/obj/*
+GlamourJam/GlamourJam/bin/*
+GlamourJam/GlamourJam/obj/*
+FlakCore/FlakCore/bin/*
+FlakCore/FlakCore/obj/*
+GlamourJamContent/GlamourJamContent/bin/*
+GlamourJamContent/GlamourJamContent/obj/*
 
 # Packages #
 # it's better to unpack these files and commit the raw source
@@ -39,3 +47,68 @@ ehthumbs.db
 Thumbs.db
 code\RC Management Game\RC Management Game\obj\x86\Debug*/
 /*.vsp
+
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+obj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+Ankh.NoLoad
+
+#MonoDevelop
+*.pidb
+*.userprefs
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+*.sass-cache
+
+#Project files
+[Bb]uild/
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*
+
+#NuGet
+packages/
+
+#ncrunch
+*ncrunch*
+*crunch*.local.xml
+
+# visual studio database projects
+*.dbmdl
+
+#Test files
+*.testsettings
