@@ -46,6 +46,9 @@ namespace Flakcore
 
         public void Update(GameTime gameTime)
         {
+            if (this.CurrentState == null)
+                return;
+
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
             ResetCollisionQuadTree();
@@ -83,6 +86,9 @@ namespace Flakcore
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            if (this.CurrentState == null)
+                return;
+
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
             GameManager.Graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
