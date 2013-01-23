@@ -163,10 +163,10 @@ namespace Flakcore.Display
             parentNode.Position = this.Position;
             parentNode.Alpha = this.Alpha;
 
-            this.Draw(spriteBatch, parentNode);
+            this.DrawCall(spriteBatch, parentNode);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
+        public virtual void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             if (!Visable || !Active)
                 return;
@@ -176,7 +176,7 @@ namespace Flakcore.Display
 
             int childrenCount = this.Children.Count;
             for (int i = 0; i < childrenCount; i++)
-                this.Children[i].Draw(spriteBatch, parentNode);
+                this.Children[i].DrawCall(spriteBatch, parentNode);
         }
 
         public void RemoveAllChildren()

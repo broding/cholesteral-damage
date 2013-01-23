@@ -38,7 +38,7 @@ namespace Flakcore.Display
         }
 
 
-        protected override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
+        protected override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             if (this.Text == "")
                 return;

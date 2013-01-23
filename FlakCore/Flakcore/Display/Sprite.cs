@@ -108,7 +108,7 @@ namespace Flakcore.Display
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
+        public override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             parentNode.Position += this.Position;
             parentNode.Alpha = Math.Min(this.Alpha, parentNode.Alpha);
@@ -121,12 +121,12 @@ namespace Flakcore.Display
             if(Facing == Facing.Left)
                 this.SpriteEffects = SpriteEffects.FlipHorizontally;
 
-            this.DrawCall(spriteBatch, parentNode);
+            this.Draw(spriteBatch, parentNode);
 
-            base.Draw(spriteBatch, parentNode);   
+            base.DrawCall(spriteBatch, parentNode);   
         }
 
-        protected virtual void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
+        protected virtual void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             if (this.Texture == null)
                 return;

@@ -40,11 +40,11 @@ namespace Flakcore.Display.ParticleEngine
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
+        public override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             // we need to pass a zero vector to the draw call, because the particle engine always is at 0,0
             parentNode.Position = Vector2.Zero;
-            base.Draw(spriteBatch, parentNode);
+            base.DrawCall(spriteBatch, parentNode);
         }
 
         public override void Update(GameTime gameTime)
