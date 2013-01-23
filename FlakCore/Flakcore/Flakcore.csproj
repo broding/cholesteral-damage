@@ -135,6 +135,7 @@
     <Compile Include="Display\Tilemap\Tileset.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="LayerController.cs" />
     <Compile Include="Physics\Collision.cs" />
     <Compile Include="Physics\CollisionSolver.cs" />
     <Compile Include="Physics\RectangleExtensions.cs" />

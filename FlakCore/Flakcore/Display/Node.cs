@@ -155,7 +155,7 @@ namespace Flakcore.Display
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void DrawCall(SpriteBatch spriteBatch)
         {
             WorldProperties worldProperties = new WorldProperties();
             worldProperties.Position = this.Position;

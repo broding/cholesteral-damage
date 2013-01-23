@@ -19,8 +19,7 @@ namespace Flakcore
         public static Vector2 ScreenSize { get; private set; }
         public static Vector2 LevelBorderSize { get; set; }
 
-        public static Layer BulletLayer;
-        public static Layer UILayer;
+        public static LayerController LayerController { get; private set; }
 
         public static int UpdateCalls;
 
@@ -44,6 +43,8 @@ namespace Flakcore
             Controller.Graphics = graphics;
             Controller.Content = content;
             Controller.Input = new Input();
+            Controller.LayerController = new LayerController();
+
             Controller.ScreenSize = screenSize;
             Controller.Core = core;
             Controller.WorldBounds = Rectangle.Empty;

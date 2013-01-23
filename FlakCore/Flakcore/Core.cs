@@ -30,12 +30,14 @@ namespace Flakcore
 
             graphics.PreferredBackBufferWidth = (int)screenSize.X;
             graphics.PreferredBackBufferHeight = (int)screenSize.Y;
+            graphics.SynchronizeWithVerticalRetrace = false;
             graphics.ApplyChanges();
 
             this.Cameras = new List<Camera>();
             Camera camera = new Camera(0,0,(int)screenSize.X, (int)screenSize.Y);
             this.Cameras.Add(camera);
             Controller.CurrentDrawCamera = camera;
+            Controller.LayerController.AddLayer("base");
 
             Controller.WorldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
 
@@ -98,22 +100,37 @@ namespace Flakcore
                 Controller.CurrentDrawCamera = camera;
                 Controller.Graphics.GraphicsDevice.Viewport = camera.Viewport;
 
-                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
-                this.CurrentState.Draw(spriteBatch);
-                spriteBatch.End();
+                foreach (Layer layer in Controller.LayerController.Layers)
+                {
+                    if (!layer.Visable)
+                        continue;
 
-#if(DEBUG)
-                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
-                DrawCollisionQuad(spriteBatch);
-                spriteBatch.End();
+                    Controller.Graphics.GraphicsDevice.SetRenderTarget(layer.RenderTarget);
+                    Controller.Graphics.GraphicsDevice.Clear(Color.Transparent);
 
-                this.Stopwatch.Stop();
-                DebugInfo.AddDebugItem("Draw", this.Stopwatch.ElapsedMilliseconds + " ms");
-                DebugInfo.AddDebugItem("FPS", "" + Math.Round(1 / gameTime.ElapsedGameTime.TotalSeconds));
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
+                    layer.DrawCall(spriteBatch);
+                    spriteBatch.End();
+                }
 
-                spriteBatch.Begin();
-                DebugInfo.Draw(spriteBatch);
-                spriteBatch.End();
+                Controller.Graphics.GraphicsDevice.SetRenderTarget(null);
+
+                foreach (Layer layer in Controller.LayerController.Layers)
+                {
+                    if (!layer.Visable)
+                        continue;
+
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+
+                    if (layer.PostEffectAction != null)
+                        layer.PostEffectAction(layer);
+
+                    spriteBatch.Draw(layer.RenderTarget, Vector2.Zero, Color.White);
+                    spriteBatch.End();
+                }
+
+#if(DEBUG)  
+                this.DrawDebug(spriteBatch, camera, gameTime);    
 #endif
 
                 Node.ResetDrawDepth();
@@ -121,10 +138,27 @@ namespace Flakcore
             }
         }
 
+        private void DrawDebug(SpriteBatch spriteBatch, Camera camera, GameTime gameTime)
+        {
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
+            DrawCollisionQuad(spriteBatch);
+            spriteBatch.End();
+
+            this.Stopwatch.Stop();
+            DebugInfo.AddDebugItem("Draw", this.Stopwatch.ElapsedMilliseconds + " ms");
+            DebugInfo.AddDebugItem("FPS", "" + Math.Round(1 / gameTime.ElapsedGameTime.TotalSeconds));
+
+            spriteBatch.Begin();
+            DebugInfo.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
         public void SwitchState(State state)
         {
             this.CurrentState = null;
             this.CurrentState = state;
+
+            Controller.LayerController.GetLayer("base").AddChild(this.CurrentState);
         }
 
         public void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)

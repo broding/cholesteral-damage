@@ -51,6 +51,7 @@ namespace GlamourJam
 
             this.Core = new Core(new Vector2(1136, 640), graphics, Content);
             this.Core.SwitchState(new TestState());
+            this.IsFixedTimeStep = false;
 
             // TODO: use this.Content to load your game content here
         }
