@@ -56,7 +56,7 @@ namespace Display.Tilemap
         {
             foreach (Tile tile in Tiles)
             {
-                Matrix globalTransform = tile.GetLocalTransform() * GameManager.CurrentDrawCamera.GetTransformMatrix();
+                Matrix globalTransform = tile.GetLocalTransform() * Controller.CurrentDrawCamera.GetTransformMatrix();
 
                 Vector2 position, scale;
 

@@ -40,7 +40,7 @@ namespace Flakcore.Display.Level
         private void LoadRoomTypes()
         {
             // load normal rooms
-            DirectoryInfo dir = new DirectoryInfo(GameManager.Content.RootDirectory + "\\rooms");
+            DirectoryInfo dir = new DirectoryInfo(Controller.Content.RootDirectory + "\\rooms");
             FileInfo[] files = dir.GetFiles("*.*");
 
             this.NormalRoomTypes = new List<RoomType>(files.Length);
@@ -51,7 +51,7 @@ namespace Flakcore.Display.Level
             }
 
             // load stars
-            dir = new DirectoryInfo(GameManager.Content.RootDirectory + "\\rooms\\starts");
+            dir = new DirectoryInfo(Controller.Content.RootDirectory + "\\rooms\\starts");
             files = dir.GetFiles("*.*");
 
             this.StartRoomTypes = new List<RoomType>(files.Length);
@@ -63,7 +63,7 @@ namespace Flakcore.Display.Level
 
             
             // load ends
-            dir = new DirectoryInfo(GameManager.Content.RootDirectory + "\\rooms\\ends");
+            dir = new DirectoryInfo(Controller.Content.RootDirectory + "\\rooms\\ends");
             files = dir.GetFiles("*.*");
 
             this.EndRoomTypes = new List<RoomType>(files.Length);

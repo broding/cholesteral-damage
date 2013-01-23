@@ -10,7 +10,7 @@ using Flakcore.Physics;
 
 namespace Flakcore
 {
-    public class GameManager
+    public class Controller
     {
         public static float Gravity { get; set; }
         public static Input Input { get; private set; }
@@ -40,15 +40,15 @@ namespace Flakcore
 
         public static void Initialize(Vector2 screenSize, GraphicsDeviceManager graphics, ContentManager content, Core core)
         {
-            GameManager.Gravity = 14;
-            GameManager.Graphics = graphics;
-            GameManager.Content = content;
-            GameManager.Input = new Input();
-            GameManager.ScreenSize = screenSize;
-            GameManager.Core = core;
-            GameManager.WorldBounds = Rectangle.Empty;
+            Controller.Gravity = 14;
+            Controller.Graphics = graphics;
+            Controller.Content = content;
+            Controller.Input = new Input();
+            Controller.ScreenSize = screenSize;
+            Controller.Core = core;
+            Controller.WorldBounds = Rectangle.Empty;
 
-            GameManager.FontDefault = Content.Load<SpriteFont>("DefaultFont");
+            Controller.FontDefault = Content.Load<SpriteFont>("DefaultFont");
 
         }
 
@@ -58,7 +58,7 @@ namespace Flakcore
         /// <param name="state"></param>
         public static void SwitchState(Type state)
         {
-            GameManager.SwitchState(state, StateTransition.IMMEDIATELY, StateTransition.IMMEDIATELY);
+            Controller.SwitchState(state, StateTransition.IMMEDIATELY, StateTransition.IMMEDIATELY);
         }
 
         public static void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)

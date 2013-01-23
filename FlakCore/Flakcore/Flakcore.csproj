@@ -133,7 +133,7 @@
     <Compile Include="Display\Tilemap\Tile.cs" />
     <Compile Include="Display\Tilemap\Tilemap.cs" />
     <Compile Include="Display\Tilemap\Tileset.cs" />
-    <Compile Include="GameManager.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Physics\Collision.cs" />
     <Compile Include="Physics\CollisionSolver.cs" />

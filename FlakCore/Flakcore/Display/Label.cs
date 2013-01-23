@@ -16,11 +16,11 @@ namespace Flakcore.Display
 
         private Vector2 TextSize;
 
-        public Label() : this("", GameManager.Content.Load<SpriteFont>("DefaultFont"))
+        public Label() : this("", Controller.Content.Load<SpriteFont>("DefaultFont"))
         { 
         }
 
-        public Label(string text) : this(text, GameManager.Content.Load<SpriteFont>("DefaultFont"))
+        public Label(string text) : this(text, Controller.Content.Load<SpriteFont>("DefaultFont"))
         {
         }
 
@@ -28,7 +28,7 @@ namespace Flakcore.Display
         {
             this.Text = text;
             this.SpriteFont = spriteFont;
-            this.SpriteFont = GameManager.Content.Load<SpriteFont>("DefaultFont");
+            this.SpriteFont = Controller.Content.Load<SpriteFont>("DefaultFont");
             this.HorizontalAlign = HorizontalAlign.LEFT;
             this.VerticalAlign = VerticalAlign.TOP;
 
@@ -51,7 +51,7 @@ namespace Flakcore.Display
             parentNode.Position.Y += this.Height / 2 - this.TextSize.Y / 2;
 
             spriteBatch.DrawString(
-                GameManager.FontDefault,
+                Controller.FontDefault,
                 this.Text,
                 parentNode.Position,
                 this.Color * parentNode.Alpha,

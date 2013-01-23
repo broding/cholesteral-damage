@@ -42,7 +42,7 @@ namespace Flakcore.Display.ParticleEngine.EmitterData
 
         public BasicEmitter SetupEmitter()
         {
-            this.BaseTexture = GameManager.Content.Load<Texture2D>(this.TextureName);
+            this.BaseTexture = Controller.Content.Load<Texture2D>(this.TextureName);
             return new BasicEmitter(this);
         }
     }

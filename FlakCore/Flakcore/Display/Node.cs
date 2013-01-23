@@ -115,7 +115,7 @@ namespace Flakcore.Display
 
         public virtual void Update(GameTime gameTime)
         {
-            GameManager.UpdateCalls++;
+            Controller.UpdateCalls++;
 
             if (!this.Active)
                 return;
@@ -134,7 +134,7 @@ namespace Flakcore.Display
                 this.Activities[i].Update(gameTime);
             
 
-            this.Velocity.Y += this.Mass * GameManager.Gravity;
+            this.Velocity.Y += this.Mass * Controller.Gravity;
 
             WasTouching = Touching;
             Touching = new Sides();
@@ -310,7 +310,7 @@ namespace Flakcore.Display
         {
             get
             {
-                return GameManager.CurrentDrawCamera.TransformPosition(this.WorldPosition);
+                return Controller.CurrentDrawCamera.TransformPosition(this.WorldPosition);
             }
         }
 

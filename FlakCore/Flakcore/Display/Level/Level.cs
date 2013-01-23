@@ -32,8 +32,8 @@ namespace Flakcore.Display.Level
         public Level()
         {
             CollisionSolver.Level = this;
-            Block.Graphic = GameManager.Content.Load<Texture2D>("tilemap");
-            Block.BorderGraphic = GameManager.Content.Load<Texture2D>("level/borders_bunker");
+            Block.Graphic = Controller.Content.Load<Texture2D>("tilemap");
+            Block.BorderGraphic = Controller.Content.Load<Texture2D>("level/borders_bunker");
             this.Collidable = true;
 
             this.InitializeBackground();
@@ -53,7 +53,7 @@ namespace Flakcore.Display.Level
         {
             TiledSprite borderBackground = new TiledSprite(LEVEL_WIDTH * ROOM_WIDTH * BLOCK_WIDTH * 2, LEVEL_HEIGHT * ROOM_HEIGHT * BLOCK_HEIGHT * 2);
             borderBackground.LoadTexture("level/borderTile");
-            borderBackground.Position = new Vector2(-GameManager.LevelBorderSize.X, -GameManager.LevelBorderSize.Y);
+            borderBackground.Position = new Vector2(-Controller.LevelBorderSize.X, -Controller.LevelBorderSize.Y);
 
             this.AddChild(borderBackground);
 

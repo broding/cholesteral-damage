@@ -50,6 +50,7 @@ namespace GlamourJam
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             this.Core = new Core(new Vector2(1136, 640), graphics, Content);
+            this.Core.SwitchState(new TestState());
 
             // TODO: use this.Content to load your game content here
         }

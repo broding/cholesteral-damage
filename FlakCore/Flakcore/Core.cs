@@ -26,7 +26,7 @@ namespace Flakcore
 
         public Core(Vector2 screenSize, GraphicsDeviceManager graphics, ContentManager content)
         {
-            GameManager.Initialize(screenSize, graphics, content, this);
+            Controller.Initialize(screenSize, graphics, content, this);
 
             graphics.PreferredBackBufferWidth = (int)screenSize.X;
             graphics.PreferredBackBufferHeight = (int)screenSize.Y;
@@ -35,9 +35,9 @@ namespace Flakcore
             this.Cameras = new List<Camera>();
             Camera camera = new Camera(0,0,(int)screenSize.X, (int)screenSize.Y);
             this.Cameras.Add(camera);
-            GameManager.CurrentDrawCamera = camera;
+            Controller.CurrentDrawCamera = camera;
 
-            GameManager.WorldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
+            Controller.WorldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
 
             SetupQuadTree();
 
@@ -73,11 +73,11 @@ namespace Flakcore
             this.Stopwatch.Stop();
             DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedMilliseconds + " ms");
 
-            DebugInfo.AddDebugItem("Update calls", GameManager.UpdateCalls + " times");
+            DebugInfo.AddDebugItem("Update calls", Controller.UpdateCalls + " times");
             DebugInfo.AddDebugItem("Allocated memory", System.GC.GetTotalMemory(false) / 131072 + " mb");
-            GameManager.UpdateCalls = 0;
+            Controller.UpdateCalls = 0;
 
-            GameManager.Input.Update();
+            Controller.Input.Update();
 
             foreach (Camera camera in Cameras)
                 camera.update(gameTime);
@@ -91,12 +91,12 @@ namespace Flakcore
 
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
-            GameManager.Graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
+            Controller.Graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
 
             foreach (Camera camera in Cameras)
             {
-                GameManager.CurrentDrawCamera = camera;
-                GameManager.Graphics.GraphicsDevice.Viewport = camera.Viewport;
+                Controller.CurrentDrawCamera = camera;
+                Controller.Graphics.GraphicsDevice.Viewport = camera.Viewport;
 
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
                 this.CurrentState.Draw(spriteBatch);
@@ -150,7 +150,7 @@ namespace Flakcore
 
         private void DrawCollisionQuad(SpriteBatch spriteBatch)
         {
-            Texture2D blank = new Texture2D(GameManager.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            Texture2D blank = new Texture2D(Controller.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             blank.SetData(new[]{Color.White});
 
             List<BoundingRectangle> quads = CollisionQuad.getAllQuads(new List<BoundingRectangle>());
@@ -170,7 +170,7 @@ namespace Flakcore
 
         public void SetupQuadTree()
         {
-            CollisionQuad = new QuadTree(0, new BoundingRectangle(0, 0, GameManager.WorldBounds.Width, GameManager.WorldBounds.Height));
+            CollisionQuad = new QuadTree(0, new BoundingRectangle(0, 0, Controller.WorldBounds.Width, Controller.WorldBounds.Height));
             CollisionSolver = new CollisionSolver(CollisionQuad);
         }
     }
