@@ -108,7 +108,7 @@ namespace Flakcore.Display
             }
         }
 
-        public override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        internal override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             worldProperties.Position += this.Position;
             worldProperties.Alpha = Math.Min(this.Alpha, worldProperties.Alpha);

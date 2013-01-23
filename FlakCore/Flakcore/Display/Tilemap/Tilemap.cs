@@ -147,7 +147,7 @@ namespace Display.Tilemap
             return best;
         }
 
-        public override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        internal override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             // loop through all layers to draw them
             foreach (TileLayer layer in Layers)

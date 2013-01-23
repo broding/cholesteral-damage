@@ -165,7 +165,7 @@ namespace Flakcore.Display
             this.DrawCall(spriteBatch, worldProperties);
         }
 
-        public virtual void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        internal virtual void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             if (!Visable || !Active)
                 return;
