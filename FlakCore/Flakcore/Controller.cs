@@ -20,6 +20,7 @@ namespace Flakcore
         public static Vector2 LevelBorderSize { get; set; }
 
         public static LayerController LayerController { get; private set; }
+        public static FontController FontController { get; private set; }
 
         public static int UpdateCalls;
 
@@ -44,12 +45,11 @@ namespace Flakcore
             Controller.Content = content;
             Controller.Input = new Input();
             Controller.LayerController = new LayerController();
+            Controller.FontController = new FontController();
 
             Controller.ScreenSize = screenSize;
             Controller.Core = core;
             Controller.WorldBounds = Rectangle.Empty;
-
-            Controller.FontDefault = Content.Load<SpriteFont>("DefaultFont");
 
         }
 

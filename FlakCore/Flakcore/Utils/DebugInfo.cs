@@ -36,8 +36,8 @@ namespace Flakcore.Utils
             int i = 0;
             foreach (KeyValuePair<string, string> line in infoLines)
             {
-                spriteBatch.DrawString(Controller.FontDefault, line.Key + ":", new Vector2(3, 16 * i), Color.White);
-                spriteBatch.DrawString(Controller.FontDefault, line.Value, new Vector2(180, 16 * i), Color.White);
+                spriteBatch.DrawString(Controller.FontController.GetFont("DefaultFont"), line.Key + ":", new Vector2(3, 16 * i), Color.White);
+                spriteBatch.DrawString(Controller.FontController.GetFont("DefaultFont"), line.Value, new Vector2(180, 16 * i), Color.White);
                 i++;
             }
 

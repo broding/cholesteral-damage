@@ -37,10 +37,10 @@ namespace Flakcore
             Camera camera = new Camera(0,0,(int)screenSize.X, (int)screenSize.Y);
             this.Cameras.Add(camera);
             Controller.CurrentDrawCamera = camera;
-            Controller.LayerController.AddLayer("base");
 
             Controller.WorldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
 
+            Controller.LayerController.AddLayer("base");
             SetupQuadTree();
 
             this.Stopwatch = new Stopwatch();
@@ -159,7 +159,6 @@ namespace Flakcore
         {
             this.CurrentState = null;
             this.CurrentState = state;
-
             Controller.LayerController.GetLayer("base").AddChild(this.CurrentState);
         }
 
