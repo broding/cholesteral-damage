@@ -108,10 +108,10 @@ namespace Flakcore.Display
             }
         }
 
-        public override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
+        public override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
-            parentNode.Position += this.Position;
-            parentNode.Alpha = Math.Min(this.Alpha, parentNode.Alpha);
+            worldProperties.Position += this.Position;
+            worldProperties.Alpha = Math.Min(this.Alpha, worldProperties.Alpha);
 
             if (!Visable)
                 return;
@@ -121,39 +121,39 @@ namespace Flakcore.Display
             if(Facing == Facing.Left)
                 this.SpriteEffects = SpriteEffects.FlipHorizontally;
 
-            this.Draw(spriteBatch, parentNode);
+            this.Draw(spriteBatch, worldProperties);
 
-            base.DrawCall(spriteBatch, parentNode);   
+            base.DrawCall(spriteBatch, worldProperties);   
         }
 
-        protected virtual void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
+        protected virtual void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             if (this.Texture == null)
                 return;
 
-            parentNode.Position.X *= this.ScrollFactor.X;
-            parentNode.Position.Y *= this.ScrollFactor.Y;
+            worldProperties.Position.X *= this.ScrollFactor.X;
+            worldProperties.Position.Y *= this.ScrollFactor.Y;
 
             if (Animating)
                 spriteBatch.Draw(Texture,
-                    parentNode.Position,
+                    worldProperties.Position,
                     new Rectangle(CurrentAnimation.frames[CurrentFrame] * Width, 0, Width, Height),
-                    this.Color * parentNode.Alpha,
+                    this.Color * worldProperties.Alpha,
                     this.Rotation,
                     this.Origin,
                     this.Scale,
                     this.SpriteEffects,
-                    Node.GetDrawDepth(parentNode.Depth));
+                    Node.GetDrawDepth(worldProperties.Depth));
             else
                 spriteBatch.Draw(Texture,
-                    parentNode.Position,
+                    worldProperties.Position,
                     this.SourceRectangle,
-                    this.Color * parentNode.Alpha,
+                    this.Color * worldProperties.Alpha,
                     this.Rotation,
                     this.Origin,
                     this.Scale,
                     this.SpriteEffects,
-                    Node.GetDrawDepth(parentNode.Depth));
+                    Node.GetDrawDepth(worldProperties.Depth));
         }
 
         private bool OffScreen()

@@ -38,23 +38,23 @@ namespace Flakcore.Display
         }
 
 
-        protected override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
+        protected override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             if (this.Text == "")
                 return;
 
             this.TextSize = this.SpriteFont.MeasureString(this.Text);
 
-            parentNode.Position.X *= this.ScrollFactor.X;
-            parentNode.Position.Y *= this.ScrollFactor.Y;
-            parentNode.Position.X += this.Width / 2 - this.TextSize.X / 2;
-            parentNode.Position.Y += this.Height / 2 - this.TextSize.Y / 2;
+            worldProperties.Position.X *= this.ScrollFactor.X;
+            worldProperties.Position.Y *= this.ScrollFactor.Y;
+            worldProperties.Position.X += this.Width / 2 - this.TextSize.X / 2;
+            worldProperties.Position.Y += this.Height / 2 - this.TextSize.Y / 2;
 
             spriteBatch.DrawString(
                 Controller.FontDefault,
                 this.Text,
-                parentNode.Position,
-                this.Color * parentNode.Alpha,
+                worldProperties.Position,
+                this.Color * worldProperties.Alpha,
                 this.Rotation,
                 this.Origin,
                 this.Scale,

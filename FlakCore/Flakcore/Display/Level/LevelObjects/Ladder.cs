@@ -20,12 +20,12 @@ namespace Flakcore.Display.Level.LevelObjects
             this.Immovable = true;
         }
 
-        protected override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, ParentNode parentNode)
+        protected override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             for (int y = 0; y < this.LadderHeight; y++)
             {
-                base.Draw(spriteBatch, parentNode);
-                parentNode.Position.Y += this.Texture.Height;
+                base.Draw(spriteBatch, worldProperties);
+                worldProperties.Position.Y += this.Texture.Height;
             }
         }
     }

@@ -85,16 +85,16 @@ namespace Flakcore.Display.ParticleEngine
                 modifier.Update(gameTime);
         }
 
-        protected override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
+        protected override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
-            parentNode.Position.X *= this.ScrollFactor.X;
-            parentNode.Position.Y *= this.ScrollFactor.Y;
+            worldProperties.Position.X *= this.ScrollFactor.X;
+            worldProperties.Position.Y *= this.ScrollFactor.Y;
 
             spriteBatch.Draw(
                 this.Emitter.Data.BaseTexture,
-                parentNode.Position,
+                worldProperties.Position,
                 this.SourceRectangle,
-                this.Color * parentNode.Alpha,
+                this.Color * worldProperties.Alpha,
                 this.Rotation,
                 this.Origin,
                 this.Scale,

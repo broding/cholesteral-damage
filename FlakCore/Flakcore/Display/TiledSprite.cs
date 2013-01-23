@@ -30,20 +30,20 @@ namespace Flakcore.Display
             this.Height = height * this.TiledHeight;
         }
 
-        protected override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
+        protected override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             int amountX = this.TiledWidth / this.Texture.Width;
             int amountY = this.TiledHeight / this.Texture.Height;
 
-            ParentNode newParentNode = new ParentNode();
-            newParentNode.Alpha = this.Alpha;
+            WorldProperties newworldProperties = new WorldProperties();
+            newworldProperties.Alpha = this.Alpha;
 
             for (int x = 0; x < amountX; x++)
             {
                 for (int y = 0; y < amountY; y++)
                 {
-                    newParentNode.Position = parentNode.Position + new Vector2(x * this.Texture.Width * this.Scale.X, y * this.Texture.Height * this.Scale.Y);
-                    base.Draw(spriteBatch, newParentNode); 
+                    newworldProperties.Position = worldProperties.Position + new Vector2(x * this.Texture.Width * this.Scale.X, y * this.Texture.Height * this.Scale.Y);
+                    base.Draw(spriteBatch, newworldProperties); 
                 }
             }
         }

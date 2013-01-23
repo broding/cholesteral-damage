@@ -157,26 +157,26 @@ namespace Flakcore.Display
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            ParentNode parentNode = new ParentNode();
-            parentNode.Position = this.Position;
-            parentNode.Alpha = this.Alpha;
-            parentNode.Depth = this.Depth;
+            WorldProperties worldProperties = new WorldProperties();
+            worldProperties.Position = this.Position;
+            worldProperties.Alpha = this.Alpha;
+            worldProperties.Depth = this.Depth;
 
-            this.DrawCall(spriteBatch, parentNode);
+            this.DrawCall(spriteBatch, worldProperties);
         }
 
-        public virtual void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
+        public virtual void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             if (!Visable || !Active)
                 return;
 
-            parentNode.Position += this.Position;
-            parentNode.Alpha = Math.Min(this.Alpha, parentNode.Alpha);
-            parentNode.Depth += this.Depth;
+            worldProperties.Position += this.Position;
+            worldProperties.Alpha = Math.Min(this.Alpha, worldProperties.Alpha);
+            worldProperties.Depth += this.Depth;
 
             int childrenCount = this.Children.Count;
             for (int i = 0; i < childrenCount; i++)
-                this.Children[i].DrawCall(spriteBatch, parentNode);
+                this.Children[i].DrawCall(spriteBatch, worldProperties);
         }
 
         public void RemoveAllChildren()
@@ -340,7 +340,7 @@ namespace Flakcore.Display
         }
     }
 
-    public struct ParentNode
+    public struct WorldProperties
     {
         public Vector2 Position;
         public float Alpha;
