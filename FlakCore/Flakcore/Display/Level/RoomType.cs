@@ -53,9 +53,9 @@ namespace Flakcore.Display.Level
 
             foreach (Tile tile in structureLayer.Tiles)
             {
-                if (tile.tileset.GetPropertiesOfGid(tile.gid) != null)
+                if (tile.Tileset.GetPropertiesOfGid(tile.Gid) != null)
                 {
-                    BlockType type = Block.GetBlockTypeFromString(tile.tileset.GetPropertiesOfGid(tile.gid)["type"]);
+                    BlockType type = Block.GetBlockTypeFromString(tile.Tileset.GetPropertiesOfGid(tile.Gid)["type"]);
                     room.AddBlock((int)tile.Position.X, (int)tile.Position.Y, type);
                 }
             }

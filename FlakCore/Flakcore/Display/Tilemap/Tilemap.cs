@@ -47,10 +47,14 @@ namespace Display.Tilemap
             Height = Convert.ToInt32(doc.Element("map").Attribute("height").Value);
 
             // load all properties
-            foreach (XElement propElement in doc.Element("map").Element("properties").Elements())
+            if (doc.Element("map").Element("properties") != null)
             {
-                this.Properties.Add(propElement.Attribute("name").Value, propElement.Attribute("value").Value);
+                foreach (XElement propElement in doc.Element("map").Element("properties").Elements())
+                {
+                    this.Properties.Add(propElement.Attribute("name").Value, propElement.Attribute("value").Value);
+                }
             }
+            
 
             // load all tilesets
             foreach (XElement element in doc.Descendants("tileset"))

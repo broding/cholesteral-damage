@@ -55,9 +55,6 @@ namespace Flakcore.Display
 
         private List<Activity> Activities;
 
-        private static Quaternion RotationQuaternoin;
-        private static Vector3 position3, scale3;
-
         public Node()
         {
             Children = new List<Node>(1000);
@@ -69,9 +66,6 @@ namespace Flakcore.Display
             this.CollidableSides = new Sides();
             this.CollidableSides.SetAllTrue();
             this.Activities = new List<Activity>();
-            
-            if(Node.RotationQuaternoin == null)
-                Node.RotationQuaternoin = new Quaternion();
         }
 
         public static float GetDrawDepth(float depth)
@@ -228,15 +222,6 @@ namespace Flakcore.Display
                 Matrix.CreateTranslation(Position.X, Position.Y, 0f);
 
             return this.LocalTransform;
-        }
-
-        public static void decomposeMatrix(ref Matrix matrix, out Vector2 position, out Vector2 scale)
-        {
-            matrix.Decompose(out scale3, out Node.RotationQuaternoin, out position3);
-            position.X = position3.X;
-            position.Y = position3.Y;
-            scale.X = scale3.X;
-            scale.Y = scale3.Y;
         }
 
         public virtual List<Node> GetAllChildren(List<Node> nodes)

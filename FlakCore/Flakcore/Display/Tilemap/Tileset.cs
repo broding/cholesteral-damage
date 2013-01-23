@@ -12,7 +12,7 @@ namespace Display.Tilemap
         public string Name { get; private set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
-        public Texture2D Graphic { get; private set; }
+        public Texture2D Texture { get; private set; }
         public string[] CollisionGroups { get; private set; }
         public Dictionary<string, string>[] Properties { get; private set; }
 
@@ -23,7 +23,7 @@ namespace Display.Tilemap
             this.Name = name;
             this.Width = width;
             this.Height = height;
-            this.Graphic = graphic;
+            this.Texture = graphic;
             this.CollisionGroups = collisionGroups;
             this.Properties = properties;
         }

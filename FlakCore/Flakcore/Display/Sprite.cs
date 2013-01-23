@@ -131,12 +131,12 @@ namespace Flakcore.Display
             if (this.Texture == null)
                 return;
 
-            Sprite.DrawPosition.X = parentNode.Position.X * this.ScrollFactor.X;
-            Sprite.DrawPosition.Y = parentNode.Position.Y * this.ScrollFactor.Y;
+            parentNode.Position.X *= this.ScrollFactor.X;
+            parentNode.Position.Y *= this.ScrollFactor.Y;
 
             if (Animating)
                 spriteBatch.Draw(Texture,
-                    Sprite.DrawPosition,
+                    parentNode.Position,
                     new Rectangle(CurrentAnimation.frames[CurrentFrame] * Width, 0, Width, Height),
                     this.Color * parentNode.Alpha,
                     this.Rotation,
@@ -146,7 +146,7 @@ namespace Flakcore.Display
                     Node.GetDrawDepth(this.GetParentDepth()));
             else
                 spriteBatch.Draw(Texture,
-                    Sprite.DrawPosition,
+                    parentNode.Position,
                     this.SourceRectangle,
                     this.Color * parentNode.Alpha,
                     this.Rotation,

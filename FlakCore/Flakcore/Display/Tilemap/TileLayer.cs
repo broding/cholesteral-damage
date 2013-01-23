@@ -9,7 +9,7 @@ using Flakcore;
 
 namespace Display.Tilemap
 {
-    public class TileLayer : Node
+    public class TileLayer : Sprite
     {
         public string name;
         public List<Tile> Tiles;
@@ -50,20 +50,7 @@ namespace Display.Tilemap
 
             map[x, y] = new Tile(x, y, gid, sourceRect, tileset, collisionGroups);
             Tiles.Add(map[x, y]);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
-        {
-            foreach (Tile tile in Tiles)
-            {
-                Matrix globalTransform = tile.GetLocalTransform() * Controller.CurrentDrawCamera.GetTransformMatrix();
-
-                Vector2 position, scale;
-
-                Node.decomposeMatrix(ref globalTransform, out position, out scale);
-
-                spriteBatch.Draw(tile.tileset.Graphic, new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y), tile.sourceRect, Color.White, 0, Vector2.Zero, scale, new SpriteEffects(), 1);
-            }
+            this.AddChild(map[x, y]);
         }
 
         public override List<Node> GetAllChildren(List<Node> nodes)
