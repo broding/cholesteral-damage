@@ -95,6 +95,8 @@ namespace Flakcore
             this.Stopwatch.Start();
             Controller.Graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
 
+            Controller.LayerController.SortLayersByDepth();
+
             foreach (Camera camera in Cameras)
             {
                 Controller.CurrentDrawCamera = camera;
@@ -102,7 +104,7 @@ namespace Flakcore
 
                 foreach (Layer layer in Controller.LayerController.Layers)
                 {
-                    if (!layer.Visable)
+                    if (layer.Parent != null)
                         continue;
 
                     Controller.Graphics.GraphicsDevice.SetRenderTarget(layer.RenderTarget);
@@ -117,7 +119,7 @@ namespace Flakcore
 
                 foreach (Layer layer in Controller.LayerController.Layers)
                 {
-                    if (!layer.Visable)
+                    if (layer.Parent != null)
                         continue;
 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);

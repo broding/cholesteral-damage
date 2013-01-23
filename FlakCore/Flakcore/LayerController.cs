@@ -26,8 +26,8 @@ namespace Flakcore
         {
             Layer layer = new Layer();
             layer.Name = layerName;
-            this.Layers.Add(layer);
-            return layer;
+
+            return this.AddLayer(layer);
         }
 
         public Layer GetLayer(string name)
@@ -39,6 +39,11 @@ namespace Flakcore
             }
 
             throw new Exception("Could not find layer");
+        }
+
+        internal void SortLayersByDepth()
+        {
+            this.Layers = this.Layers.OrderBy(o => o.Depth).ToList();
         }
     }
 }
