@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Flakcore.Display
 {
@@ -10,7 +11,7 @@ namespace Flakcore.Display
     {
         public string Name { get; set; }
         public RenderTarget2D RenderTarget { get; protected set; }
-        public Action<Layer> PostEffectAction;
+        public Action<Layer, GameTime> PostEffectAction;
 
         public Layer()
             : base()

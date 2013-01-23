@@ -125,7 +125,7 @@ namespace Flakcore
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
 
                     if (layer.PostEffectAction != null)
-                        layer.PostEffectAction(layer);
+                        layer.PostEffectAction(layer, gameTime);
 
                     spriteBatch.Draw(layer.RenderTarget, Vector2.Zero, Color.White);
                     spriteBatch.End();
