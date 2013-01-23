@@ -81,7 +81,7 @@ namespace Flakcore.Display.Level
                     Vector2.Zero,
                     Vector2.One,
                     this.SpriteEffects,
-                    this.GetParentDepth() + this.Depth
+                    this.WorldDepth
                     );
 
                 drawPosition = position;
@@ -100,7 +100,7 @@ namespace Flakcore.Display.Level
                     Vector2.Zero,
                     Vector2.One,
                     this.SpriteEffects,
-                    this.GetParentDepth() + this.Depth
+                    this.WorldDepth
                     );
 
                 drawPosition = position;
@@ -121,7 +121,7 @@ namespace Flakcore.Display.Level
                     Vector2.Zero,
                     Vector2.One,
                     this.SpriteEffects,
-                    this.GetParentDepth() + this.Depth
+                    this.WorldDepth
                     );
 
                 drawPosition = position;

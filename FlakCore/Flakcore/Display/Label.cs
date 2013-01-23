@@ -59,7 +59,7 @@ namespace Flakcore.Display
                 this.Origin,
                 this.Scale,
                 this.SpriteEffects,
-                Node.GetDrawDepth(this.GetParentDepth()));
+                Node.GetDrawDepth(this.WorldDepth));
         }
     }
 

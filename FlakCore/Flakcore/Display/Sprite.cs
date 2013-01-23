@@ -143,7 +143,7 @@ namespace Flakcore.Display
                     this.Origin,
                     this.Scale,
                     this.SpriteEffects,
-                    Node.GetDrawDepth(this.GetParentDepth()));
+                    Node.GetDrawDepth(parentNode.Depth));
             else
                 spriteBatch.Draw(Texture,
                     parentNode.Position,
@@ -153,7 +153,7 @@ namespace Flakcore.Display
                     this.Origin,
                     this.Scale,
                     this.SpriteEffects,
-                    Node.GetDrawDepth(this.GetParentDepth()));
+                    Node.GetDrawDepth(parentNode.Depth));
         }
 
         private bool OffScreen()

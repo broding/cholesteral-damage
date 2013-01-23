@@ -50,15 +50,13 @@ namespace Flakcore.Display
         public Sides CollidableSides;
         public bool Active { get; protected set; }
 
-        private List<string> CollisionGroup;
-        private Matrix LocalTransform;
-
+        private List<string> CollisionGroups;
         private List<Activity> Activities;
 
         public Node()
         {
             Children = new List<Node>(1000);
-            CollisionGroup = new List<string>(10);
+            CollisionGroups = new List<string>(10);
             this.Active = true;
             this.Collidable = false;
             this.Touching = new Sides();
@@ -162,6 +160,7 @@ namespace Flakcore.Display
             ParentNode parentNode = new ParentNode();
             parentNode.Position = this.Position;
             parentNode.Alpha = this.Alpha;
+            parentNode.Depth = this.Depth;
 
             this.DrawCall(spriteBatch, parentNode);
         }
@@ -173,6 +172,7 @@ namespace Flakcore.Display
 
             parentNode.Position += this.Position;
             parentNode.Alpha = Math.Min(this.Alpha, parentNode.Alpha);
+            parentNode.Depth += this.Depth;
 
             int childrenCount = this.Children.Count;
             for (int i = 0; i < childrenCount; i++)
@@ -212,16 +212,6 @@ namespace Flakcore.Display
         {
             this.Active = true;
             this.Visable = true;
-        }
-
-        public Matrix GetLocalTransform()
-        {
-            this.LocalTransform = Matrix.CreateTranslation(-Origin.X, -Origin.Y, 0f) *
-                //Matrix.CreateScale(Scale.X, Scale.Y, 1f) *
-                //Matrix.CreateRotationZ(Rotation) *   
-                Matrix.CreateTranslation(Position.X, Position.Y, 0f);
-
-            return this.LocalTransform;
         }
 
         public virtual List<Node> GetAllChildren(List<Node> nodes)
@@ -273,22 +263,22 @@ namespace Flakcore.Display
 
         public void AddCollisionGroup(string groupName)
         {
-            this.CollisionGroup.Add(groupName);
+            this.CollisionGroups.Add(groupName);
         }
 
         public void RemoveCollisionGroup(string groupName)
         {
-            this.CollisionGroup.Remove(groupName);
+            this.CollisionGroups.Remove(groupName);
         }
 
         public bool IsMemberOfCollisionGroup(string groupName)
         {
-            return this.CollisionGroup.Contains(groupName);
+            return this.CollisionGroups.Contains(groupName);
         }
 
         public bool HasCollisionGroups()
         {
-            return this.CollisionGroup.Count > 0;
+            return this.CollisionGroups.Count > 0;
         }
 
         public Vector2 ScreenPosition
@@ -311,12 +301,16 @@ namespace Flakcore.Display
         }
 
 
-        public float GetParentDepth()
+        public float WorldDepth
         {
-            if (this.Parent != null)
-                return this.Parent.GetParentDepth() + this.Depth;
-            else
-                return this.Depth;
+            get
+            {
+                if (this.Parent != null)
+                    return this.Parent.WorldDepth + this.Depth;
+                else
+                    return this.Depth;
+            }
+            
         }
 
         public object Clone()
@@ -350,5 +344,6 @@ namespace Flakcore.Display
     {
         public Vector2 Position;
         public float Alpha;
+        public float Depth;
     }
 }
