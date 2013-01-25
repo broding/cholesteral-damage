@@ -15,9 +15,12 @@ namespace GlamourJam.States
 
         public GameState()
         {
+            TiledSprite bg = new TiledSprite(1500, 1000);
+            bg.LoadTexture("background");
             tilemap = new Tilemap();
             tilemap.LoadMap("Content/testmap.tmx", 32, 32);
 
+            this.AddChild(bg);
             this.AddChild(tilemap);
         }
     }
