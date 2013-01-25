@@ -22,9 +22,11 @@ namespace GlamourJam.States
             this.AddChild(bg);
             this.AddChild(tilemap);
 
-
+            WhiteBloodCell player2 = new WhiteBloodCell(new Vector2(50), PlayerIndex.Two);
+            player2.LoadTexture(@"whiteBloodCell");
 			Vetbol player = new Vetbol();
 			AddChild(player);
+            AddChild(player2);
         }
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
