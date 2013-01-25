@@ -99,7 +99,8 @@ namespace GlamourJam
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
-        {
+		{
+			Controller.Collide(this, "tilemap");
             base.Update(gameTime);
 
             float leftThumbX = Controller.Input.GetPadState(this.player).ThumbSticks.Left.X;
@@ -141,6 +142,8 @@ namespace GlamourJam
                 this.Velocity.Y = 0;
             }
 
+
+			AddGravitation(500);
         }
     }
 }

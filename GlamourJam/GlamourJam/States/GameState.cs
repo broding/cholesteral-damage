@@ -21,10 +21,19 @@ namespace GlamourJam.States
             tilemap = new Tilemap();
             tilemap.LoadMap("Content/testmap.tmx", 32, 32);
             this.AddChild(bg);
-            this.AddChild(tilemap);
-            WhiteBloodCell player2 = new WhiteBloodCell(new Vector2(50), PlayerIndex.Two);
-            player2.LoadTexture(@"whiteBloodCell");
+			this.AddChild(tilemap);
+			WhiteBloodCell player2 = new WhiteBloodCell(new Vector2(50), PlayerIndex.Two);
+			player2.LoadTexture(@"whiteBloodCell");
+			player2.MaxVelocity = Vector2.One * 500;
             AddChild(player2);
+
+
+			WhiteBloodCell player3 = new WhiteBloodCell(new Vector2(50), PlayerIndex.Three);
+			player3.LoadTexture(@"whiteBloodCell");
+			player3.MaxVelocity = Vector2.One * 500;
+			AddChild(player3);
+
+
 			
 			player = new Vetbol();
 			AddChild(player);
