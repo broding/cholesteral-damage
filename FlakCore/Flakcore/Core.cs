@@ -38,7 +38,7 @@ namespace Flakcore
             this.Cameras.Add(camera);
             Controller.CurrentDrawCamera = camera;
 
-            Controller.WorldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
+            Controller.WorldBounds = new Rectangle(0, 0, 1000, 1000);
 
             Controller.LayerController.AddLayer("base");
             SetupQuadTree();

@@ -12,6 +12,7 @@ namespace Flakcore.Physics
     public class CollisionSolver
     {
         public static Level Level;
+        public static Tilemap Tilemap;
 
         private List<Collision> Collisions;
         private QuadTree QuadTree;
@@ -47,12 +48,12 @@ namespace Flakcore.Physics
 
         private bool IsLevelCollision(string collideGroup)
         {
-            return CollisionSolver.Level.HasBlockCollisionGroup(collideGroup);
+            return CollisionSolver.Tilemap.HasTileCollisionGroup(collideGroup);
         }
 
         private void GetCollidedTiles(Node node, List<Node> collidedNodes)
         {
-            CollisionSolver.Level.GetCollidedTiles(node, collidedNodes);
+            CollisionSolver.Tilemap.GetCollidedTiles(node, collidedNodes);
         }
 
         public void resolveCollisions(GameTime gameTime)
