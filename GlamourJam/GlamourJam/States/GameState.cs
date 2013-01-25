@@ -10,7 +10,13 @@ namespace GlamourJam.States
     {
         public GameState()
         {
-
+			Vetbol player = new Vetbol();
+			AddChild(player);
         }
+
+		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+		{
+			base.Update(gameTime);
+		}
     }
 }
