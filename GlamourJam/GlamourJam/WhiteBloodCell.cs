@@ -137,7 +137,7 @@ namespace GlamourJam
 
         public void BloodCellCollides(Node node1, Node node2)
         {
-            if (node1.CollidableSides.Bottom)
+            if (node1.Touching.Bottom)
             {
                 this.OnFloor = true;
                 this.Velocity.Y = 0;
