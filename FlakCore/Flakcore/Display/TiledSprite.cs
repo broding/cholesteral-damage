@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Flakcore.Display
 {
-    class TiledSprite : Sprite
+    public class TiledSprite : Sprite
     {
         public int TiledWidth;
         public int TiledHeight;
