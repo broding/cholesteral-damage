@@ -20,7 +20,7 @@ namespace GlamourJam
 
 		public Vetbol()
 		{
-			Position = new Vector2(0, 0);
+			Position = new Vector2(100, 100);
 			LoadTexture("images/kikker");
 		}
 
@@ -31,30 +31,49 @@ namespace GlamourJam
 
 		public override void Update(GameTime gameTime)
 		{
+			base.Update(gameTime);
+			Controller.Collide(this, "tilemap", Collision);
 			padState = GamePad.GetState(player);
 
-			if (Position.Y + Height >= Controller.ScreenSize.Y)
+			//Move when sticking
+			if (isSticking)
 			{
-				onfloor = true;
-				Velocity.Y = 0;
-				Position.Y = Controller.ScreenSize.Y - Height;
-			} else {
+				Velocity.X = padState.ThumbSticks.Left.X * 500;
+				Velocity.Y = -padState.ThumbSticks.Left.Y * 500;
+			} else
+			//Gravity
+			{
 				Velocity.Y += 5;
 			}
 
+			//Move Horizontally
 			if (!(padState.ThumbSticks.Left.X == 0))
 			{
-				Position.X += padState.ThumbSticks.Left.X;
+				Velocity.X = padState.ThumbSticks.Left.X * 500;
+			} else
+			{
+				Velocity.X = 0;
 			}
+
+			//Jump
 			if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed && onfloor)
 			{
-				Velocity.Y = -1000;
 				onfloor = false;
+				Velocity.Y = -1000;
 			}
 
+			isSticking = false;
+			//onfloor = false;
 			prevPadState = padState;
+		}
 
-			base.Update(gameTime);
+		public void Collision(Node player, Node collider)
+		{
+			isSticking = true;
+			if (player.Touching.Bottom)
+			{
+				onfloor = true;
+			}
 		}
 	}
 }
