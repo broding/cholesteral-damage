@@ -12,7 +12,6 @@ namespace GlamourJam.States
     class GameState : State
     {
         public Tilemap tilemap;
-        private Sprite iets;
 
         public GameState()
         {
