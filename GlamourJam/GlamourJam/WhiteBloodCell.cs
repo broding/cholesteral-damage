@@ -39,9 +39,11 @@ namespace GlamourJam
 
         public float JumpPower { get; set; }
 
+        public bool OnFloor { get; private set; }
+
         public void Jump()
         {
-            this.Velocity.Y -= JumpPower;
+            this.Velocity.Y = -JumpPower;
         }
 
         public void Move(float velocity, MovingDirections direction)
@@ -100,7 +102,6 @@ namespace GlamourJam
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
-			Controller.Collide(this, "tilemap");
             base.Update(gameTime);
 
             float leftThumbX = Controller.Input.GetPadState(this.player).ThumbSticks.Left.X;
@@ -108,29 +109,18 @@ namespace GlamourJam
 
             Vector2 currentVelocity = new Vector2(0);
 
-            if (Controller.Input.JustPressed(this.player, Microsoft.Xna.Framework.Input.Buttons.A))
+            if (Controller.Input.JustPressed(this.player, Microsoft.Xna.Framework.Input.Buttons.A) && OnFloor)
             {
+                this.OnFloor = false;
                 Jump();
             }
 
-            if (Math.Abs(leftThumbX) > 0.1f || Math.Abs(leftThumbY) > 0.1f)
+            if (Math.Abs(leftThumbX) > 0.1f)
             {
                 
                 this.movingDirection = leftThumbX > 0 ? MovingDirections.Right : MovingDirections.Left;
-                this.movingDirection2 = leftThumbY > 0 ? MovingDirections.Up : MovingDirections.Down;
 
                 currentVelocity.X = MathHelper.Lerp(0, MaxVelocity.X, Math.Abs(leftThumbX));
-                currentVelocity.Y = MathHelper.Lerp(0, MaxVelocity.Y, Math.Abs(leftThumbY));
-
-                if (Math.Abs(leftThumbY) < 0.1f)
-                {
-                    currentVelocity.Y = 0;
-                }
-
-                if (Math.Abs(leftThumbX) < 0.1f)
-                {
-                    currentVelocity.X = 0;
-                }
 
                 this.Move(currentVelocity.X, this.movingDirection);
             }
@@ -139,11 +129,19 @@ namespace GlamourJam
                 this.movingDirection = MovingDirections.None;
                 this.movingDirection2 = MovingDirections.None;
                 this.Velocity.X = 0;
-                this.Velocity.Y = 0;
             }
 
+            AddGravitation(5);
+            Controller.Collide(this, "tilemap", BloodCellCollides);
+        }
 
-			AddGravitation(500);
+        public void BloodCellCollides(Node node1, Node node2)
+        {
+            if (node1.CollidableSides.Bottom)
+            {
+                this.OnFloor = true;
+                this.Velocity.Y = 0;
+            }
         }
     }
 }
