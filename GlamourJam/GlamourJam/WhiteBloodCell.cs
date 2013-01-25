@@ -132,7 +132,7 @@ namespace GlamourJam
                     currentVelocity.X = 0;
                 }
 
-                this.Move(currentVelocity, this.movingDirection, this.movingDirection2);
+                this.Move(currentVelocity.X, this.movingDirection);
             }
             else
             {
