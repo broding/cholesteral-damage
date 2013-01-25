@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Flakcore;
+using GlamourJam.States;
 
 namespace GlamourJam
 {
@@ -50,6 +51,7 @@ namespace GlamourJam
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             this.Core = new Core(new Vector2(1136, 640), graphics, Content);
+            this.Core.SwitchState(new GameState());
             this.IsFixedTimeStep = false;
 
             // TODO: use this.Content to load your game content here
