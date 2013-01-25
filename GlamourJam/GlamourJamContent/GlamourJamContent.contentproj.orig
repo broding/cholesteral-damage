@@ -46,15 +46,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tileset32.png">
-      <Name>tileset32</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="images\kikker.jpg">
       <Name>kikker</Name>
+=======
+    <Compile Include="tileset32.png">
+      <Name>tileset32</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -71,13 +68,7 @@
   <ItemGroup>
     <Compile Include="background.png">
       <Name>background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="blob.png">
-      <Name>blob</Name>
+>>>>>>> aabeed6c27ac3566d2211be4d9a2f2cc6449b47b
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

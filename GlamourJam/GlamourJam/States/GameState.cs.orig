@@ -15,17 +15,20 @@ namespace GlamourJam.States
 
         public GameState()
         {
+<<<<<<< HEAD
+			Vetbol player = new Vetbol();
+			AddChild(player);
+=======
             TiledSprite bg = new TiledSprite(1500, 1000);
             bg.LoadTexture("background");
             tilemap = new Tilemap();
             tilemap.LoadMap("Content/testmap.tmx", 32, 32);
+
             this.AddChild(bg);
             this.AddChild(tilemap);
-
-
-			Vetbol player = new Vetbol();
-			AddChild(player);
+>>>>>>> aabeed6c27ac3566d2211be4d9a2f2cc6449b47b
         }
+
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
 			base.Update(gameTime);
