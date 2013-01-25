@@ -61,7 +61,7 @@ namespace Flakcore.Display.ParticleEngine
         public void Fire(Vector2 position)
         {
             this.Activate();
-            //this.Position = position;
+            this.Position = position;
             this.InitializeEffect();
         }
 
