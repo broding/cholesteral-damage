@@ -71,6 +71,8 @@
   <ItemGroup>
     <Compile Include="background.png">
       <Name>background</Name>
+    <Compile Include="whiteBloodCell.png">
+      <Name>whiteBloodCell</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
