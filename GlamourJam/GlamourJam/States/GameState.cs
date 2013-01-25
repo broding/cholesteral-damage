@@ -12,6 +12,7 @@ namespace GlamourJam.States
     class GameState : State
     {
         public Tilemap tilemap;
+		public Vetbol player;
 
         public GameState()
         {
@@ -23,11 +24,12 @@ namespace GlamourJam.States
             this.AddChild(tilemap);
 
 
-			Vetbol player = new Vetbol();
+			player = new Vetbol();
 			AddChild(player);
         }
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
+
 			base.Update(gameTime);
 		}
     }
