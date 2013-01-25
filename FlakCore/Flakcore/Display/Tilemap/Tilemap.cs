@@ -33,7 +33,7 @@ namespace Display.Tilemap
             this.CollisionGroups = new HashSet<string>();
             this.Properties = new Dictionary<string, string>();
 
-            //CollisionSolver.Tilemaps.Add(this);
+            CollisionSolver.Tilemap = this;
         }
 
         public void LoadMap(string path, int tileWidth, int tileHeight)
