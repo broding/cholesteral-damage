@@ -50,7 +50,7 @@ namespace GlamourJam
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            this.Core = new Core(new Vector2(1136, 640), graphics, Content);
+            this.Core = new Core(new Vector2(1024, 768), graphics, Content);
             this.Core.SwitchState(new GameState());
             this.IsFixedTimeStep = false;
 
