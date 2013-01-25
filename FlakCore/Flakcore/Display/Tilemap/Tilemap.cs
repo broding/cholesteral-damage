@@ -71,7 +71,7 @@ namespace Display.Tilemap
                 {
                     int index = (int)tile.Attribute("id");
 
-                    if (tile.Descendants("property").First().Attribute("name").Value == "collisionGroups")
+                    if (tile.Descendants("property").First().Attribute("name").Value == "tags")
                     {
                        
                         string groupName = tile.Descendants("property").First().Attribute("value").Value;
