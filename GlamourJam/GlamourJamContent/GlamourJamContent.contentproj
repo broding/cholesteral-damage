@@ -52,6 +52,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
     <Compile Include="images\kikker.jpg">
       <Name>kikker</Name>
       <Importer>TextureImporter</Importer>
