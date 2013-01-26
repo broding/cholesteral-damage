@@ -49,7 +49,7 @@ namespace GlamourJam.States
 			foreach (Tile tile in capturePointTiles)
             {
                 CapturePoint capturepoint = new CapturePoint();
-                capturepoint.Position = tile.Position + ( new Vector2(-27, -62));
+                capturepoint.Position = tile.Position + ( new Vector2(-27, -61));
 				capturePoints.Add(capturepoint);
                 AddChild(capturepoint);
             }
@@ -85,13 +85,13 @@ namespace GlamourJam.States
             return bomb;
         }
 
-        public void SpawnBomb(Vector2 position, Vector2 direction)
+        public void SpawnBomb(Vetbol vetbol, Vector2 direction)
         {
             FatBomb bomb = this.BombPool.New();
             direction.Y *= -1;
             bomb.Velocity = direction * 1200;
-            bomb.Position = position;
-            bomb.Activate();
+            bomb.Position = vetbol.Position;
+            bomb.Activate(vetbol);
         }
 
         public void ExplodeBomb(FatBomb bomb)
