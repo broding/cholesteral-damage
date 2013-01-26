@@ -100,7 +100,7 @@ namespace GlamourJam.States
 
             foreach (Vetbol player in this.players)
             {
-                if (player.GetBoundingBox().Intersects(rect))
+                if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
                     GamePad.SetVibration(player.index, 1, 1);
                     player.Deactivate();
@@ -129,6 +129,7 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             player.Activate();
+            player.IsFlickering = true;
         }
     }
 }
