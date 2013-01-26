@@ -35,6 +35,15 @@ namespace GlamourJam
             Controller.LayerController.GetLayer("bombLayer").AddChild(this.BloodParticles);
             this.BloodParticles.Position = this.Position;
             this.BloodParticles.Start();
+
+            AddAnimation("p1uncaptured", new int[1] { 0 }, 0);
+            AddAnimation("p1captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p2uncaptured", new int[1] { 0 }, 0);
+            AddAnimation("p2captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p3uncaptured", new int[1] { 0 }, 0);
+            AddAnimation("p3captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p4uncaptured", new int[1] { 0 }, 0);
+            AddAnimation("p4captured", new int[3] { 1, 2, 3 }, 0);
         }
 
         public override void Update(GameTime gameTime)
@@ -60,13 +69,21 @@ namespace GlamourJam
 
                 if (owner.index == PlayerIndex.One) 
                 {
-                    PlayAnimation("captured");
+                    PlayAnimation("p1captured");
                 }
 
                 if (owner.index == PlayerIndex.Two)
                 {
-                    PlayAnimation("uncaptured");
-                }   
+                    PlayAnimation("p2captured");
+                }
+                if (owner.index == PlayerIndex.Three)
+                {
+                    PlayAnimation("p3captured");
+                }
+                if (owner.index == PlayerIndex.Four)
+                {
+                    PlayAnimation("p4captured");
+                }  
 
             }
 
