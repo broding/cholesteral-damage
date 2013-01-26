@@ -16,8 +16,11 @@ namespace Flakcore.Display.ParticleEngine
         private int Lifetime;
         private LinkedList<IParticleModifier> Modifiers;
 
+        private static Random random;
+
         public Particle(Action<Particle> killCallBack, BasicEmitter emitter) : base()
         {
+            Particle.random = new Random();
             this.KillCallBack = killCallBack;
             this.Emitter = emitter;
             this.Lifetime = 0;
@@ -46,7 +49,7 @@ namespace Flakcore.Display.ParticleEngine
             this.Lifetime = 0;
             this.Velocity = new Vector2(
                 (this.Emitter.Data.ReleaseVelocity.X + Particle.GetVariantion(this.Emitter.Data.ReleaseVelocityVariantion.X) * Util.RandomPositiveNegative()) * (float)Math.Cos(random.NextDouble() * (Math.PI * 2)),
-                (this.Emitter.Data.ReleaseVelocity.Y + Particle.GetVariantion(this.Emitter.Data.ReleaseVelocityVariantion.Y) * Util.RandomPositiveNegative()) * (float)Math.Sin(random.NextDouble() * (Math.PI * 2)));
+                (this.Emitter.Data.ReleaseVelocity.Y + Particle.GetVariantion(this.Emitter.Data.ReleaseVelocityVariantion.Y) * Util.RandomPositiveNegative()));
             this.Scale = this.Emitter.Data.ReleaseScale + Particle.GetVector2Variantion(this.Emitter.Data.ReleaseScaleVariation) * Util.RandomPositiveNegative();
             this.Color = Particle.GetColorVariation(this.Emitter.Data.ReleaseColor, this.Emitter.Data.ReleaseColorVariation);
             this.Rotation = this.Emitter.Data.ReleaseRotation + Particle.GetVariantion(this.Emitter.Data.ReleaseRotationVariation) * Util.RandomPositiveNegative();
@@ -104,13 +107,11 @@ namespace Flakcore.Display.ParticleEngine
 
         private static float GetVariantion(float variation)
         {
-            Random random = new Random();
             return (float)random.NextDouble() * variation;
         }
 
         private static Vector2 GetVector2Variantion(Vector2 variation)
         {
-            Random random = new Random();
             return new Vector2(
                 (float)random.NextDouble() * variation.X,
                 (float)random.NextDouble() * variation.Y
@@ -119,7 +120,6 @@ namespace Flakcore.Display.ParticleEngine
 
         private static Color GetColorVariation(Color normal, Color variation)
         {
-            Random random = new Random();
             Vector4 normalVector = normal.ToVector4();
             Vector4 variationVector = variation.ToVector4();
 
