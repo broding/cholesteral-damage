@@ -217,14 +217,23 @@ namespace GlamourJam
 			isSticking = false;
 			prevPadState = padState;
 		}
+<<<<<<< HEAD
+		public bool BeingCaptured(Node player, Node capturePoint)
+		{
+			if (player.Touching.Bottom)
+			{
+				(capturePoint as CapturePoint).startCapturing(this);
+			}
+=======
         public bool BeingCaptured(Node player, Node capturePoint)
         {
                 (capturePoint as CapturePoint).startCapturing(this);
 
                 (capturePoint as CapturePoint).isCollidingPlayer = true;
+>>>>>>> ab2dc7f9b9bcb563919a112b39c0dfbd93d703d0
 
-            return false;
-        }
+			return false;
+		}
 		public void Collision(Node player, Node collidingTile)
 		{
 			if (player.Touching.Bottom)

@@ -16,6 +16,7 @@ namespace GlamourJam
         public bool contested = false;
         private Vetbol owner;
         private Vetbol playerCapturing;
+        public bool isCollidingPlayer = false;
 
 
         public CapturePoint()
@@ -34,10 +35,16 @@ namespace GlamourJam
         {
             base.Update(gameTime);
 
+            if (!this.isCollidingPlayer)
+            {
+                timer = 0;
+                this.playerCapturing = null;
+                this.isPlayerCapturing = false;
+            }
             if (isPlayerCapturing == true && playerCapturing != owner)
                 timer += gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (timer >= 5)
+            if (timer >= 2)
             {
                 timer = 0;
                 captured = true;
@@ -54,6 +61,8 @@ namespace GlamourJam
                 }   
 
             }
+
+            this.isCollidingPlayer = false;
         }
 
         public void startCapturing(Vetbol vetblob)
