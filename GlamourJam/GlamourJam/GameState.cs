@@ -7,6 +7,7 @@ using Display.Tilemap;
 using Microsoft.Xna.Framework;
 using Flakcore;
 using Flakcore.Utils;
+using Microsoft.Xna.Framework.Input;
 
 namespace GlamourJam.States
 {
@@ -63,8 +64,6 @@ namespace GlamourJam.States
             }
 
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
-
-            this.SpawnBomb(new Vector2(260, 260));
         }
 
 
@@ -101,6 +100,7 @@ namespace GlamourJam.States
             {
                 if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
+                    GamePad.SetVibration(player.index, 1, 1);
                     player.Deactivate();
                     this.RespawnPlayer(player);
                 }
