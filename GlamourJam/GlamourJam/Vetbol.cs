@@ -52,6 +52,7 @@ namespace GlamourJam
 
 		public Vetbol(PlayerIndex playerIndex)
 		{
+            this.Collidable = true;
 			index = playerIndex;
             this.IsFlickering = true;
             this.flickerTime = flickeringTime;
@@ -91,6 +92,8 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 			soundEffectWalk = Controller.Content.Load<SoundEffect>("sounds/walking");
 			soundEffectLand = Controller.Content.Load<SoundEffect>("sounds/landing");
 			soundEffectJump = Controller.Content.Load<SoundEffect>("sounds/jump");
+
+            this.AddCollisionGroup("player");
 
 			/*Sprite bb = new Sprite();
 			bb = Sprite.CreateRectangle(new Vector2(Width, Height), Color.Aqua);
@@ -140,7 +143,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
             if (padState.IsButtonDown(Buttons.B) && this.bombTimer > this.bombSpawnTime)
             {
                 this.bombTimer = 0;
-                state.SpawnBomb(this.Position, padState.ThumbSticks.Left);
+                state.SpawnBomb(this, padState.ThumbSticks.Left);
             }
 
 			//Move when sticking
