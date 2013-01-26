@@ -15,12 +15,9 @@ namespace GlamourJam.States
         public Tilemap tilemap;
         private FatBomb fatBomb;
         private Array capturepointarray;
-
-		public Vetbol player;
-        public Vetbol player2;
-        public Vetbol player3;
-        public Vetbol player4;
         private List<Tile> playerSpawn;
+        private List<Tile> NotUsedSpawnPoints;
+        private List<Vetbol> players;
         private Random rnd = new Random();
 
         public Pool<FatBomb> BombPool;
@@ -35,6 +32,8 @@ namespace GlamourJam.States
             this.AddChild(bg);
 			this.AddChild(tilemap);
 
+            this.players = new List<Vetbol>();
+
             playerSpawn = tilemap.RemoveTiles(7);
             int playerRespawn = rnd.Next(playerSpawn.Count);
             
@@ -45,13 +44,20 @@ namespace GlamourJam.States
                 capturepoint.Position = tile.Position + ( new Vector2(-27, -62));
                 AddChild(capturepoint);
             }
+            
+            NotUsedSpawnPoints = playerSpawn;
 
-            player = new Vetbol(PlayerIndex.One);
-            player.Position = playerSpawn[playerRespawn].Position;
-            player2 = new Vetbol(PlayerIndex.Two);
-            player2.Position = playerSpawn[playerRespawn+1].Position;
-			AddChild(player);
-            AddChild(player2);
+
+            for (int i = 0; i < Controller.Input.getPadStateList.Where(c => c.IsConnected).Count(); i++)
+            {
+                this.players.Add(new Vetbol((PlayerIndex)i));
+            }
+
+            for (int j = 0; j < players.Count; j++)
+            {
+                this.players[j].Position = this.getAvailablePosition();
+                this.AddChild(this.players[j]);
+            }
 
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
 
@@ -79,5 +85,16 @@ namespace GlamourJam.States
 		{
 			base.Update(gameTime);
 		}
+
+        private Vector2 getAvailablePosition()
+        {
+            Random number = new Random();
+            int listNumber = number.Next(NotUsedSpawnPoints.Count);
+            Vector2 position = NotUsedSpawnPoints[listNumber].Position;
+
+            NotUsedSpawnPoints.RemoveAt(listNumber);
+
+            return position;
+        }
     }
 }
