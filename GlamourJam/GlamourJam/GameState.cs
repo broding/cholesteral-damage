@@ -6,6 +6,7 @@ using Flakcore.Display;
 using Display.Tilemap;
 using Microsoft.Xna.Framework;
 using Flakcore;
+using Flakcore.Utils;
 
 namespace GlamourJam.States
 {
@@ -19,8 +20,11 @@ namespace GlamourJam.States
         private List<Vetbol> players;
         private Random rnd = new Random();
 
+        public Pool<FatBomb> BombPool;
+
         public GameState()
         {
+            Vetbol.state = this;
             TiledSprite bg = new TiledSprite(2000, 2000);
             bg.LoadTexture("background");
             tilemap = new Tilemap();
@@ -40,7 +44,7 @@ namespace GlamourJam.States
                 capturepoint.Position = tile.Position + ( new Vector2(-27, -62));
                 AddChild(capturepoint);
             }
-
+            
             NotUsedSpawnPoints = playerSpawn;
 
 
@@ -54,8 +58,30 @@ namespace GlamourJam.States
                 this.players[j].Position = this.getAvailablePosition();
                 this.AddChild(this.players[j]);
             }
+
+            this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
+
+            this.SpawnBomb(new Vector2(260, 260));
         }
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+
+
+        private FatBomb NewBomb()
+        {
+            FatBomb bomb = new FatBomb();
+            bomb.Deactivate();
+            this.AddChild(bomb);
+
+            return bomb;
+        }
+
+        public void SpawnBomb(Vector2 position)
+        {
+            FatBomb bomb = this.BombPool.New();
+            bomb.Position = position;
+            bomb.Activate();
+        }
+
+		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
 			base.Update(gameTime);
 		}
