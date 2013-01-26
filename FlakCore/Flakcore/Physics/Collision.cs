@@ -196,12 +196,12 @@ namespace Flakcore.Physics
             }
             else if (!Node1.Immovable)
             {
-                this.node1PositionDiff.Y += overlap;
+                this.node1PositionDiff.Y += overlap + 1;
                 this.node1VelocityDiff.Y -= Node1.Velocity.Y;
             }
             else if (!Node2.Immovable)
             {
-                this.node2PositionDiff.Y += overlap;
+                this.node2PositionDiff.Y += overlap + 1;
                 this.node2VelocityDiff.Y -= Node2.Velocity.Y;
             }
         }
@@ -213,12 +213,12 @@ namespace Flakcore.Physics
             }
             else if (!Node1.Immovable)
             {
-                this.node1PositionDiff.X += overlap;
+                this.node1PositionDiff.X += overlap + 1;
                 this.node1VelocityDiff.X -= Node1.Velocity.X;
             }
             else if (!Node2.Immovable)
             {
-                this.node2PositionDiff.X += overlap;
+                this.node2PositionDiff.X += overlap + 1;
                 this.node2VelocityDiff.X -= Node2.Velocity.X;
             }
         }
