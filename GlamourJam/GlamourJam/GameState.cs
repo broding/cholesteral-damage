@@ -22,7 +22,7 @@ namespace GlamourJam.States
 
         public GameState()
         {
-            TiledSprite bg = new TiledSprite(1500, 1000);
+            TiledSprite bg = new TiledSprite(2000, 2000);
             bg.LoadTexture("background");
             tilemap = new Tilemap();
             tilemap.LoadMap("Content/testmap.tmx", 32, 32);

@@ -10,7 +10,7 @@ using Flakcore;
 
 namespace GlamourJam
 {
-	class Vetbol2:Sprite
+	class Vetbol2:Node
 	{
 		bool onFloor;
 		bool onWallLeft;
@@ -18,14 +18,20 @@ namespace GlamourJam
 		float airVelocityX;
 		GamePadState padState;
 		GamePadState prevPadState;
+		Sprite img = new Sprite();
 
 		public Vetbol2()
 		{
 			Position = new Vector2(100, 100);
-			LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
-			AddAnimation("IDLE", new int[1] { 0 }, 0);
-			AddAnimation("CRAWLING", new int[1] { 1 }, 0);
-			AddAnimation("JUMP", new int[1] { 2 }, 0);
+			img.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
+			img.AddAnimation("IDLE", new int[1] { 0 }, 0);
+			img.AddAnimation("CRAWLING", new int[1] { 1 }, 0);
+			img.AddAnimation("JUMP", new int[1] { 2 }, 0);
+			img.PlayAnimation("CRAWLING");
+			Height = 32;
+			Width = 32;
+			img.Position = new Vector2(0, -10);
+			AddChild(img);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -34,7 +40,18 @@ namespace GlamourJam
 			Controller.Collide(this, "tilemap", Collision);
 			padState = GamePad.GetState(PlayerIndex.One);
 
-			Velocity.Y += 5;
+			if (padState.ThumbSticks.Left.X > 0)
+			{
+				img.Facing = Facing.Left;
+				img.Position = new Vector2(-10, -10);
+			} else if (padState.ThumbSticks.Left.X < 0)
+			{
+				img.Facing = Facing.Right;
+				img.Position = new Vector2(0, -10);
+			}
+
+
+			Velocity.Y += 50;
 			if (Velocity.Y > 55)
 			{
 				onFloor = false;
@@ -45,7 +62,7 @@ namespace GlamourJam
 				Velocity.X = padState.ThumbSticks.Left.X * maxSpeed;
 			} else if (onWallLeft)
 			{
-				Velocity.X = (padState.ThumbSticks.Left.X * maxSpeed);
+				//Velocity.X = (padState.ThumbSticks.Left.X * maxSpeed);
 				Velocity.Y = 250;
 			} else
 			{
@@ -88,6 +105,7 @@ namespace GlamourJam
 			Velocity.Y = -1000;
 			if (onWallLeft)
 			{
+				Velocity.Y = -2000;
 				airVelocityX = 1500;
 				Velocity.X = (padState.ThumbSticks.Left.X * maxSpeed) + airVelocityX;
 			}
