@@ -24,6 +24,7 @@ namespace GlamourJam.States
 
         public GameState()
         {
+            Controller.LayerController.AddLayer("bombLayer");
             Vetbol.state = this;
             TiledSprite bg = new TiledSprite(2000, 2000);
             bg.LoadTexture("background");
