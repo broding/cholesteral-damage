@@ -42,6 +42,8 @@ namespace GlamourJam.States
             player4.JumpPower = 1000;
             AddChild(player4);
 
+            CapturePoint capturepoint = new CapturePoint();
+            AddChild(capturepoint);
 
 			
 			player = new Vetbol();

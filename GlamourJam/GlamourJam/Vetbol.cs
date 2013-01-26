@@ -20,6 +20,7 @@ namespace GlamourJam
 		public int maxSpeed = 500;
 		public int jumpSpeed = 1000;
 		public Vector2 jumpDirection = new Vector2(0, -1);
+        public bool capturing = false;
 
 		public Vetbol()
 		{
@@ -36,6 +37,7 @@ namespace GlamourJam
 		{
 			base.Update(gameTime);
 			Controller.Collide(this, "tilemap", Collision);
+            Controller.Collide(this, "capturePoint", null, BeingCaptured);
 			padState = GamePad.GetState(player);
 
 			//Move when sticking
@@ -69,7 +71,15 @@ namespace GlamourJam
 			isSticking = false;
 			prevPadState = padState;
 		}
+        public bool BeingCaptured(Node player, Node capturePoint)
+        {
+            if (player.Touching.Bottom)
+            {
+                (capturePoint as CapturePoint).startCapturing(this);
+            }
 
+            return false;
+        }
 		public void Collision(Node player, Node collidingTile)
 		{
 			/*jumpDirection = Vector2.Zero;
