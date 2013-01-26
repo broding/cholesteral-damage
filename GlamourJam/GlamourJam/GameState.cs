@@ -12,12 +12,11 @@ namespace GlamourJam.States
     class GameState : State
     {
         public Tilemap tilemap;
+        private Array capturepointarray;
+
 		public Vetbol player;
-
         public Vetbol player2;
-
         public Vetbol player3;
-
         public Vetbol player4;
 
         public GameState()
@@ -30,10 +29,14 @@ namespace GlamourJam.States
 			this.AddChild(tilemap);
 
 
-            CapturePoint capturepoint = new CapturePoint();
-            AddChild(capturepoint);
 
-			
+            List<Tile> removeTiles = tilemap.RemoveTiles(3);
+            foreach (Tile tile in removeTiles)
+            {
+                CapturePoint capturepoint = new CapturePoint();
+                capturepoint.Position = tile.Position + ( new Vector2(-27, -62));
+                AddChild(capturepoint);
+            }
 			player = new Vetbol(PlayerIndex.One);
             player2 = new Vetbol(PlayerIndex.Two);
 			AddChild(player);

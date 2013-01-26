@@ -97,8 +97,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="YellowBlur.png">
-      <Name>YellowBlur</Name>
+    <Compile Include="images\CapturePoint.png">
+      <Name>CapturePoint</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
