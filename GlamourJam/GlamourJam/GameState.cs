@@ -100,7 +100,7 @@ namespace GlamourJam.States
             {
                 if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
-                    GamePad.SetVibration(player.index, 1, 1);
+                    Controller.Input.SetVibrationWithTimer(player.index, TimeSpan.FromMilliseconds(300));
                     player.Deactivate();
                     this.RespawnPlayer(player);
                 }
