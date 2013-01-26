@@ -18,7 +18,7 @@ namespace GlamourJam
             this.LoadTexture(@"whiteBloodCell");
             this.Position = position;
             if(bol != null)
-                this.Color = bol.Color;
+                this.Color = bol.image.Color;
             this.gravity = 5;
         }
 
