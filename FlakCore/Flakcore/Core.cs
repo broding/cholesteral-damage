@@ -59,7 +59,10 @@ namespace Flakcore
 
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
-            this.CurrentState.Update(gameTime);
+            foreach (Layer layer in Controller.LayerController.Layers)
+            {
+                layer.Update(gameTime);
+            }
             this.Stopwatch.Stop();
             DebugInfo.AddDebugItem("Update", this.Stopwatch.ElapsedMilliseconds + " ms");
 
@@ -71,7 +74,11 @@ namespace Flakcore
 
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
-            this.CurrentState.PostUpdate(gameTime);
+
+            foreach (Layer layer in Controller.LayerController.Layers)
+            {
+                layer.PostUpdate(gameTime);
+            }
             this.Stopwatch.Stop();
             DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedMilliseconds + " ms");
 
