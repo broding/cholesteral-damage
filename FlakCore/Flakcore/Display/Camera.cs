@@ -15,7 +15,7 @@ namespace Flakcore.Display
         public Rectangle BoundingBox;
 
         private float rotation;
-        private float zoom;
+        public float zoom;
         private Matrix transformMatrix;
 
         public Node followNode { get; set; }
@@ -23,7 +23,7 @@ namespace Flakcore.Display
         public Camera(int x, int y, int width, int height)
         {
             Position = Vector2.Zero;
-            zoom = 1f;
+            zoom = 0.5725f;
             rotation = 0;
             Viewport = new Viewport(x, y, width, height);
             this.BoundingBox = this.Viewport.Bounds;
@@ -59,8 +59,8 @@ namespace Flakcore.Display
                 Position.X = followNode.Position.X + followNode.Width / 2;
             }
 
-            Position.X = Math.Max((Controller.ScreenSize.X - Controller.LevelBorderSize.X) / 2, Position.X);
-            Position.Y = Math.Max((Controller.ScreenSize.Y - Controller.LevelBorderSize.Y) / 2, Position.Y);
+            Position.X = Math.Max(Controller.ScreenSize.X / this.zoom / 2, Position.X);
+            Position.Y = Math.Max(Controller.ScreenSize.Y / this.zoom / 2, Position.Y);
 
             this.BoundingBox.X = (int)Position.X - (int)Controller.ScreenSize.X / 2;
             this.BoundingBox.Y = (int)Position.Y - (int)Controller.ScreenSize.Y / 2;
