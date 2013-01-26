@@ -268,10 +268,9 @@ namespace GlamourJam
 		}
         public bool BeingCaptured(Node player, Node capturePoint)
         {
-            if (player.Touching.Bottom)
-            {
                 (capturePoint as CapturePoint).startCapturing(this);
-            }
+
+                (capturePoint as CapturePoint).isCollidingPlayer = true;
 
             return false;
         }
