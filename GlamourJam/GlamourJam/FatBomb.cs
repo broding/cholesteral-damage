@@ -7,12 +7,16 @@ using Microsoft.Xna.Framework;
 using Flakcore;
 using Flakcore.Utils;
 using Flakcore.Display.ParticleEngine;
+using GlamourJam.States;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GlamourJam
 {
     class FatBomb : Sprite, IPoolable
     {
-        private TimeSpan timeSpan = TimeSpan.FromSeconds(6);
+        public static GameState state;
+        private const int bombTime = 4;
+        private TimeSpan timeSpan = TimeSpan.FromSeconds(bombTime);
         public int PoolIndex { get; set; }
         public Action<int> ReportDeadToPool { get; set; }
 
@@ -25,9 +29,13 @@ namespace GlamourJam
         {
             this.BoomParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("splashBottom"));
             this.AddCollisionGroup("bomb");
-            this.LoadTexture(@"whiteBloodCell");
+            this.LoadTexture(Controller.Content.Load<Texture2D>(@"Assets/Bomb"), 48, 48);
+            this.AddAnimation("IDLE", new int[1] {0}, 0);
+            this.AddAnimation("CLOSETOEXPLODE", new int[4] { 0, 1, 0, 2 }, 0.3f);
+            this.AddAnimation("EXPLODE", new int[6] { 0, 1, 2, 3, 4, 5 }, 0.17f);
             this.gravity = 5;
             Controller.LayerController.GetLayer("bombLayer").AddChild(this.BoomParticles);
+            this.Scale *= 1.5f;
         }
 
         public float gravity { get; set; }
@@ -58,11 +66,20 @@ namespace GlamourJam
             }
 
             if (timeSpan.TotalMilliseconds > 3000)
+            {
                 this.ColorTime = 800;
+                this.PlayAnimation("IDLE");
+            }
             else if (timeSpan.TotalMilliseconds < 3000 && timeSpan.TotalMilliseconds > 1000)
+            {
                 this.ColorTime = 200;
+                this.PlayAnimation("CLOSETOEXPLODE");
+            }
             else
+            {
                 this.ColorTime = 50;
+                this.PlayAnimation("EXPLODE");
+            }
         }
 
         public void Explode()
@@ -70,12 +87,13 @@ namespace GlamourJam
             this.BoomParticles.Position = this.Position + new Vector2(16, 16);
             this.BoomParticles.Explode();
             this.Deactivate();
+            state.ExplodeBomb(this);
         }
 
         public override void Activate()
         {
             base.Activate();
-            timeSpan = TimeSpan.FromSeconds(1);
+            timeSpan = TimeSpan.FromSeconds(bombTime);
         }
 
         private void SwitchColor()

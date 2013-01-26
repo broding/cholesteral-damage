@@ -16,6 +16,10 @@ namespace Display.Tilemap
 {
     public class Tilemap : Node
     {
+        private float GlobalTimer;
+        private float BeatTimer;
+        private float BeatAmount;
+
         public static int tileWidth { get; private set; }
         public static int tileHeight { get; private set; }
 
@@ -126,6 +130,33 @@ namespace Display.Tilemap
 
 
                 Layers.Add(layer);
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            this.GlobalTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (this.GlobalTimer > 600)
+            {
+                this.BeatTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                Tile.CurrentTexture = Tile.SmallMap;
+
+                if (this.BeatTimer > 100)
+                {
+                    this.BeatAmount++;
+                    this.BeatTimer = 0;
+
+                    if (this.BeatAmount == 2)
+                    {
+                        this.BeatAmount = 0;
+                        this.BeatTimer = 100;
+                        this.GlobalTimer = 0;
+                        Tile.CurrentTexture = Tile.NormalMap;
+                    }
+                }
             }
         }
 

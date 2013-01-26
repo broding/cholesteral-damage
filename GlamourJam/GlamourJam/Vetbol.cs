@@ -45,13 +45,32 @@ namespace GlamourJam
 		public Vetbol(PlayerIndex playerIndex)
 		{
 			index = playerIndex;
-			Position = new Vector2(100, 100);
-			image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
+            Position = new Vector2(100, 100);
+            if (index == PlayerIndex.One)
+            {
+                image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
+            }
+            else
+            {
+                image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
+            }
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
 			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0.5f);
             image.AddAnimation("JUMP", new int[1] { 3 }, 0);
             image.AddAnimation("ONWALL", new int[1] { 4 }, 0);
-			image.Position = new Vector2(24, 14);
+            image.Position = new Vector2(24, 14);
+            if (index==PlayerIndex.Two)
+            {
+                image.Color = Color.Azure;
+            }
+            else if (index == PlayerIndex.Three)
+            {
+                image.Color = Color.Lime;
+            }
+            else if (index == PlayerIndex.Four)
+            {
+                image.Color = Color.HotPink;
+            }
 			Width = 32;
 			Height = 32;
 			image.Origin = new Vector2(24, 24);
