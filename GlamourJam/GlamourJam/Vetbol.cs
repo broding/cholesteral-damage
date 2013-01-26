@@ -43,6 +43,7 @@ namespace GlamourJam
 
 		private bool stunned = false;
 		private float stunnedTime = 0;
+		private GameTime gametime;
 
 		private SoundEffect soundEffectWalk;
 		private SoundEffect soundEffectLand;
@@ -105,7 +106,8 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
                 return;
 			base.Update(gameTime);
 			Controller.Collide(this, "tilemap", Collision);
-			Stun(gameTime, stunnedTime);
+			gametime = gameTime;
+			Stun(stunnedTime);
 			if (!stunned)
 			{
 				Controller.Collide(this, "capturePoint", null, BeingCaptured);
@@ -113,7 +115,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 
 				if (padState.Buttons.Y == ButtonState.Pressed)
 				{
-					Stun(gameTime);
+					Stun();
 				}
 
 			} else
@@ -422,11 +424,11 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 			Velocity = jumpDirection * tempJumpSpeed;
 		}
 
-		public void Stun(GameTime gameTime, float timeInMilis = 5000)
+		public void Stun(float timeInMilis = 4000)
 		{
 			stunned = true;
 			stunnedTime = timeInMilis;
-			stunnedTime -= gameTime.ElapsedGameTime.Milliseconds;
+			stunnedTime -= gametime.ElapsedGameTime.Milliseconds;
 			if (stunnedTime <= 0)
 				stunned = false;
 		}
