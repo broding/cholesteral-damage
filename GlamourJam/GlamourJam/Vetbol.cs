@@ -46,7 +46,8 @@ namespace GlamourJam
             }
             else
             {
-                image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
+                
+image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
             }
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
 			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0);

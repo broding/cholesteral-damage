@@ -37,13 +37,13 @@ namespace GlamourJam
             this.BloodParticles.Start();
 
             AddAnimation("p1uncaptured", new int[1] { 0 }, 0);
-            AddAnimation("p1captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p1captured", new int[3] { 1, 2, 3 },0.5f);
             AddAnimation("p2uncaptured", new int[1] { 0 }, 0);
-            AddAnimation("p2captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p2captured", new int[3] { 4, 5, 6 }, 0.5f);
             AddAnimation("p3uncaptured", new int[1] { 0 }, 0);
-            AddAnimation("p3captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p3captured", new int[3] { 7, 8, 9 }, 0.5f);
             AddAnimation("p4uncaptured", new int[1] { 0 }, 0);
-            AddAnimation("p4captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p4captured", new int[3] { 10, 11, 12 }, 0.5f);
         }
 
         public override void Update(GameTime gameTime)
