@@ -13,6 +13,8 @@ namespace Flakcore.Display.ParticleEngine
         private ParticleEffect Effect;
         private BasicEmitter[] Emitters;
         private bool Started;
+        private float EmitTime;
+        private float EmitTimer;
 
         public ParticleEngine(ParticleEffect Effect)
         {
@@ -40,11 +42,27 @@ namespace Flakcore.Display.ParticleEngine
             if (!this.Started)
                 return;
 
+            this.EmitTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (this.EmitTime != 0 && this.EmitTime < this.EmitTimer)
+            {
+                this.EmitTimer = 0;
+                this.Stop();
+            }
+
             this.UpdateEmitterPositions();
         }
 
         public void Start()
         {
+            this.Started = true;
+            this.UpdateEmitterPositions();
+            this.StartEmitters();
+        }
+
+        public void Start(float time)
+        {
+            this.EmitTime = time;
             this.Started = true;
             this.UpdateEmitterPositions();
             this.StartEmitters();

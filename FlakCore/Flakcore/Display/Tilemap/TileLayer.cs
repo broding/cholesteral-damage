@@ -82,5 +82,23 @@ namespace Display.Tilemap
                 }
             }
         }
+
+        internal List<Tile> RemoveTiles(int gid)
+        {
+            List<Tile> tiles = new List<Tile>();
+
+            foreach (Tile tile in this.Tiles.ToList())
+            {
+                if (tile.Gid == gid)
+                {
+                    tiles.Add(tile);
+                    this.RemoveChild(tile);
+                    this.Tiles.Remove(tile);
+                    this._map[(int)Math.Floor(tile.Position.X / Tilemap.tileWidth), (int)Math.Floor(tile.Position.Y / Tilemap.tileHeight)] = null;
+                }
+            }
+
+            return tiles;
+        }
     }
 }

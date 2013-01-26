@@ -38,7 +38,7 @@ namespace Flakcore
             this.Cameras.Add(camera);
             Controller.CurrentDrawCamera = camera;
 
-            Controller.WorldBounds = new Rectangle(0, 0, 1024, 768);
+            Controller.WorldBounds = new Rectangle(0, 0, 2500,2000);
 
             Controller.LayerController.AddLayer("base");
             SetupQuadTree();
@@ -132,7 +132,7 @@ namespace Flakcore
                 }
 
 #if(DEBUG)  
-                //this.DrawDebug(spriteBatch, camera, gameTime);    
+                this.DrawDebug(spriteBatch, camera, gameTime);    
 #endif
 
                 Node.ResetDrawDepth();
