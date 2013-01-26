@@ -17,14 +17,16 @@ namespace GlamourJam.States
     {
         public Tilemap tilemap;
         private FatBomb fatBomb;
-        private Array capturepointarray;
         private List<Tile> playerSpawn;
         private List<Tile> NotUsedSpawnPoints;
         private List<Vetbol> players;
 		private Random rnd = new Random();
 		private SoundEffect soundEffectBomb;
 
-        public Pool<FatBomb> BombPool;
+		public Pool<FatBomb> BombPool;
+		List<CapturePoint> capturePoints = new List<CapturePoint>();
+		private float updateScoreTime = 5000;
+		Vetbol lastPlayerAlive;
 
         public GameState()
         {
@@ -42,12 +44,13 @@ namespace GlamourJam.States
 
             playerSpawn = tilemap.RemoveTiles(7);
             int playerRespawn = rnd.Next(playerSpawn.Count);
-            
-            List<Tile> removeTiles = tilemap.RemoveTiles(3);
-            foreach (Tile tile in removeTiles)
+
+			List<Tile> capturePointTiles = tilemap.RemoveTiles(3);
+			foreach (Tile tile in capturePointTiles)
             {
                 CapturePoint capturepoint = new CapturePoint();
                 capturepoint.Position = tile.Position + ( new Vector2(-27, -61));
+				capturePoints.Add(capturepoint);
                 AddChild(capturepoint);
             }
 
@@ -62,6 +65,7 @@ namespace GlamourJam.States
 
             for (int j = 0; j < players.Count; j++)
             {
+				this.players[j].score = 10;
                 this.players[j].Position = this.getAvailablePosition();
                 this.AddChild(this.players[j]);
             }
@@ -118,6 +122,37 @@ namespace GlamourJam.States
 
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
+			updateScoreTime -= gameTime.ElapsedGameTime.Milliseconds;
+			if (updateScoreTime <= 0)
+			{
+				updateScoreTime = 5000;
+				int playersAlive = 0;
+				foreach (Vetbol player in this.players)
+				{
+					int pointsOwned = 0;
+					foreach (CapturePoint point in capturePoints)
+					{
+						if (point.owner == player)
+							pointsOwned++;
+					}
+					player.score -= (capturePoints.Count - pointsOwned);
+					if (player.score <= 0)
+					{
+						player.Deactivate();
+						//TODO feedback of dead player in HUD
+					} else
+					{
+						playersAlive++;
+						lastPlayerAlive = player;
+					}
+					//TODO: update HUD score
+				}
+				if (playersAlive == 1)
+				{
+					//TODO lastPlayerAlive = winner
+				}
+			}
+
 			base.Update(gameTime);
 		}
 

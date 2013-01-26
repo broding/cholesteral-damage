@@ -50,7 +50,7 @@ namespace GlamourJam
 		private SoundEffect soundEffectJump;
 		private float soundTimer = 0;
 
-		private int score;
+		public int score;
 
 		public Vetbol(PlayerIndex playerIndex)
 		{

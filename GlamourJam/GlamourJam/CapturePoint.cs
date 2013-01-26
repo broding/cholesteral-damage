@@ -15,7 +15,7 @@ namespace GlamourJam
         public bool isPlayerCapturing = false;
         public double timer = 0;
         public bool contested = false;
-        private Vetbol owner;
+        public Vetbol owner;
         private Vetbol playerCapturing;
         public bool isCollidingPlayer = false;
 
