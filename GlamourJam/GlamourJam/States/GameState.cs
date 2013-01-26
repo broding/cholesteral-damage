@@ -14,6 +14,12 @@ namespace GlamourJam.States
         public Tilemap tilemap;
 		public Vetbol player;
 
+        public Vetbol player2;
+
+        public Vetbol player3;
+
+        public Vetbol player4;
+
         public GameState()
         {
             TiledSprite bg = new TiledSprite(1500, 1000);
@@ -23,31 +29,19 @@ namespace GlamourJam.States
             this.AddChild(bg);
 			this.AddChild(tilemap);
 
-			WhiteBloodCell player2 = new WhiteBloodCell(new Vector2(50), PlayerIndex.Two);
-			player2.LoadTexture(@"whiteBloodCell");
-			player2.MaxVelocity = new Vector2(500);
-            player2.JumpPower = 1000;
-            AddChild(player2);
 
 
-			WhiteBloodCell player3 = new WhiteBloodCell(new Vector2(50), PlayerIndex.Three);
-            player3.LoadTexture(@"whiteBloodCell");
-            player3.MaxVelocity = new Vector2(500);
-            player3.JumpPower = 1000;
-			AddChild(player3);
-
-            WhiteBloodCell player4 = new WhiteBloodCell(new Vector2(50), PlayerIndex.Four);
-            player4.LoadTexture(@"whiteBloodCell");
-            player4.MaxVelocity = new Vector2(500);
-            player4.JumpPower = 1000;
-            AddChild(player4);
+			
+		
 
             CapturePoint capturepoint = new CapturePoint();
             AddChild(capturepoint);
 
 			
-			player = new Vetbol();
+			player = new Vetbol(PlayerIndex.Two);
+            player2 = new Vetbol(PlayerIndex.Two);
 			AddChild(player);
+            AddChild(player2);
         }
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{

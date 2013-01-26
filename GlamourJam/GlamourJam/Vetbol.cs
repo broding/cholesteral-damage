@@ -21,9 +21,11 @@ namespace GlamourJam
 		public int jumpSpeed = 1000;
 		public Vector2 jumpDirection = new Vector2(0, -1);
         public bool capturing = false;
+        public PlayerIndex index;
 
-		public Vetbol()
+		public Vetbol(PlayerIndex playerIndex)
 		{
+            index = playerIndex;
 			Position = new Vector2(100, 100);
 			LoadTexture("images/kikker");
 		}
@@ -38,7 +40,7 @@ namespace GlamourJam
 			base.Update(gameTime);
 			Controller.Collide(this, "tilemap", Collision);
             Controller.Collide(this, "capturePoint", null, BeingCaptured);
-			padState = GamePad.GetState(player);
+			padState = GamePad.GetState(index);
 
 			//Move when sticking
 			if (isSticking)
