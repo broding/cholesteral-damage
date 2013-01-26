@@ -7,6 +7,7 @@ using Display.Tilemap;
 using Microsoft.Xna.Framework;
 using Flakcore;
 using Flakcore.Utils;
+using Microsoft.Xna.Framework.Input;
 
 namespace GlamourJam.States
 {
@@ -97,9 +98,9 @@ namespace GlamourJam.States
 
             foreach (Vetbol player in this.players)
             {
-                if (player.GetBoundingBox().Intersects(rect))
+                if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
-
+                    GamePad.SetVibration(player.index, 1, 1);
                     player.Deactivate();
                     this.RespawnPlayer(player);
                 }
@@ -126,6 +127,7 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             player.Activate();
+            player.IsFlickering = true;
         }
     }
 }
