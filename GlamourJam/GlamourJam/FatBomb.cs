@@ -5,20 +5,20 @@ using System.Text;
 using Flakcore.Display;
 using Microsoft.Xna.Framework;
 using Flakcore;
+using Flakcore.Utils;
 
 namespace GlamourJam
 {
-    class FatBomb : Sprite
+    class FatBomb : Sprite, IPoolable
     {
         private TimeSpan timeSpan = TimeSpan.FromSeconds(2);
+        public int PoolIndex { get; set; }
+        public Action<int> ReportDeadToPool { get; set; }
 
-        public FatBomb(Vector2 position, Vetbol bol)
+        public FatBomb()
         {
             this.AddCollisionGroup("bomb");
             this.LoadTexture(@"whiteBloodCell");
-            this.Position = position;
-            if(bol != null)
-                this.Color = bol.image.Color;
             this.gravity = 5;
         }
 
@@ -48,5 +48,17 @@ namespace GlamourJam
             this.Deactivate();
         }
 
+        public override void Activate()
+        {
+            base.Activate();
+            timeSpan = TimeSpan.FromSeconds(2);
+        }
+
+
+
+        public static bool IsValid(FatBomb bomb)
+        {
+            return !bomb.Active;
+        }
     }
 }

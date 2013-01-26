@@ -8,11 +8,17 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Flakcore;
 using System.Diagnostics;
+using GlamourJam.States;
 
 namespace GlamourJam
 {
 	class Vetbol:Node
 	{
+        public static GameState state;
+
+        private float bombTimer;
+        private float bombSpawnTime = 1000;
+
 		public Sprite image = new Sprite();
 		public bool isSticking = false;
 		public PlayerIndex player = PlayerIndex.One;
@@ -63,6 +69,14 @@ namespace GlamourJam
 			{
 				image.Facing = Facing.Left;
 			}
+
+            this.bombTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (padState.IsButtonDown(Buttons.B) && this.bombTimer > this.bombSpawnTime)
+            {
+                this.bombTimer = 0;
+                state.SpawnBomb(this.Position);
+            }
 
 			//Move when sticking
             speedY += 15;
