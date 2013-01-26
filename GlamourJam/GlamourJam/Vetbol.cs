@@ -27,7 +27,10 @@ namespace GlamourJam
 		public Vetbol()
 		{
 			Position = new Vector2(100, 100);
-			LoadTexture("images/kikker");
+			LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
+			AddAnimation("IDLE", new int[1] { 0 }, 0);
+			AddAnimation("CRAWLING", new int[1] { 1 }, 0);
+			AddAnimation("JUMP", new int[1] { 2 }, 0);
 		}
 
 		protected override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, WorldProperties worldProperties)
@@ -39,6 +42,7 @@ namespace GlamourJam
 		{
 			base.Update(gameTime);
             Controller.Collide(this, "tilemap", Collision);
+            Controller.Collide(this, "capturePoint", null, BeingCaptured);
 			padState = GamePad.GetState(player);
 			//Move when sticking
             speedY += 15;
@@ -176,12 +180,47 @@ namespace GlamourJam
 			//	Velocity.Y = -jumpSpeed;
 			//}
 
+
+			//ANIMATIONS
+			if ((onfloor && padState.ThumbSticks.Left.X == 0))
+			{
+			}
+			if (Velocity == Vector2.Zero)
+			{
+				PlayAnimation("IDLE");
+			} else if (!onfloor && !isSticking)
+			{
+				PlayAnimation("JUMP");
+			} else
+			{
+				PlayAnimation("CRAWLING");
+			}
+
+			/*if (!onfloor && !isSticking)
+			{
+				PlayAnimation("JUMP");
+			} else if (onfloor && padState.ThumbSticks.Left.X != 0)
+			{
+				PlayAnimation("CRAWLING");
+			} else if (isSticking)
+			{
+			} else if (padState.ThumbSticks.Left == Vector2.Zero)
+			{
+				PlayAnimation("IDLE");
+			}*/
+
+			//RESET FOR NEXT FRAME
 			isSticking = false;
 			prevPadState = padState;
 		}
-        public void NotTouching(Node player, Node collidingTile)
+        public bool BeingCaptured(Node player, Node capturePoint)
         {
-            System.Diagnostics.Debug.WriteLine("[VetBol]State:Not touching");
+            if (player.Touching.Bottom)
+            {
+                (capturePoint as CapturePoint).startCapturing(this);
+            }
+
+            return false;
         }
 		public void Collision(Node player, Node collidingTile)
         {

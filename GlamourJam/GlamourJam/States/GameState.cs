@@ -12,7 +12,7 @@ namespace GlamourJam.States
     class GameState : State
     {
         public Tilemap tilemap;
-		public Vetbol player;
+		public Vetbol3 player;
 
         public GameState()
         {
@@ -42,9 +42,11 @@ namespace GlamourJam.States
             player4.JumpPower = 1000;
             AddChild(player4);
 
+            CapturePoint capturepoint = new CapturePoint();
+            AddChild(capturepoint);
 
 			
-			player = new Vetbol();
+			player = new Vetbol3();
 			AddChild(player);
         }
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)

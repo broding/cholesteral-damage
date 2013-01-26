@@ -132,7 +132,7 @@ namespace Flakcore
                 }
 
 #if(DEBUG)  
-                this.DrawDebug(spriteBatch, camera, gameTime);    
+                //this.DrawDebug(spriteBatch, camera, gameTime);    
 #endif
 
                 Node.ResetDrawDepth();
