@@ -65,10 +65,10 @@ namespace Flakcore.Display.ParticleEngine
 
         public override void PostUpdate(GameTime gameTime)
         {
+            base.PostUpdate(gameTime);
+
             if (!this.Started)
                 return;
-
-            base.PostUpdate(gameTime);
         }
 
         private void Emit(int quanitity)
@@ -99,7 +99,7 @@ namespace Flakcore.Display.ParticleEngine
     
         internal void Stop()
         {
- 	        this.Started = false;
+            this.Started = false;
         }
 
         internal void Explode()
