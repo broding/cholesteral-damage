@@ -37,9 +37,20 @@ namespace GlamourJam
 
             if (timer >= 5)
             {
+                timer = 0;
                 captured = true;
-                playerCapturing = owner;
-                LoadTexture("images/kikker");
+                owner = playerCapturing;
+
+                if (owner.index == PlayerIndex.One) 
+                {
+                    LoadTexture("images/kikker");
+                }
+
+                if (owner.index == PlayerIndex.Two)
+                {
+                    LoadTexture("whiteBloodCell");
+                }   
+
             }
         }
 
