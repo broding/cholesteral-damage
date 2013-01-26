@@ -41,6 +41,9 @@ namespace GlamourJam
 		public PlayerIndex index;
 		public string CollisionState = "idle";
 
+		private bool stunned = false;
+		private float stunnedTime = 0;
+
 		private SoundEffect soundEffectWalk;
 		private SoundEffect soundEffectLand;
 		private SoundEffect soundEffectJump;
@@ -102,8 +105,21 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
                 return;
 			base.Update(gameTime);
 			Controller.Collide(this, "tilemap", Collision);
-			Controller.Collide(this, "capturePoint", null, BeingCaptured);
-			padState = GamePad.GetState(index);
+			Stun(gameTime, stunnedTime);
+			if (!stunned)
+			{
+				Controller.Collide(this, "capturePoint", null, BeingCaptured);
+				padState = GamePad.GetState(index);
+
+				if (padState.Buttons.Y == ButtonState.Pressed)
+				{
+					Stun(gameTime);
+				}
+
+			} else
+			{
+				padState = new GamePadState();
+			}
             wallJumpCount--;
             if (wallJumpCount <= 0)
             {
@@ -406,5 +422,13 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 			Velocity = jumpDirection * tempJumpSpeed;
 		}
 
+		public void Stun(GameTime gameTime, float timeInMilis = 5000)
+		{
+			stunned = true;
+			stunnedTime = timeInMilis;
+			stunnedTime -= gameTime.ElapsedGameTime.Milliseconds;
+			if (stunnedTime <= 0)
+				stunned = false;
+		}
     }
 }

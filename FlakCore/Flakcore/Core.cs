@@ -86,7 +86,7 @@ namespace Flakcore
             DebugInfo.AddDebugItem("Allocated memory", System.GC.GetTotalMemory(false) / 131072 + " mb");
             Controller.UpdateCalls = 0;
 
-            Controller.Input.Update();
+            Controller.Input.Update(gameTime);
 
             foreach (Camera camera in Cameras)
                 camera.update(gameTime);
