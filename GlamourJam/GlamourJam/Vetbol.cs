@@ -41,8 +41,9 @@ namespace GlamourJam
 			Position = new Vector2(100, 100);
 			image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
-			image.AddAnimation("CRAWLING", new int[1] { 1 }, 0);
-			image.AddAnimation("JUMP", new int[1] { 2 }, 0);
+			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0);
+            image.AddAnimation("JUMP", new int[1] { 3 }, 0);
+            image.AddAnimation("ONWALL", new int[1] { 4 }, 0);
 			image.Position = new Vector2(24, 14);
 			Width = 32;
 			Height = 32;
@@ -190,11 +191,19 @@ namespace GlamourJam
 			{
 				image.Rotation = MathHelper.ToRadians(0);
 			} else if (CollisionState == "left")
-			{
-				image.Rotation = MathHelper.ToRadians(90);
+            {
+                image.Rotation = MathHelper.ToRadians(0);
+                image.Facing = Facing.Right;
+                image.Position.X = 26;
+                image.PlayAnimation("ONWALL");
+				//image.Rotation = MathHelper.ToRadians(90);
 			} else if (CollisionState == "right")
-			{
-				image.Rotation = MathHelper.ToRadians(-90);
+            {
+                image.Rotation = MathHelper.ToRadians(0);
+                image.Facing = Facing.Left;
+                image.Position.X = 6;
+                image.PlayAnimation("ONWALL");
+				//image.Rotation = MathHelper.ToRadians(-90);
 			} else if (CollisionState == "idle")
 			{
 				image.Rotation = MathHelper.ToRadians(0);
