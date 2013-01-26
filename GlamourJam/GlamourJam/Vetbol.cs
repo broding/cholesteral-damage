@@ -50,6 +50,8 @@ namespace GlamourJam
 		private SoundEffect soundEffectJump;
 		private float soundTimer = 0;
 
+		private int score;
+
 		public Vetbol(PlayerIndex playerIndex)
 		{
 			index = playerIndex;
@@ -382,7 +384,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
         }
 		public void Collision(Node player, Node collidingTile)
 		{
-			if (!onfloor)
+			if (!onfloor || speedY > 50)
 				soundEffectLand.Play(0.5f, 0, 0);
 			if (player.Touching.Bottom)
 			{
