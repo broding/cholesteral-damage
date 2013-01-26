@@ -97,6 +97,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="Vetbol.cs" />
+    <Compile Include="Vetbol2.cs" />
+    <Compile Include="Vetbol3.cs" />
     <Compile Include="WhiteBloodCell.cs" />
   </ItemGroup>
   <ItemGroup>
