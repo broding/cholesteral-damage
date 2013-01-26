@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Flakcore;
 using System.Diagnostics;
 using GlamourJam.States;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GlamourJam
 {
@@ -40,6 +41,11 @@ namespace GlamourJam
 		public PlayerIndex index;
 		public string CollisionState = "idle";
 
+		private SoundEffect soundEffectWalk;
+		private SoundEffect soundEffectLand;
+		private SoundEffect soundEffectJump;
+		private float soundTimer = 0;
+
 		public Vetbol(PlayerIndex playerIndex)
 		{
 			index = playerIndex;
@@ -57,7 +63,7 @@ namespace GlamourJam
 image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
             }
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
-			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0);
+			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0.5f);
             image.AddAnimation("JUMP", new int[1] { 3 }, 0);
             image.AddAnimation("ONWALL", new int[1] { 4 }, 0);
             image.Position = new Vector2(24, 14);
@@ -77,6 +83,10 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 			Height = 32;
 			image.Origin = new Vector2(24, 24);
 			AddChild(image);
+
+			soundEffectWalk = Controller.Content.Load<SoundEffect>("sounds/walking");
+			soundEffectLand = Controller.Content.Load<SoundEffect>("sounds/landing");
+			soundEffectJump = Controller.Content.Load<SoundEffect>("sounds/jump");
 
 			/*Sprite bb = new Sprite();
 			bb = Sprite.CreateRectangle(new Vector2(Width, Height), Color.Aqua);
@@ -112,7 +122,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
             if (padState.IsButtonDown(Buttons.B) && this.bombTimer > this.bombSpawnTime)
             {
                 this.bombTimer = 0;
-                state.SpawnBomb(this.Position);
+                state.SpawnBomb(this.Position, padState.ThumbSticks.Left);
             }
 
 			//Move when sticking
@@ -127,6 +137,16 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 						//if ((-1 * maxSpeed) <= speedX && speedX <= (1 * maxSpeed))
 						//{
 							speedX = padState.ThumbSticks.Left.X * maxSpeed;
+
+							if (Velocity.Y <= 40)
+							{
+								soundTimer += gameTime.ElapsedGameTime.Milliseconds;
+								if (soundEffectWalk.Duration.Milliseconds <= soundTimer + 140.0f)
+								{
+									soundTimer = 0;
+									soundEffectWalk.Play(0.15f, 0, 0);
+								}
+							}
 						//}
 					} else
 					{
@@ -153,6 +173,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 						//Jump
 						if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed)
 						{
+							soundEffectJump.Play(0.5f, 0, 0);
 							//Jump();
 							onfloor = false;
                             speedY = -650;
@@ -171,6 +192,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 				//Jump
 				if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed)
 				{
+					soundEffectJump.Play(0.5f, 0, 0);
                     if (padState.ThumbSticks.Left.X >= 0.3)
                     {
                         //Jump();
@@ -207,6 +229,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 				//Jump
 				if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed)
 				{
+					soundEffectJump.Play(0.5f, 0, 0);
                     if (padState.ThumbSticks.Left.X <= -0.3)
                     {
                         //Jump();
@@ -341,6 +364,8 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
         }
 		public void Collision(Node player, Node collidingTile)
 		{
+			if (!onfloor)
+				soundEffectLand.Play(0.5f, 0, 0);
 			if (player.Touching.Bottom)
 			{
 				onfloor = true;

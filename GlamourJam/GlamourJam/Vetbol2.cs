@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Flakcore;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GlamourJam
 {
@@ -19,6 +20,7 @@ namespace GlamourJam
 		GamePadState padState;
 		GamePadState prevPadState;
 		Sprite img = new Sprite();
+		SoundEffect soundEffect;
 
 		public Vetbol2()
 		{
@@ -32,6 +34,8 @@ namespace GlamourJam
 			Width = 32;
 			img.Position = new Vector2(0, -10);
 			AddChild(img);
+
+			soundEffect = Controller.Content.Load<SoundEffect>("sounds/walking2");
 		}
 
 		public override void Update(GameTime gameTime)
