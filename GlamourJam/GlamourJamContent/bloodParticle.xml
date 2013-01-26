@@ -6,17 +6,17 @@
 
         <Name>bloodSprite</Name>
         <TextureName>bloodSprite</TextureName>
-        <TotalParticles>20</TotalParticles>
+        <TotalParticles>2</TotalParticles>
         <Lifetime>1500</Lifetime>
 
         <ReleaseQuantity>1</ReleaseQuantity>
-        <ReleaseSpeed>500</ReleaseSpeed>
-        <ReleaseSpeedVariation>1</ReleaseSpeedVariation>
+        <ReleaseSpeed>2500</ReleaseSpeed>
+        <ReleaseSpeedVariation>1000</ReleaseSpeedVariation>
 
-        <ReleaseVelocity>0 10</ReleaseVelocity>
+        <ReleaseVelocity>0 0</ReleaseVelocity>
         <ReleaseVelocityVariantion>0 0</ReleaseVelocityVariantion>
 
-        <ReleaseColor>00000000</ReleaseColor>
+        <ReleaseColor>FFFFFFFF</ReleaseColor>
         <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
 
         <ReleaseAlpha>1</ReleaseAlpha>
@@ -25,20 +25,17 @@
         <ReleaseRotation>0</ReleaseRotation>
         <ReleaseRotationVariation>0</ReleaseRotationVariation>
 
-        <ReleaseScale>1 1</ReleaseScale>
-        <ReleaseScaleVariation>0.2 0.2</ReleaseScaleVariation>
+        <ReleaseScale>2 2</ReleaseScale>
+        <ReleaseScaleVariation>0 0</ReleaseScaleVariation>
 
         <Modifiers>
-          <Item Type="Modifiers:LinearAlpha">
-            <FinalAlpha>0</FinalAlpha>
-          </Item>
 
           <Item Type="Modifiers:LinearGravity">
-            <Gravity>0 1</Gravity>
+            <Gravity>0 8</Gravity>
           </Item>
 
           <Item Type="Modifiers:LinearScale">
-            <FinalScale>1 1</FinalScale>
+            <FinalScale>0.1 0.1</FinalScale>
           </Item>
 
         </Modifiers>

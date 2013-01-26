@@ -63,8 +63,6 @@ namespace GlamourJam.States
             }
 
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
-
-            this.SpawnBomb(new Vector2(260, 260));
         }
 
 
