@@ -51,10 +51,10 @@ namespace GlamourJam
 			image.Origin = new Vector2(24, 24);
 			AddChild(image);
 
-			Sprite bb = new Sprite();
+			/*Sprite bb = new Sprite();
 			bb = Sprite.CreateRectangle(new Vector2(Width, Height), Color.Aqua);
 			bb.Alpha = 0.5f;
-			AddChild(bb);
+			AddChild(bb);*/
 		}
 
 		public override void Update(GameTime gameTime)
@@ -124,7 +124,7 @@ namespace GlamourJam
 						{
 							//Jump();
 							onfloor = false;
-							speedY = -jumpSpeed;
+                            speedY = -650;
 						}
 					}
 				}
@@ -145,13 +145,22 @@ namespace GlamourJam
                         //Jump();
                         speedX += (jumpSpeed + extraJump) * padState.ThumbSticks.Left.X;
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
-
+                        Vector2 speed = new Vector2(speedX, speedY);
+                        speed.Normalize();
+                        speed *= 650;
+                        speedX = speed.X;
+                        speedY = speed.Y;
                     }
                     else
                     {
                         //Jump();
                         speedX += (jumpSpeed + extraJump) *0.3f;
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
+                        Vector2 speed = new Vector2(speedX, speedY);
+                        speed.Normalize();
+                        speed *= 650;
+                        speedX = speed.X;
+                        speedY = speed.Y;
                         wallJumpCount =10;
                     }
                     CollisionState = "idle";
@@ -172,12 +181,22 @@ namespace GlamourJam
                         //Jump();
                         speedX += (jumpSpeed + extraJump) * padState.ThumbSticks.Left.X;
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
+                        Vector2 speed = new Vector2(speedX, speedY);
+                        speed.Normalize();
+                        speed *= 650;
+                        speedX = speed.X;
+                        speedY = speed.Y;
                     }
                     else
                     {
                         //Jump();
                         speedX += (jumpSpeed + extraJump) * -0.3f;
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
+                        Vector2 speed = new Vector2(speedX, speedY);
+                        speed.Normalize();
+                        speed *= 650;
+                        speedX = speed.X;
+                        speedY = speed.Y;
                         wallJumpCount =10;
                     }
                    
