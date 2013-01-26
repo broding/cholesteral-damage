@@ -177,6 +177,18 @@ namespace Display.Tilemap
             throw new Exception("Could not find layer with name");
         }
 
+        public List<Tile> RemoveTiles(int gid)
+        {
+            List<Tile> tiles = new List<Tile>();
+
+            foreach (TileLayer layer in this.Layers)
+            {
+                tiles.AddRange(layer.RemoveTiles(gid));
+            }
+
+            return tiles;
+        }
+
         internal bool HasTileCollisionGroup(string groupName)
         {
             return this.CollisionGroups.Contains(groupName);
