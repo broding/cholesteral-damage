@@ -39,7 +39,7 @@ namespace GlamourJam
             {
                 timer = 0;
                 captured = true;
-                playerCapturing = owner;
+                owner = playerCapturing;
 
                 if (owner.index == PlayerIndex.One) 
                 {
@@ -50,10 +50,6 @@ namespace GlamourJam
                 {
                     LoadTexture("whiteBloodCell");
                 }   
-                if (owner.index == PlayerIndex.Two)
-                {
-                    LoadTexture("whiteBloodCell");
-                }
 
             }
         }

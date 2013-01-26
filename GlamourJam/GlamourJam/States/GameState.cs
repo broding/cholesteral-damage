@@ -30,15 +30,11 @@ namespace GlamourJam.States
 			this.AddChild(tilemap);
 
 
-
-			
-		
-
             CapturePoint capturepoint = new CapturePoint();
             AddChild(capturepoint);
 
 			
-			player = new Vetbol(PlayerIndex.Two);
+			player = new Vetbol(PlayerIndex.One);
             player2 = new Vetbol(PlayerIndex.Two);
 			AddChild(player);
             AddChild(player2);

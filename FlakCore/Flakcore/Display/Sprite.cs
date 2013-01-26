@@ -134,6 +134,9 @@ namespace Flakcore.Display
             worldProperties.Position.X *= this.ScrollFactor.X;
             worldProperties.Position.Y *= this.ScrollFactor.Y;
 
+            worldProperties.Position.X = (float)Math.Round(worldProperties.Position.X);
+            worldProperties.Position.Y = (float)Math.Round(worldProperties.Position.Y);
+
             if (Animating)
                 spriteBatch.Draw(Texture,
                     worldProperties.Position,
