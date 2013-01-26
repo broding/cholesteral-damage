@@ -25,6 +25,20 @@ namespace Flakcore
             this.PreviousKeyboardStates[(int)PlayerIndex.Four] = Keyboard.GetState(PlayerIndex.Four);
         }
 
+        public List<GamePadState> getPadStateList
+        {
+            get
+            {
+                List<GamePadState> tempList = new List<GamePadState>();
+                for (int i = 0; i < 4; i++)
+                {
+                    tempList.Add(GamePad.GetState((PlayerIndex)i));
+                }
+                return tempList;
+            }
+        }
+
+
         public GamePadState GetPadState(PlayerIndex player)
         {
             return GamePad.GetState(player);
