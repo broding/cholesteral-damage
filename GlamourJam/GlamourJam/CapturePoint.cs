@@ -6,6 +6,7 @@ using Flakcore.Display;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Flakcore;
+using Flakcore.Display.ParticleEngine;
 namespace GlamourJam
 {
     class CapturePoint:Sprite
@@ -18,6 +19,8 @@ namespace GlamourJam
         private Vetbol playerCapturing;
         public bool isCollidingPlayer = false;
 
+        private ParticleEngine BloodParticles;
+
 
         public CapturePoint()
         {
@@ -27,13 +30,18 @@ namespace GlamourJam
             LoadTexture(Controller.Content.Load<Texture2D>("images/CapturePoint"), 128, 96);
             AddAnimation("uncaptured", new int[2] { 0 ,0 }, 0);
             AddAnimation("captured", new int[2] { 1, 1 }, 0);
-       
-           
+
+            this.BloodParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("bloodParticle"));
+            Controller.LayerController.GetLayer("bombLayer").AddChild(this.BloodParticles);
+            this.BloodParticles.Position = this.Position;
+            this.BloodParticles.Start();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            this.BloodParticles.Position = this.Position + new Vector2(55, 53);
 
             if (!this.isCollidingPlayer)
             {
