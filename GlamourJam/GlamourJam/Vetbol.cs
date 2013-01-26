@@ -23,10 +23,13 @@ namespace GlamourJam
         public float speedX = 0;
         public float speedY = 0;
 		public Vector2 jumpDirection = new Vector2(0, -1);
+        public bool capturing = false;
+        public PlayerIndex index;
         public string CollisionState = "idle";
 
-		public Vetbol()
+		public Vetbol(PlayerIndex playerIndex)
 		{
+            index = playerIndex;
 			Position = new Vector2(100, 100);
 			LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
 			AddAnimation("IDLE", new int[1] { 0 }, 0);
@@ -44,7 +47,9 @@ namespace GlamourJam
 			base.Update(gameTime);
             Controller.Collide(this, "tilemap", Collision);
             Controller.Collide(this, "capturePoint", null, BeingCaptured);
-			padState = GamePad.GetState(player);
+
+			padState = GamePad.GetState(index);
+
 			//Move when sticking
             speedY += 15;
             if(CollisionState == "idle"){
