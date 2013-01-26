@@ -83,6 +83,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="images\pannenkoek.jpg">
+      <Name>pannenkoek</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="images\slimeblob.png">
       <Name>slimeblob</Name>
       <Importer>TextureImporter</Importer>
