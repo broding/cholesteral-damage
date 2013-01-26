@@ -6,15 +6,15 @@
 
         <Name>splashBottom</Name>
         <TextureName>splash</TextureName>
-        <TotalParticles>100</TotalParticles>
-        <Lifetime>300</Lifetime>
+        <TotalParticles>30</TotalParticles>
+        <Lifetime>500</Lifetime>
 
-        <ReleaseQuantity>3</ReleaseQuantity>
-        <ReleaseSpeed>20</ReleaseSpeed>
+        <ReleaseQuantity>30</ReleaseQuantity>
+        <ReleaseSpeed>2</ReleaseSpeed>
         <ReleaseSpeedVariation>0</ReleaseSpeedVariation>
 
-        <ReleaseVelocity>-300 -300</ReleaseVelocity>
-        <ReleaseVelocityVariantion>0 0</ReleaseVelocityVariantion>
+        <ReleaseVelocity>350 350</ReleaseVelocity>
+        <ReleaseVelocityVariantion>30 30</ReleaseVelocityVariantion>
 
         <ReleaseColor>00000000</ReleaseColor>
         <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
@@ -25,16 +25,16 @@
         <ReleaseRotation>1</ReleaseRotation>
         <ReleaseRotationVariation>1</ReleaseRotationVariation>
 
-        <ReleaseScale>2 2</ReleaseScale>
-        <ReleaseScaleVariation>0 0</ReleaseScaleVariation>
+        <ReleaseScale>5 5</ReleaseScale>
+        <ReleaseScaleVariation>2 2</ReleaseScaleVariation>
 
         <Modifiers>
           <Item Type="Modifiers:LinearAlpha">
-            <FinalAlpha>0</FinalAlpha>
+            <FinalAlpha>1</FinalAlpha>
           </Item>
 
           <Item Type="Modifiers:LinearGravity">
-            <Gravity>0 30</Gravity>
+            <Gravity>0 10</Gravity>
           </Item>
 
           <Item Type="Modifiers:LinearScale">
@@ -43,6 +43,45 @@
 
         </Modifiers>
       </Item>
+
+      <Item Type="EmitterData:BasicEmitterData">
+
+        <Name>smokeBoom</Name>
+        <TextureName>smoke</TextureName>
+        <TotalParticles>2</TotalParticles>
+        <Lifetime>1500</Lifetime>
+
+        <ReleaseQuantity>2</ReleaseQuantity>
+        <ReleaseSpeed>2</ReleaseSpeed>
+        <ReleaseSpeedVariation>0</ReleaseSpeedVariation>
+
+        <ReleaseVelocity>30 30</ReleaseVelocity>
+        <ReleaseVelocityVariantion>30 30</ReleaseVelocityVariantion>
+
+        <ReleaseColor>00000000</ReleaseColor>
+        <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
+
+        <ReleaseAlpha>0.5</ReleaseAlpha>
+        <ReleaseAlphaVariation>0</ReleaseAlphaVariation>
+
+        <ReleaseRotation>2</ReleaseRotation>
+        <ReleaseRotationVariation>1</ReleaseRotationVariation>
+
+        <ReleaseScale>5 5</ReleaseScale>
+        <ReleaseScaleVariation>0 0</ReleaseScaleVariation>
+
+        <Modifiers>
+          <Item Type="Modifiers:LinearAlpha">
+            <FinalAlpha>0</FinalAlpha>
+          </Item>
+
+          <Item Type="Modifiers:LinearGravity">
+            <Gravity>0 -1</Gravity>
+          </Item>
+
+        </Modifiers>
+      </Item>
+      
     </EmitterData>
 
   </Asset>

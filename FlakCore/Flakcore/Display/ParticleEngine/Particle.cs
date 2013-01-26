@@ -44,16 +44,16 @@ namespace Flakcore.Display.ParticleEngine
 
         private void InitializeEffect()
         {
-            Random random = new Random();
-
             this.Lifetime = 0;
             this.Velocity = new Vector2(
                 (this.Emitter.Data.ReleaseVelocity.X + Particle.GetVariantion(this.Emitter.Data.ReleaseVelocityVariantion.X) * Util.RandomPositiveNegative()) * (float)Math.Cos(random.NextDouble() * (Math.PI * 2)),
-                (this.Emitter.Data.ReleaseVelocity.Y + Particle.GetVariantion(this.Emitter.Data.ReleaseVelocityVariantion.Y) * Util.RandomPositiveNegative()));
+                (this.Emitter.Data.ReleaseVelocity.Y + Particle.GetVariantion(this.Emitter.Data.ReleaseVelocityVariantion.Y) * Util.RandomPositiveNegative()) * (float)Math.Sin(random.NextDouble() * (Math.PI * 2)));
             this.Scale = this.Emitter.Data.ReleaseScale + Particle.GetVector2Variantion(this.Emitter.Data.ReleaseScaleVariation) * Util.RandomPositiveNegative();
-            this.Color = Particle.GetColorVariation(this.Emitter.Data.ReleaseColor, this.Emitter.Data.ReleaseColorVariation);
+            //this.Color = Particle.GetColorVariation(this.Emitter.Data.ReleaseColor, this.Emitter.Data.ReleaseColorVariation);
             this.Rotation = this.Emitter.Data.ReleaseRotation + Particle.GetVariantion(this.Emitter.Data.ReleaseRotationVariation) * Util.RandomPositiveNegative();
             this.LoadTexture(this.Emitter.Data.BaseTexture);
+
+            Console.WriteLine(this.Velocity);
 
             foreach (IParticleModifier modifier in this.Modifiers)
             {
@@ -95,7 +95,7 @@ namespace Flakcore.Display.ParticleEngine
 
             spriteBatch.Draw(
                 this.Emitter.Data.BaseTexture,
-                worldProperties.Position,
+                this.Position,
                 this.SourceRectangle,
                 this.Color * worldProperties.Alpha,
                 this.Rotation,

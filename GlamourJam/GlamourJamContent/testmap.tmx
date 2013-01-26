@@ -62,6 +62,21 @@
     <property name="tags" value="tilemap"/>
    </properties>
   </tile>
+  <tile id="12">
+   <properties>
+    <property name="tags" value="tilemap"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="tags" value="tilemap"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="tags" value="tilemap"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="56" height="41">
   <data>
@@ -1059,7 +1074,7 @@
    <tile gid="10"/>
    <tile gid="10"/>
    <tile gid="10"/>
-   <tile gid="10"/>
+   <tile gid="15"/>
    <tile gid="10"/>
    <tile gid="10"/>
    <tile gid="10"/>
