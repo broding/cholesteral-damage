@@ -19,6 +19,10 @@ namespace GlamourJam
 
         private float bombTimer;
         private float bombSpawnTime = 1000;
+        private readonly TimeSpan flickeringTime = TimeSpan.FromSeconds(2);
+        private readonly TimeSpan changeColorTime = TimeSpan.FromMilliseconds(200);
+        private TimeSpan flickerTime;
+        private TimeSpan ColorTimer;
 
 		public Sprite image = new Sprite();
 		public bool isSticking = false;
@@ -45,6 +49,9 @@ namespace GlamourJam
 		public Vetbol(PlayerIndex playerIndex)
 		{
 			index = playerIndex;
+            this.IsFlickering = true;
+            this.flickerTime = flickeringTime;
+            this.ColorTimer = changeColorTime;
             Position = new Vector2(100, 100);
             if (index == PlayerIndex.One)
             {
@@ -86,8 +93,12 @@ namespace GlamourJam
 			AddChild(bb);*/
 		}
 
+        public bool IsFlickering { get; set; }
+
 		public override void Update(GameTime gameTime)
 		{
+            if (!this.Active)
+                return;
 			base.Update(gameTime);
 			Controller.Collide(this, "tilemap", Collision);
 			Controller.Collide(this, "capturePoint", null, BeingCaptured);
@@ -110,7 +121,7 @@ namespace GlamourJam
             if (padState.IsButtonDown(Buttons.B) && this.bombTimer > this.bombSpawnTime)
             {
                 this.bombTimer = 0;
-                state.SpawnBomb(this.Position);
+                state.SpawnBomb(this.Position, padState.ThumbSticks.Left);
             }
 
 			//Move when sticking
@@ -310,10 +321,38 @@ namespace GlamourJam
 				}
 			}
 
+            if (IsFlickering)
+            {
+                this.flickerTime -= gameTime.ElapsedGameTime;
+                this.ColorTimer -= gameTime.ElapsedGameTime;
+
+                if (this.ColorTimer.TotalMilliseconds <= 0)
+                {
+                    this.SwitchColor();
+                    this.ColorTimer = changeColorTime;
+                }
+
+                if (flickerTime.TotalMilliseconds <= 0)
+                {
+                    IsFlickering = false;
+                    flickerTime = flickeringTime;
+                    this.image.Color = Color.White;
+                }
+            }
+
 			//RESET FOR NEXT FRAME
 			isSticking = false;
 			prevPadState = padState;
 		}
+
+        private void SwitchColor()
+        {
+            if (this.image.Color == Color.White)
+                this.image.Color = Color.Transparent;
+            else
+                this.image.Color = Color.White;
+        }
+
         public bool BeingCaptured(Node player, Node capturePoint)
         {
                 (capturePoint as CapturePoint).startCapturing(this);
@@ -365,5 +404,6 @@ namespace GlamourJam
 			}
 			Velocity = jumpDirection * tempJumpSpeed;
 		}
-	}
+
+    }
 }

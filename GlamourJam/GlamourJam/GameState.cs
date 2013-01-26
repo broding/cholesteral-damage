@@ -81,9 +81,11 @@ namespace GlamourJam.States
             return bomb;
         }
 
-        public void SpawnBomb(Vector2 position)
+        public void SpawnBomb(Vector2 position, Vector2 direction)
         {
             FatBomb bomb = this.BombPool.New();
+            direction.Y *= -1;
+            bomb.Velocity = direction * 1200;
             bomb.Position = position;
             bomb.Activate();
         }
@@ -105,7 +107,7 @@ namespace GlamourJam.States
 
             foreach (Vetbol player in this.players)
             {
-                if (player.GetBoundingBox().Intersects(rect))
+                if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
                     GamePad.SetVibration(player.index, 1, 1);
                     player.Deactivate();
@@ -134,6 +136,7 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             player.Activate();
+            player.IsFlickering = true;
         }
     }
 }

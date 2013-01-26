@@ -178,6 +178,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="images\slimeblobOther.png">
+      <Name>slimeblobOther</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="images\bloodCells.png">
       <Name>bloodCells</Name>
       <Importer>TextureImporter</Importer>

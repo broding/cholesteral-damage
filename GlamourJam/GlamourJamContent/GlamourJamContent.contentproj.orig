@@ -132,43 +132,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="images\bloodCells.png">
-      <Name>bloodCells</Name>
-=======
     <Compile Include="tileset32-small.png">
       <Name>tileset32-small</Name>
->>>>>>> fee46fefe8f2b81f65687a4570feb89115bc6ee1
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="sounds\walking.wav">
-      <Name>walking</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="sounds\jump.wav">
-      <Name>jump</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="sounds\landing.wav">
-      <Name>landing</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="sounds\explode.wav">
-      <Name>explode</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-=======
     <Compile Include="bloodParticle.xml">
       <Name>bloodParticle</Name>
       <Importer>XmlImporter</Importer>
@@ -205,9 +175,49 @@
       <Name>slimeblob</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
->>>>>>> fee46fefe8f2b81f65687a4570feb89115bc6ee1
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="images\bloodCells.png">
+      <Name>bloodCells</Name>
+=======
+    <Compile Include="images\slimeblobOther.png">
+      <Name>slimeblobOther</Name>
+>>>>>>> 0e169abac2480d150d486cd8949d51adb4c6a025
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+<<<<<<< HEAD
+  <ItemGroup>
+    <Compile Include="sounds\walking.wav">
+      <Name>walking</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sounds\jump.wav">
+      <Name>jump</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\landing.wav">
+      <Name>landing</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sounds\explode.wav">
+      <Name>explode</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+=======
+>>>>>>> 0e169abac2480d150d486cd8949d51adb4c6a025
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

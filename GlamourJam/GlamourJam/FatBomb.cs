@@ -33,7 +33,7 @@ namespace GlamourJam
             this.AddAnimation("IDLE", new int[1] {0}, 0);
             this.AddAnimation("CLOSETOEXPLODE", new int[4] { 0, 1, 0, 2 }, 0.3f);
             this.AddAnimation("EXPLODE", new int[6] { 0, 1, 2, 3, 4, 5 }, 0.17f);
-            this.gravity = 5;
+            this.gravity = 0;
             Controller.LayerController.GetLayer("bombLayer").AddChild(this.BoomParticles);
             this.Scale *= 1.5f;
         }
@@ -47,7 +47,7 @@ namespace GlamourJam
 
             base.Update(gameTime);
 
-            Controller.Collide(this, "tilemap");
+            Controller.Collide(this, "tilemap", this.TilemapCollision);
 
             timeSpan -= gameTime.ElapsedGameTime;
 
@@ -80,6 +80,11 @@ namespace GlamourJam
                 this.ColorTime = 50;
                 this.PlayAnimation("EXPLODE");
             }
+        }
+
+        private void TilemapCollision(Node bomb, Node tilemap)
+        {
+            this.Velocity = Vector2.Zero;
         }
 
         public void Explode()
