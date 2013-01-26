@@ -7,9 +7,11 @@ using Display.Tilemap;
 using Microsoft.Xna.Framework;
 using Flakcore;
 using Flakcore.Utils;
-using Microsoft.Xna.Framework.Input;
+<<<<<<< HEAD
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
+=======
+using Microsoft.Xna.Framework.Input;
+>>>>>>> fee46fefe8f2b81f65687a4570feb89115bc6ee1
 
 namespace GlamourJam.States
 {
@@ -21,8 +23,7 @@ namespace GlamourJam.States
         private List<Tile> playerSpawn;
         private List<Tile> NotUsedSpawnPoints;
         private List<Vetbol> players;
-		private Random rnd = new Random();
-		private SoundEffect soundEffectBomb;
+        private Random rnd = new Random();
 
         public Pool<FatBomb> BombPool;
 
@@ -67,8 +68,6 @@ namespace GlamourJam.States
             }
 
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
-
-			soundEffectBomb = Controller.Content.Load<SoundEffect>("sounds/explode");
         }
 
 
@@ -81,19 +80,15 @@ namespace GlamourJam.States
             return bomb;
         }
 
-        public void SpawnBomb(Vector2 position, Vector2 direction)
+        public void SpawnBomb(Vector2 position)
         {
             FatBomb bomb = this.BombPool.New();
-            direction.Y *= -1;
-            bomb.Velocity = direction * 1200;
             bomb.Position = position;
             bomb.Activate();
         }
 
         public void ExplodeBomb(FatBomb bomb)
         {
-			soundEffectBomb.Play(0.5f, 0, 0);
-
             int width = 136;
             int height = 136;
 
@@ -107,9 +102,9 @@ namespace GlamourJam.States
 
             foreach (Vetbol player in this.players)
             {
-                if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
+                if (player.GetBoundingBox().Intersects(rect))
                 {
-                    Controller.Input.SetVibrationWithTimer(player.index, TimeSpan.FromMilliseconds(300));
+                    GamePad.SetVibration(player.index, 1, 1);
                     player.Deactivate();
                     this.RespawnPlayer(player);
                 }
@@ -136,7 +131,6 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             player.Activate();
-            player.IsFlickering = true;
         }
     }
 }
