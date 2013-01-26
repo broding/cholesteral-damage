@@ -99,9 +99,8 @@ namespace GlamourJam.States
 
             foreach (Vetbol player in this.players)
             {
-                if (player.GetBoundingBox().Intersects(rect))
+                if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
-
                     player.Deactivate();
                     this.RespawnPlayer(player);
                 }
@@ -128,6 +127,7 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             player.Activate();
+            player.IsFlickering = true;
         }
     }
 }
