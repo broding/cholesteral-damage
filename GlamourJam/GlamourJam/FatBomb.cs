@@ -14,8 +14,8 @@ namespace GlamourJam
     class FatBomb : Sprite, IPoolable
     {
         public static GameState state;
-
-        private TimeSpan timeSpan = TimeSpan.FromSeconds(6);
+        private const int bombTime = 4;
+        private TimeSpan timeSpan = TimeSpan.FromSeconds(bombTime);
         public int PoolIndex { get; set; }
         public Action<int> ReportDeadToPool { get; set; }
 
@@ -79,7 +79,7 @@ namespace GlamourJam
         public override void Activate()
         {
             base.Activate();
-            timeSpan = TimeSpan.FromSeconds(1);
+            timeSpan = TimeSpan.FromSeconds(bombTime);
         }
 
         private void SwitchColor()

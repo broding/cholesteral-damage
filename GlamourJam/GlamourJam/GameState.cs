@@ -46,8 +46,9 @@ namespace GlamourJam.States
                 capturepoint.Position = tile.Position + ( new Vector2(-27, -62));
                 AddChild(capturepoint);
             }
-            
-            NotUsedSpawnPoints = playerSpawn;
+
+            NotUsedSpawnPoints = new List<Tile>();
+            NotUsedSpawnPoints.AddRange(playerSpawn);
 
 
             for (int i = 0; i < Controller.Input.getPadStateList.Where(c => c.IsConnected).Count(); i++)
@@ -90,11 +91,19 @@ namespace GlamourJam.States
 
             BoundingRectangle rect = new BoundingRectangle((int)bomb.Position.X - width / 2, (int)bomb.Position.Y - height / 2, width, height);
 
+            if (NotUsedSpawnPoints.Count == 0)
+            {
+                NotUsedSpawnPoints = new List<Tile>();
+                NotUsedSpawnPoints.AddRange(playerSpawn);
+            }
+
             foreach (Vetbol player in this.players)
             {
                 if (player.GetBoundingBox().Intersects(rect))
                 {
+
                     player.Deactivate();
+                    this.RespawnPlayer(player);
                 }
             }
         }
@@ -113,6 +122,12 @@ namespace GlamourJam.States
             NotUsedSpawnPoints.RemoveAt(listNumber);
 
             return position;
+        }
+
+        private void RespawnPlayer(Vetbol player)
+        {
+            player.Position = getAvailablePosition();
+            player.Activate();
         }
     }
 }

@@ -132,8 +132,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\slimeblobOther.png">
-      <Name>slimeblobOther</Name>
+    <Compile Include="tileset32-small.png">
+      <Name>tileset32-small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bloodParticle.xml">
+      <Name>bloodParticle</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="bloodSprite.png">
+      <Name>bloodSprite</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
