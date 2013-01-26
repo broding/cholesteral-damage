@@ -13,7 +13,6 @@ namespace GlamourJam.States
     {
         public Tilemap tilemap;
         private FatBomb fatBomb;
-		public Vetbol player;
         private Array capturepointarray;
 
 		public Vetbol player;
@@ -29,8 +28,6 @@ namespace GlamourJam.States
             tilemap.LoadMap("Content/testmap.tmx", 32, 32);
             this.AddChild(bg);
 			this.AddChild(tilemap);
-
-
 
             fatBomb = new FatBomb(new Vector2(100), player);
             AddChild(fatBomb);
