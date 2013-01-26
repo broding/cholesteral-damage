@@ -100,7 +100,7 @@ namespace GlamourJam
             if (padState.IsButtonDown(Buttons.B) && this.bombTimer > this.bombSpawnTime)
             {
                 this.bombTimer = 0;
-                state.SpawnBomb(this.Position);
+                state.SpawnBomb(this.Position, padState.ThumbSticks.Left);
             }
 
 			//Move when sticking

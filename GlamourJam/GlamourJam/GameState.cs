@@ -76,9 +76,11 @@ namespace GlamourJam.States
             return bomb;
         }
 
-        public void SpawnBomb(Vector2 position)
+        public void SpawnBomb(Vector2 position, Vector2 direction)
         {
             FatBomb bomb = this.BombPool.New();
+            direction.Y *= -1;
+            bomb.Velocity = direction * 1200;
             bomb.Position = position;
             bomb.Activate();
         }
