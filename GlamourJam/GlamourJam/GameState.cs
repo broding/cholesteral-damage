@@ -25,6 +25,7 @@ namespace GlamourJam.States
         public GameState()
         {
             Controller.LayerController.AddLayer("bombLayer");
+            FatBomb.state = this;
             Vetbol.state = this;
             TiledSprite bg = new TiledSprite(2000, 2000);
             bg.LoadTexture("background");
@@ -80,6 +81,22 @@ namespace GlamourJam.States
             FatBomb bomb = this.BombPool.New();
             bomb.Position = position;
             bomb.Activate();
+        }
+
+        public void ExplodeBomb(FatBomb bomb)
+        {
+            int width = 136;
+            int height = 136;
+
+            BoundingRectangle rect = new BoundingRectangle((int)bomb.Position.X - width / 2, (int)bomb.Position.Y - height / 2, width, height);
+
+            foreach (Vetbol player in this.players)
+            {
+                if (player.GetBoundingBox().Intersects(rect))
+                {
+                    player.Deactivate();
+                }
+            }
         }
 
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)

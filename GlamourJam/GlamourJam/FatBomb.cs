@@ -7,11 +7,14 @@ using Microsoft.Xna.Framework;
 using Flakcore;
 using Flakcore.Utils;
 using Flakcore.Display.ParticleEngine;
+using GlamourJam.States;
 
 namespace GlamourJam
 {
     class FatBomb : Sprite, IPoolable
     {
+        public static GameState state;
+
         private TimeSpan timeSpan = TimeSpan.FromSeconds(6);
         public int PoolIndex { get; set; }
         public Action<int> ReportDeadToPool { get; set; }
@@ -70,6 +73,7 @@ namespace GlamourJam
             this.BoomParticles.Position = this.Position + new Vector2(16, 16);
             this.BoomParticles.Explode();
             this.Deactivate();
+            state.ExplodeBomb(this);
         }
 
         public override void Activate()
