@@ -9,6 +9,7 @@ using Flakcore;
 using Flakcore.Utils;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GlamourJam.States
 {
@@ -20,7 +21,8 @@ namespace GlamourJam.States
         private List<Tile> playerSpawn;
         private List<Tile> NotUsedSpawnPoints;
         private List<Vetbol> players;
-        private Random rnd = new Random();
+		private Random rnd = new Random();
+		private SoundEffect soundEffectBomb;
 
         public Pool<FatBomb> BombPool;
 
@@ -65,6 +67,8 @@ namespace GlamourJam.States
             }
 
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
+
+			soundEffectBomb = Controller.Content.Load<SoundEffect>("sounds/explode");
         }
 
 
@@ -86,6 +90,8 @@ namespace GlamourJam.States
 
         public void ExplodeBomb(FatBomb bomb)
         {
+			soundEffectBomb.Play(0.5f, 0, 0);
+
             int width = 136;
             int height = 136;
 

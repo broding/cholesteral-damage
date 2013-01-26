@@ -126,11 +126,14 @@ namespace GlamourJam
 						//{
 							speedX = padState.ThumbSticks.Left.X * maxSpeed;
 
-							soundTimer += gameTime.ElapsedGameTime.Milliseconds;
-							if (soundEffectWalk.Duration.Milliseconds <= soundTimer + 140.0f)
+							if (Velocity.Y <= 40)
 							{
-								soundTimer = 0;
-								soundEffectWalk.Play(0.15f, 0, 0);
+								soundTimer += gameTime.ElapsedGameTime.Milliseconds;
+								if (soundEffectWalk.Duration.Milliseconds <= soundTimer + 140.0f)
+								{
+									soundTimer = 0;
+									soundEffectWalk.Play(0.15f, 0, 0);
+								}
 							}
 						//}
 					} else
