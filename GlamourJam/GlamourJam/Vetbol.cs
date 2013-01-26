@@ -27,7 +27,8 @@ namespace GlamourJam
 		public GamePadState prevPadState;
 		public int maxSpeed = 350;
 		public int jumpSpeed = 500;
-		public int extraJump = 50;
+		public int extraJump = 150;
+        private int wallJumpCount = 0;
 		public float speedX = 0;
 		public float speedY = 0;
 		public Vector2 jumpDirection = new Vector2(0, -1);
@@ -41,8 +42,9 @@ namespace GlamourJam
 			Position = new Vector2(100, 100);
 			image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
-			image.AddAnimation("CRAWLING", new int[1] { 1 }, 0);
-			image.AddAnimation("JUMP", new int[1] { 2 }, 0);
+			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0);
+            image.AddAnimation("JUMP", new int[1] { 3 }, 0);
+            image.AddAnimation("ONWALL", new int[1] { 4 }, 0);
 			image.Position = new Vector2(24, 14);
 			Width = 32;
 			Height = 32;
@@ -61,7 +63,11 @@ namespace GlamourJam
 			Controller.Collide(this, "tilemap", Collision);
 			Controller.Collide(this, "capturePoint", null, BeingCaptured);
 			padState = GamePad.GetState(index);
-
+            wallJumpCount--;
+            if (wallJumpCount <= 0)
+            {
+                wallJumpCount = 0;
+            }
 			if (speedX < 0)
 			{
 				image.Facing = Facing.Right;
@@ -87,13 +93,13 @@ namespace GlamourJam
 				{
 					if (onfloor)
 					{
-						if ((-1 * maxSpeed) <= speedX && speedX <= (1 * maxSpeed))
-						{
+						//if ((-1 * maxSpeed) <= speedX && speedX <= (1 * maxSpeed))
+						//{
 							speedX = padState.ThumbSticks.Left.X * maxSpeed;
-						}
+						//}
 					} else
 					{
-						if ((-1 * maxSpeed) <= speedX && speedX <= (1 * maxSpeed))
+						if (wallJumpCount==0)
 						{
 							speedX = padState.ThumbSticks.Left.X * (maxSpeed);
 						}
@@ -134,10 +140,21 @@ namespace GlamourJam
 				//Jump
 				if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed)
 				{
-					//Jump();
-					speedX += jumpSpeed + extraJump;
-					speedY = -jumpSpeed;
-					CollisionState = "idle";
+                    if (padState.ThumbSticks.Left.X >= 0.3)
+                    {
+                        //Jump();
+                        speedX += (jumpSpeed + extraJump) * padState.ThumbSticks.Left.X;
+                        speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
+
+                    }
+                    else
+                    {
+                        //Jump();
+                        speedX += (jumpSpeed + extraJump) *0.3f;
+                        speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
+                        wallJumpCount =10;
+                    }
+                    CollisionState = "idle";
 				}
 				if ((padState.ThumbSticks.Left.X > 0))
 				{
@@ -150,9 +167,20 @@ namespace GlamourJam
 				//Jump
 				if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed)
 				{
-					//Jump();
-					speedX -= jumpSpeed + extraJump;
-					speedY = -jumpSpeed;
+                    if (padState.ThumbSticks.Left.X <= -0.3)
+                    {
+                        //Jump();
+                        speedX += (jumpSpeed + extraJump) * padState.ThumbSticks.Left.X;
+                        speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
+                    }
+                    else
+                    {
+                        //Jump();
+                        speedX += (jumpSpeed + extraJump) * -0.3f;
+                        speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
+                        wallJumpCount =10;
+                    }
+                   
 					CollisionState = "idle";
 				}
 				if ((padState.ThumbSticks.Left.X < 0))
@@ -190,11 +218,19 @@ namespace GlamourJam
 			{
 				image.Rotation = MathHelper.ToRadians(0);
 			} else if (CollisionState == "left")
-			{
-				image.Rotation = MathHelper.ToRadians(90);
+            {
+                image.Rotation = MathHelper.ToRadians(0);
+                image.Facing = Facing.Right;
+                image.Position.X = 26;
+                image.PlayAnimation("ONWALL");
+				//image.Rotation = MathHelper.ToRadians(90);
 			} else if (CollisionState == "right")
-			{
-				image.Rotation = MathHelper.ToRadians(-90);
+            {
+                image.Rotation = MathHelper.ToRadians(0);
+                image.Facing = Facing.Left;
+                image.Position.X = 6;
+                image.PlayAnimation("ONWALL");
+				//image.Rotation = MathHelper.ToRadians(-90);
 			} else if (CollisionState == "idle")
 			{
 				image.Rotation = MathHelper.ToRadians(0);
@@ -237,13 +273,19 @@ namespace GlamourJam
 
 			if (player.Touching.Left)
 			{
-				CollisionState = "left";
-				speedX = 0;
+                if (!onfloor)
+                {
+                    CollisionState = "left";
+                    speedX = 0;
+                }
 			}
 			if (player.Touching.Right)
 			{
-				CollisionState = "right";
-				speedX = 0;
+                if (!onfloor)
+                {
+                    CollisionState = "right";
+                    speedX = 0;
+                }
 			}
 			if (player.Touching.Top)
 			{
