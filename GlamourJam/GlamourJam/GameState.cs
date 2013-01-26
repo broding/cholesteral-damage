@@ -7,6 +7,7 @@ using Display.Tilemap;
 using Microsoft.Xna.Framework;
 using Flakcore;
 using Flakcore.Utils;
+using Microsoft.Xna.Framework.Input;
 
 namespace GlamourJam.States
 {
@@ -99,7 +100,7 @@ namespace GlamourJam.States
             {
                 if (player.GetBoundingBox().Intersects(rect))
                 {
-
+                    GamePad.SetVibration(player.index, 1, 1);
                     player.Deactivate();
                     this.RespawnPlayer(player);
                 }
