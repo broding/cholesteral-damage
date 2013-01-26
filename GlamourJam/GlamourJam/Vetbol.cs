@@ -17,8 +17,9 @@ namespace GlamourJam
 		public bool onfloor = false;
 		public GamePadState padState;
 		public GamePadState prevPadState;
-		public int maxSpeed = 500;
-        public int jumpSpeed = 1000;
+		public int maxSpeed = 350;
+        public int jumpSpeed = 500;
+        public int extraJump = 50;
         public float speedX = 0;
         public float speedY = 0;
 		public Vector2 jumpDirection = new Vector2(0, -1);
@@ -54,8 +55,19 @@ namespace GlamourJam
             if(CollisionState == "idle"){
             //Move Horizontally
 			if (!(padState.ThumbSticks.Left.X == 0) && !isSticking)
-			{
-                speedX = padState.ThumbSticks.Left.X * maxSpeed;
+            {
+                if (onfloor)
+                {
+                    if ((-1 * maxSpeed) <= speedX && speedX <= (1 * maxSpeed))
+                    {
+                        speedX = padState.ThumbSticks.Left.X * maxSpeed;
+                    }
+                 }else{
+                     if ((-1 * maxSpeed) <= speedX && speedX <= (1 * maxSpeed))
+                     {
+                         speedX = padState.ThumbSticks.Left.X * (maxSpeed);
+                     }
+                }
 			} else
             {
                 if (onfloor)
@@ -114,49 +126,55 @@ namespace GlamourJam
             
             if(CollisionState == "left"){
                 //Move Horizontally
-               // if (!(padState.ThumbSticks.Left.X == 0) && !isSticking)
-               // {
-             //       speedX = padState.ThumbSticks.Left.X * maxSpeed;
-             //   }
-                //    //   else
-             //   {
-                    //speedX = 0;
-                //    }
-                speedY *= 0.9f;
+              /* if (!(padState.ThumbSticks.Left.X == 0) && !isSticking)
+                {
+                    if ((-1 * maxSpeed) <= speedX && speedX <= (1 * maxSpeed))
+                    {
+                        speedX = padState.ThumbSticks.Left.X * maxSpeed;
+                    }
+                }
+                  else
+               {
+                  speedX = 0;
+               }*/
+                speedY = 0f;
                 //Jump
                 if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed)
                 {
                     //Jump();
-                    speedX += jumpSpeed;
-                    speedY = -jumpSpeed;
+                    speedX += jumpSpeed + extraJump;
+                    speedY = -jumpSpeed/2;
                     CollisionState = "idle";
                 }
                 if ((padState.ThumbSticks.Left.X > 0))
                 {
-                    CollisionState = "idle";
+                  //  CollisionState = "idle";
                 }
             }
              if(CollisionState == "right"){
                  //Move Horizontally
-              //   if (!(padState.ThumbSticks.Left.X == 0) && !isSticking)
-              //   {
-              //       speedX = padState.ThumbSticks.Left.X * maxSpeed;
-              //   }
-                 //   else
-              //   {
-                     //speedX = 0;
-                 //   }
-                 speedY *= 0.9f;
+               /* if (!(padState.ThumbSticks.Left.X == 0) && !isSticking)
+                {
+                     if ((-1 * maxSpeed) <= speedX && speedX <= (1 * maxSpeed))
+                     {
+                         speedX = padState.ThumbSticks.Left.X * maxSpeed;
+                     }
+                }
+                   else
+                {
+                   speedX = 0;
+                }*/
+                 speedY *= 0f;
                  //Jump
                  if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed)
                  {
                      //Jump();
-                     speedX -= jumpSpeed;
-                     speedY = -jumpSpeed;
+                     speedX -= jumpSpeed + extraJump;
+                     speedY = -jumpSpeed/2;
                      CollisionState = "idle";
                  }
                  if((padState.ThumbSticks.Left.X < 0)){
-                     CollisionState = "idle";
+                    // CollisionState = "idle";
                  }
             }
             if(CollisionState == "top"){
@@ -256,15 +274,17 @@ namespace GlamourJam
             
             if (player.Touching.Left){
                 CollisionState = "left";
+                speedX = 0;
             }
             if (player.Touching.Right)
             {
                 CollisionState = "right";
+                speedX = 0;
             }
-          /*  if (player.Touching.Top)
+            if (player.Touching.Top)
             {
-                CollisionState = "top";
-            }*/
+                speedY = 0;
+            }
 
             System.Diagnostics.Debug.WriteLine("[VetBol]CollisionState:" + CollisionState);
             //if (player.Touching.Bottom || player.Touching.Left || player.Touching.Right)
