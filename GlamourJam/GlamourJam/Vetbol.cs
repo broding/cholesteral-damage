@@ -7,11 +7,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Flakcore;
+using System.Diagnostics;
 
 namespace GlamourJam
 {
-	class Vetbol:Sprite
+	class Vetbol:Node
 	{
+		public Sprite image = new Sprite();
 		public bool isSticking = false;
 		public PlayerIndex player = PlayerIndex.One;
 		public bool onfloor = false;
@@ -31,15 +33,20 @@ namespace GlamourJam
 		{
             index = playerIndex;
 			Position = new Vector2(100, 100);
-			LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
-			AddAnimation("IDLE", new int[1] { 0 }, 0);
-			AddAnimation("CRAWLING", new int[1] { 1 }, 0);
-			AddAnimation("JUMP", new int[1] { 2 }, 0);
-		}
+			image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
+			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
+			image.AddAnimation("CRAWLING", new int[1] { 1 }, 0);
+			image.AddAnimation("JUMP", new int[1] { 2 }, 0);
+			image.Position = new Vector2(24, 14);
+			Width = 32;
+			Height = 32;
+			image.Origin = new Vector2(24, 24);
+			AddChild(image);
 
-		protected override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, WorldProperties worldProperties)
-		{
-			base.Draw(spriteBatch, worldProperties);
+			Sprite bb = new Sprite();
+			bb = Sprite.CreateRectangle(new Vector2(Width, Height), Color.Aqua);
+			bb.Alpha = 0.5f;
+			AddChild(bb);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -47,8 +54,15 @@ namespace GlamourJam
 			base.Update(gameTime);
             Controller.Collide(this, "tilemap", Collision);
             Controller.Collide(this, "capturePoint", null, BeingCaptured);
-
 			padState = GamePad.GetState(index);
+
+			if (speedX < 0)
+			{
+				image.Facing = Facing.Right;
+			} else if (speedX > 0)
+			{
+				image.Facing = Facing.Left;
+			}
 
 			//Move when sticking
             speedY += 15;
@@ -194,7 +208,7 @@ namespace GlamourJam
             Velocity.X = speedX;
             Velocity.Y = speedY;
 
-            System.Diagnostics.Debug.WriteLine("[VetBol]State:["+CollisionState+"]V.Y:[" + Velocity.Y + "]V.X[" + Velocity.X + "]");
+           // System.Diagnostics.Debug.WriteLine("[VetBol]State:["+CollisionState+"]V.Y:[" + Velocity.Y + "]V.X[" + Velocity.X + "]");
 			//Jump
 			//if (padState.Buttons.A == ButtonState.Pressed && prevPadState.Buttons.A != ButtonState.Pressed && onfloor)
 			//{
@@ -205,32 +219,48 @@ namespace GlamourJam
 
 
 			//ANIMATIONS
-			if ((onfloor && padState.ThumbSticks.Left.X == 0))
+			if (Velocity.X < 0)
 			{
+				image.Facing = Facing.Right;
+				image.Position.X = 26;
+				image.PlayAnimation("CRAWLING");
+			} else if (Velocity.X > 0)
+			{
+				image.Facing = Facing.Left;
+				image.Position.X = 6;
+				image.PlayAnimation("CRAWLING");
 			}
-			if (Velocity == Vector2.Zero)
+			if (Velocity.X > -10 && Velocity.X < 15)
 			{
-				PlayAnimation("IDLE");
-			} else if (!onfloor && !isSticking)
-			{
-				PlayAnimation("JUMP");
-			} else
-			{
-				PlayAnimation("CRAWLING");
+				image.PlayAnimation("IDLE");
 			}
+			if (CollisionState == "bottom")
+			{
+				image.Rotation = MathHelper.ToRadians(0);
+			} else if (CollisionState == "left")
+			{
+				image.Rotation = MathHelper.ToRadians(90);
+			} else if (CollisionState == "right")
+			{
+				image.Rotation = MathHelper.ToRadians(-90);
+			} else if (CollisionState == "idle")
+			{
+				image.Rotation = MathHelper.ToRadians(0);
+			}
+			if ((!onfloor && CollisionState == "idle") || Velocity.Y > 45)
+			{
+				image.PlayAnimation("JUMP");
+				switch (image.Facing)
+				{
+					case Facing.Left:
+						image.Rotation = -(float)Math.Atan2(Velocity.X, Velocity.Y) - MathHelper.ToRadians(225);
+						break;
+					case Facing.Right:
+						image.Rotation = -(float)Math.Atan2(Velocity.X, Velocity.Y) - MathHelper.ToRadians(-225);
+						break;
+				}
 
-			/*if (!onfloor && !isSticking)
-			{
-				PlayAnimation("JUMP");
-			} else if (onfloor && padState.ThumbSticks.Left.X != 0)
-			{
-				PlayAnimation("CRAWLING");
-			} else if (isSticking)
-			{
-			} else if (padState.ThumbSticks.Left == Vector2.Zero)
-			{
-				PlayAnimation("IDLE");
-			}*/
+			}
 
 			//RESET FOR NEXT FRAME
 			isSticking = false;
@@ -238,10 +268,9 @@ namespace GlamourJam
 		}
         public bool BeingCaptured(Node player, Node capturePoint)
         {
-            if (player.Touching.Bottom)
-            {
                 (capturePoint as CapturePoint).startCapturing(this);
-            }
+
+                (capturePoint as CapturePoint).isCollidingPlayer = true;
 
             return false;
         }
@@ -286,7 +315,7 @@ namespace GlamourJam
                 speedY = 0;
             }
 
-            System.Diagnostics.Debug.WriteLine("[VetBol]CollisionState:" + CollisionState);
+            //System.Diagnostics.Debug.WriteLine("[VetBol]CollisionState:" + CollisionState);
             //if (player.Touching.Bottom || player.Touching.Left || player.Touching.Right)
             //{
             //	onfloor = true;

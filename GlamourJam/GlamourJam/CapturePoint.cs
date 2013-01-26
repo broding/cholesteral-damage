@@ -16,6 +16,7 @@ namespace GlamourJam
         public bool contested = false;
         private Vetbol owner;
         private Vetbol playerCapturing;
+        public bool isCollidingPlayer = false;
 
 
         public CapturePoint()
@@ -23,8 +24,10 @@ namespace GlamourJam
             Immovable = true;
             this.AddCollisionGroup("capturePoint");
             this.Collidable = true;
-            this.LoadTexture("images/pannenkoek");
-            Position = new Vector2(150, 150);
+            LoadTexture(Controller.Content.Load<Texture2D>("images/CapturePoint"), 128, 96);
+            AddAnimation("uncaptured", new int[2] { 0 ,0 }, 0);
+            AddAnimation("captured", new int[2] { 1, 1 }, 0);
+       
            
         }
 
@@ -32,10 +35,16 @@ namespace GlamourJam
         {
             base.Update(gameTime);
 
+            if (!this.isCollidingPlayer)
+            {
+                timer = 0;
+                this.playerCapturing = null;
+                this.isPlayerCapturing = false;
+            }
             if (isPlayerCapturing == true && playerCapturing != owner)
                 timer += gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (timer >= 5)
+            if (timer >= 2)
             {
                 timer = 0;
                 captured = true;
@@ -43,15 +52,17 @@ namespace GlamourJam
 
                 if (owner.index == PlayerIndex.One) 
                 {
-                    LoadTexture("images/kikker");
+                    PlayAnimation("captured");
                 }
 
                 if (owner.index == PlayerIndex.Two)
                 {
-                    LoadTexture("whiteBloodCell");
+                    PlayAnimation("uncaptured");
                 }   
 
             }
+
+            this.isCollidingPlayer = false;
         }
 
         public void startCapturing(Vetbol vetblob)

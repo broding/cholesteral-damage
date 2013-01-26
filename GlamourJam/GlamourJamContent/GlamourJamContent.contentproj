@@ -97,28 +97,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="splashBottom.xml">
-      <Name>splashBottom</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\FlakCore\Flakcore\Flakcore.csproj">
-      <Project>{929E3745-98E6-4EF2-9B1B-10B749D67FD3}</Project>
-      <Name>Flakcore</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="splash.png">
-      <Name>splash</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="YellowBlur.png">
-      <Name>YellowBlur</Name>
+    <Compile Include="images\CapturePoint.png">
+      <Name>CapturePoint</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
