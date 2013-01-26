@@ -25,7 +25,7 @@ namespace GlamourJam
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            this.graphics.IsFullScreen = true;
+            //this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 

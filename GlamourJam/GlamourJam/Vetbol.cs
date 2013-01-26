@@ -25,7 +25,10 @@ namespace GlamourJam
 		public Vetbol()
 		{
 			Position = new Vector2(100, 100);
-			LoadTexture("images/kikker");
+			LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
+			AddAnimation("IDLE", new int[1] { 0 }, 0);
+			AddAnimation("CRAWLING", new int[1] { 1 }, 0);
+			AddAnimation("JUMP", new int[1] { 2 }, 0);
 		}
 
 		protected override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, WorldProperties worldProperties)
@@ -68,6 +71,36 @@ namespace GlamourJam
 				Velocity.Y = -jumpSpeed;
 			}
 
+
+			//ANIMATIONS
+			if ((onfloor && padState.ThumbSticks.Left.X == 0))
+			{
+			}
+			if (Velocity == Vector2.Zero)
+			{
+				PlayAnimation("IDLE");
+			} else if (!onfloor && !isSticking)
+			{
+				PlayAnimation("JUMP");
+			} else
+			{
+				PlayAnimation("CRAWLING");
+			}
+
+			/*if (!onfloor && !isSticking)
+			{
+				PlayAnimation("JUMP");
+			} else if (onfloor && padState.ThumbSticks.Left.X != 0)
+			{
+				PlayAnimation("CRAWLING");
+			} else if (isSticking)
+			{
+			} else if (padState.ThumbSticks.Left == Vector2.Zero)
+			{
+				PlayAnimation("IDLE");
+			}*/
+
+			//RESET FOR NEXT FRAME
 			isSticking = false;
 			prevPadState = padState;
 		}
@@ -100,7 +133,7 @@ namespace GlamourJam
 			{
 				jumpDirection.Y = 1;
 			}*/
-			if (player.Touching.Bottom || player.Touching.Left || player.Touching.Right)
+			if (player.Touching.Bottom)
 			{
 				onfloor = true;
 			}
