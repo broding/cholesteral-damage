@@ -25,8 +25,14 @@ namespace GlamourJam
             this.AddCollisionGroup("capturePoint");
             this.Collidable = true;
             LoadTexture(Controller.Content.Load<Texture2D>("images/CapturePoint"), 128, 96);
-            AddAnimation("uncaptured", new int[2] { 0 ,0 }, 0);
-            AddAnimation("captured", new int[2] { 1, 1 }, 0);
+            AddAnimation("p1uncaptured", new int[1] { 0 }, 0);
+            AddAnimation("p1captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p2uncaptured", new int[1] { 0 }, 0);
+            AddAnimation("p2captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p3uncaptured", new int[1] { 0 }, 0);
+            AddAnimation("p3captured", new int[3] { 1, 2, 3 }, 0);
+            AddAnimation("p4uncaptured", new int[1] { 0 }, 0);
+            AddAnimation("p4captured", new int[3] { 1, 2, 3 }, 0);
        
            
         }
@@ -52,13 +58,21 @@ namespace GlamourJam
 
                 if (owner.index == PlayerIndex.One) 
                 {
-                    PlayAnimation("captured");
+                    PlayAnimation("p1captured");
                 }
 
                 if (owner.index == PlayerIndex.Two)
                 {
-                    PlayAnimation("uncaptured");
-                }   
+                    PlayAnimation("p2captured");
+                }
+                if (owner.index == PlayerIndex.Three)
+                {
+                    PlayAnimation("p3captured");
+                }
+                if (owner.index == PlayerIndex.Four)
+                {
+                    PlayAnimation("p4captured");
+                }  
 
             }
 
