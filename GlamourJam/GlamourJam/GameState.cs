@@ -19,7 +19,7 @@ namespace GlamourJam.States
         public Vetbol player2;
         public Vetbol player3;
         public Vetbol player4;
-        private List<Tile> playerRespawn;
+        private List<Tile> playerSpawn;
         private Random rnd = new Random();
 
         public GameState()
@@ -35,8 +35,9 @@ namespace GlamourJam.States
             fatBomb = new FatBomb(new Vector2(100), player);
             AddChild(fatBomb);
 
-            playerRespawn = tilemap.RemoveTiles(7);
-
+            playerSpawn = tilemap.RemoveTiles(7);
+            int playerRespawn = rnd.Next(playerSpawn.Count);
+            
             List<Tile> removeTiles = tilemap.RemoveTiles(3);
             foreach (Tile tile in removeTiles)
             {
@@ -46,9 +47,9 @@ namespace GlamourJam.States
             }
 
             player = new Vetbol(PlayerIndex.One);
-            player.Position = playerRespawn[rnd.Next(playerRespawn.Count)].Position;
+            player.Position = playerSpawn[playerRespawn].Position;
             player2 = new Vetbol(PlayerIndex.Two);
-            player2.Position = playerRespawn[rnd.Next(playerRespawn.Count)].Position;
+            player2.Position = playerSpawn[playerRespawn+1].Position;
 			AddChild(player);
             AddChild(player2);
         }
