@@ -26,7 +26,7 @@ namespace GlamourJam
             LoadTexture(Controller.Content.Load<Texture2D>("images/CapturePoint"), 128, 96);
             AddAnimation("uncaptured", new int[2] { 0 ,0 }, 0);
             AddAnimation("captured", new int[2] { 1, 1 }, 0);
-            Position = new Vector2(150, 150);
+       
            
         }
 
