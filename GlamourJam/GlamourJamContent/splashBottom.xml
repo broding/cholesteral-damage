@@ -6,10 +6,10 @@
 
         <Name>splashBottom</Name>
         <TextureName>splash</TextureName>
-        <TotalParticles>30</TotalParticles>
+        <TotalParticles>10</TotalParticles>
         <Lifetime>500</Lifetime>
 
-        <ReleaseQuantity>30</ReleaseQuantity>
+        <ReleaseQuantity>10</ReleaseQuantity>
         <ReleaseSpeed>2</ReleaseSpeed>
         <ReleaseSpeedVariation>0</ReleaseSpeedVariation>
 
@@ -48,6 +48,44 @@
 
         <Name>smokeBoom</Name>
         <TextureName>smoke</TextureName>
+        <TotalParticles>2</TotalParticles>
+        <Lifetime>1500</Lifetime>
+
+        <ReleaseQuantity>2</ReleaseQuantity>
+        <ReleaseSpeed>2</ReleaseSpeed>
+        <ReleaseSpeedVariation>0</ReleaseSpeedVariation>
+
+        <ReleaseVelocity>30 30</ReleaseVelocity>
+        <ReleaseVelocityVariantion>30 30</ReleaseVelocityVariantion>
+
+        <ReleaseColor>00000000</ReleaseColor>
+        <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
+
+        <ReleaseAlpha>0.5</ReleaseAlpha>
+        <ReleaseAlphaVariation>0</ReleaseAlphaVariation>
+
+        <ReleaseRotation>2</ReleaseRotation>
+        <ReleaseRotationVariation>1</ReleaseRotationVariation>
+
+        <ReleaseScale>5 5</ReleaseScale>
+        <ReleaseScaleVariation>0 0</ReleaseScaleVariation>
+
+        <Modifiers>
+          <Item Type="Modifiers:LinearAlpha">
+            <FinalAlpha>0</FinalAlpha>
+          </Item>
+
+          <Item Type="Modifiers:LinearGravity">
+            <Gravity>0 -1</Gravity>
+          </Item>
+
+        </Modifiers>
+      </Item>
+
+      <Item Type="EmitterData:BasicEmitterData">
+
+        <Name>smokeBoom</Name>
+        <TextureName>Assets/particleBig</TextureName>
         <TotalParticles>2</TotalParticles>
         <Lifetime>1500</Lifetime>
 

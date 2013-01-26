@@ -6,7 +6,7 @@
 
         <Name>bloodSprite</Name>
         <TextureName>bloodSprite</TextureName>
-        <TotalParticles>20</TotalParticles>
+        <TotalParticles>2</TotalParticles>
         <Lifetime>1500</Lifetime>
 
         <ReleaseQuantity>1</ReleaseQuantity>
