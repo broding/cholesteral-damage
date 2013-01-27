@@ -16,7 +16,6 @@ namespace GlamourJam
     class EndScreen : State
     {
         private Sprite heart;
-		public Vetbol winner;
 		public GamePadState padState;
 
 		public EndScreen(PlayerIndex playerIndex, Color color)

@@ -201,8 +201,8 @@ namespace GlamourJam.States
 						int minPoints = capturePoints.Count;
 						int maxPoints = playerStartScore * players.Count;
 						int score = ((minBeat - maxBeat) / (maxPoints - minPoints)) * totalScore;
-						score += 270;
-						tilemap.beatRate = score;
+						tilemap.beatRate = score - 50;
+						System.Diagnostics.Debug.WriteLine(score);
 						//TODO: adjust beatrate of the map
 					}
 					if (playersAlive <= 1)

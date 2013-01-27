@@ -75,7 +75,7 @@ namespace GlamourJam
                 timer = 0;
                 captured = true;
                 owner = playerCapturing;
-				soundTaken.Play();
+				soundTaken.Play(0.5f, 0, 0);
 
                 if (owner.index == PlayerIndex.One) 
                 {
