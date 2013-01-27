@@ -60,6 +60,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="fonts\bigFont.spritefont">
+      <Name>bigFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="testmap.tmx">
       <Name>testmap</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
