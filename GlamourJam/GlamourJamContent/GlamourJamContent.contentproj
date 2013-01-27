@@ -256,14 +256,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Heart.png">
-      <Name>Heart</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Assets\HeartBG.png">
-      <Name>HeartBG</Name>
-    </Compile>
     <Compile Include="dirtyParticle.xml">
       <Name>dirtyParticle</Name>
       <Importer>XmlImporter</Importer>
@@ -292,20 +284,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Controlls.png">
-      <Name>Controlls</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Assets\smallStartMessage.png">
-      <Name>smallStartMessage</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+    <Compile Include="spawnParticle.xml">
+      <Name>spawnParticle</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\logo.png">
-      <Name>logo</Name>
+    <Compile Include="spawn.png">
+      <Name>spawn</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

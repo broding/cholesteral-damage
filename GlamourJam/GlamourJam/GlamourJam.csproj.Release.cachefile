@@ -33,4 +33,6 @@ Content\sounds\jump.xnb
 Content\sounds\landing.xnb
 Content\sounds\explode.xnb
 Content\sounds\heartbeat.xnb
+Content\spawnParticle.xnb
+Content\spawn.xnb
 Content\testmap.tmx
