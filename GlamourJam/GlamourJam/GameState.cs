@@ -115,14 +115,15 @@ namespace GlamourJam.States
 
             BoundingRectangle rect = new BoundingRectangle((int)bomb.Position.X - width / 2, (int)bomb.Position.Y - height / 2, width, height);
 
-            if (NotUsedSpawnPoints.Count == 0)
-            {
-                NotUsedSpawnPoints = new List<Tile>();
-                NotUsedSpawnPoints.AddRange(playerSpawn);
-            }
 
             foreach (Vetbol player in this.players)
             {
+                if (NotUsedSpawnPoints.Count == 0)
+                {
+                    NotUsedSpawnPoints = new List<Tile>();
+                    NotUsedSpawnPoints.AddRange(playerSpawn);
+                }
+
                 if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
                     Controller.Input.SetVibrationWithTimer(player.index, TimeSpan.FromMilliseconds(300));
