@@ -22,10 +22,10 @@ namespace GlamourJam
         private TimeSpan scaleTimer;
         private Dictionary<Color, Vector2> playerData = new Dictionary<Color, Vector2>()
         {
-            { Color.Yellow, new Vector2(300, 1180) },
-            { Color.CornflowerBlue, new Vector2(700, 1180) },
-            { Color.Lime, new Vector2(1100, 1180) },
-            { Color.HotPink, new Vector2(1500, 1180) }
+            { Color.Yellow, new Vector2(285, 1180) },
+            { Color.CornflowerBlue, new Vector2(685, 1180) },
+            { Color.Lime, new Vector2(1085, 1180) },
+            { Color.HotPink, new Vector2(1485, 1180) }
         };
         private GamePadState[] gamePadStates = new GamePadState[4];
         private Sprite[] player;
@@ -35,6 +35,7 @@ namespace GlamourJam
         private bool firstHeartBeat = true;
 
         private Label[] label = new Label[4];
+        private Label[] labelPlayerindication = new Label[4];
 
         public MenuState()
         {
@@ -94,9 +95,27 @@ namespace GlamourJam
             for(int k = 0; k < 4; k++)
             {
                 label[k] = new Label("", Controller.FontController.GetFont("DefaultFont"));
-                label[k].Position = player[k].Position + new Vector2(-40, 100);
+                label[k].Position = player[k].Position + new Vector2(-45, 100);
                 label[k].Scale /= Controller.CurrentDrawCamera.zoom - 0.2f;
                 this.AddChild(label[k]);
+            }
+
+            labelPlayerindication[0] = new Label("P1: ", Controller.FontController.GetFont("DefaultFont"));
+            labelPlayerindication[0].Position = player[0].Position - new Vector2(60, -30);
+            labelPlayerindication[0].Scale /= Controller.CurrentDrawCamera.zoom - 0.3f;
+            labelPlayerindication[1] = new Label("P2: ", Controller.FontController.GetFont("DefaultFont"));
+            labelPlayerindication[1].Position = player[1].Position - new Vector2(60, -30);
+            labelPlayerindication[1].Scale /= Controller.CurrentDrawCamera.zoom - 0.3f;
+            labelPlayerindication[2] = new Label("P3: ", Controller.FontController.GetFont("DefaultFont"));
+            labelPlayerindication[2].Position = player[2].Position - new Vector2(60, -30);
+            labelPlayerindication[2].Scale /= Controller.CurrentDrawCamera.zoom - 0.3f;
+            labelPlayerindication[3] = new Label("P4: ", Controller.FontController.GetFont("DefaultFont"));
+            labelPlayerindication[3].Position = player[3].Position - new Vector2(60, -30);
+            labelPlayerindication[3].Scale /= Controller.CurrentDrawCamera.zoom - 0.3f;
+
+            for (int l = 0; l < 4; l++)
+            {
+                this.AddChild(labelPlayerindication[l]);
             }
         }
 
