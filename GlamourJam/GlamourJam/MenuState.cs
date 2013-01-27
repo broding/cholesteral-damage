@@ -34,6 +34,12 @@ namespace GlamourJam
             bg.LoadTexture("background");
             this.AddChild(bg);
 
+            Sprite backgroundBehindPlayer = new Sprite();
+            backgroundBehindPlayer.LoadTexture(@"Assets/HudBG");
+            backgroundBehindPlayer.Position = new Vector2(0, (768 / Controller.CurrentDrawCamera.zoom) - (96 / Controller.CurrentDrawCamera.zoom));
+            backgroundBehindPlayer.Scale /= Controller.CurrentDrawCamera.zoom;
+            this.AddChild(backgroundBehindPlayer);
+
             player = new Sprite[4];
             for (int i = 0; i < 4; i++)
             {
@@ -83,50 +89,6 @@ namespace GlamourJam
             {
                 Controller.SwitchState(new GameState());
             }
-
-
-
-            /*
-            if (GamePad.GetState(PlayerIndex.One).IsConnected)
-                player.Alpha = 1.0f;
-
-            if (!GamePad.GetState(PlayerIndex.One).IsConnected)
-                player.Alpha = 0.2f;
-
-            if(GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
-                playerReady = true;
-
-            if (GamePad.GetState(PlayerIndex.Two).IsConnected)
-                player2.Alpha = 1.0f;
-
-            if (!GamePad.GetState(PlayerIndex.Two).IsConnected)
-                player2.Alpha = 0.2f;
-
-            if(GamePad.GetState(PlayerIndex.Two).Buttons.A == ButtonState.Pressed)
-                player2Ready = true;
-
-            if (GamePad.GetState(PlayerIndex.Three).IsConnected)
-                player3.Alpha = 1.0f;
-
-            if (!GamePad.GetState(PlayerIndex.Three).IsConnected)
-                player3.Alpha = 0.2f;
-
-            if(GamePad.GetState(PlayerIndex.Three).Buttons.A == ButtonState.Pressed)
-                player3Ready = true;
-
-            if (GamePad.GetState(PlayerIndex.Four).IsConnected)
-                player4.Alpha = 1.0f;
-
-            if (!GamePad.GetState(PlayerIndex.Four).IsConnected)
-                player4.Alpha = 0.2f;
-
-            if(GamePad.GetState(PlayerIndex.Four).Buttons.A == ButtonState.Pressed)
-                player4Ready = true; */
-
-            //if (playerReady)
         }
-
     }
-
-
 }
