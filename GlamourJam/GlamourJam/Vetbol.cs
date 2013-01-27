@@ -42,7 +42,7 @@ namespace GlamourJam
 		public PlayerIndex index;
 		public string CollisionState = "idle";
 
-		private bool stunned = false;
+		public bool stunned = false;
 		private float stunnedTime = 0;
 		private GameTime gametime;
 
@@ -379,6 +379,16 @@ namespace GlamourJam
 			isSticking = false;
 			prevPadState = padState;
 		}
+
+        public override void Deactivate()
+        {
+            base.Deactivate();
+            
+            this.Stun(0);
+            this.stunned = false;
+            image.PlayAnimation("IDLE");
+            
+        }
 
         private void SwitchColor()
         {
