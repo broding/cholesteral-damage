@@ -123,7 +123,10 @@ namespace Flakcore.Display
 
             this.Draw(spriteBatch, worldProperties);
 
-            base.DrawCall(spriteBatch, worldProperties);   
+            worldProperties.Position -= this.Position;
+
+            base.DrawCall(spriteBatch, worldProperties);
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
