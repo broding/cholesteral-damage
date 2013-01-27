@@ -32,7 +32,9 @@ namespace GlamourJam.States
 		private float updateScoreTime = 5000;
 		Vetbol lastPlayerAlive;
 		private int totalScore = 0;
-		private int playerStartScore = 100;
+		private int playerStartScore = 10;
+		private bool isPlayable = true;
+		private int countDownToEndscreen = 3000;
 
         public Label BigText;
         public int BigTextTimer;
@@ -157,61 +159,74 @@ namespace GlamourJam.States
                     this.BigText.Visable = false;
                 }
             }
-			updateScoreTime -= gameTime.ElapsedGameTime.Milliseconds;
-			if (updateScoreTime <= 0)
+			if (isPlayable)
 			{
-				updateScoreTime = 5000;
-				int playersAlive = 0;
-				totalScore = 0;
-				foreach (Vetbol player in this.players)
+
+				updateScoreTime -= gameTime.ElapsedGameTime.Milliseconds;
+				if (updateScoreTime <= 0)
 				{
-					int pointsOwned = 0;
-					foreach (CapturePoint point in capturePoints)
+					updateScoreTime = 5000;
+					int playersAlive = 0;
+					totalScore = 0;
+					foreach (Vetbol player in this.players)
 					{
-						if (point.owner == player)
-							pointsOwned++;
-					}
-					totalScore += player.score;
-					player.score -= (capturePoints.Count - pointsOwned);
-					if (player.score <= 0)
-					{
-						player.Deactivate();
-						//TODO feedback of dead player in HUD
-					} else
-					{
-						playersAlive++;
-						lastPlayerAlive = player;
-					}
-					//TODO: update HUD score
+						int pointsOwned = 0;
+						foreach (CapturePoint point in capturePoints)
+						{
+							if (point.owner == player)
+								pointsOwned++;
+						}
+						totalScore += player.score;
+						player.score -= (capturePoints.Count - pointsOwned);
+						if (player.score <= 0)
+						{
+							player.score = 0;
+							player.Deactivate();
+							//TODO feedback of dead player in HUD
+						} else
+						{
+							playersAlive++;
+							lastPlayerAlive = player;
+						}
+						//TODO: update HUD score
 
-					int minBeat = 1000;
-					int maxBeat = 270;
-					int minPoints = capturePoints.Count;
-					int maxPoints = playerStartScore * players.Count;
-					int score = ((minBeat - maxBeat) / (maxPoints - minPoints)) * totalScore;
-					score += 270;
-					tilemap.beatRate = score;
-					//TODO: adjust beatrate of the map
+						int minBeat = 1000;
+						int maxBeat = 270;
+						int minPoints = capturePoints.Count;
+						int maxPoints = playerStartScore * players.Count;
+						int score = ((minBeat - maxBeat) / (maxPoints - minPoints)) * totalScore;
+						score += 270;
+						tilemap.beatRate = score;
+						//TODO: adjust beatrate of the map
+					}
+					if (playersAlive <= 1)
+					{
+						//TODO lastPlayerAlive = winner
+						isPlayable = false;
+					}
+
 				}
-				if (playersAlive <= 1)
+
+				for (int i = 0; i < players.Count; i++)
 				{
-					//TODO lastPlayerAlive = winner
+					if (respawnTimers.ContainsKey(players[i]))
+					{
+						respawnTimers[players[i]] -= gameTime.ElapsedGameTime;
+						if (respawnTimers[players[i]].TotalMilliseconds <= 0)
+						{
+							this.RespawnPlayer(players[i]);
+							respawnTimers.Remove(players[i]);
+						}
+					}
 				}
-
-            }
-
-            for (int i = 0; i < players.Count; i++)
-            {
-                if (respawnTimers.ContainsKey(players[i]))
-                {
-                    respawnTimers[players[i]] -= gameTime.ElapsedGameTime;
-                    if (respawnTimers[players[i]].TotalMilliseconds <= 0)
-                    {
-                        this.RespawnPlayer(players[i]);
-                        respawnTimers.Remove(players[i]);
-                    }
-                }
-            }
+			} else
+			{
+				tilemap.heartIsBeating = false;
+				countDownToEndscreen -= gameTime.ElapsedGameTime.Milliseconds;
+				//TODO: play beepsound
+				if (countDownToEndscreen <= 0)
+					Controller.SwitchState(new EndScreen(lastPlayerAlive));
+			}
 
 			base.Update(gameTime);
 		}
