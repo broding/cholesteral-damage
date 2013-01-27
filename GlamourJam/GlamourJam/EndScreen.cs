@@ -23,7 +23,6 @@ namespace GlamourJam
 
 		public EndScreen(PlayerIndex playerIndex, Color color)
 		{
-
             Sprite bg = new Sprite();
             bg.LoadTexture(@"Assets/HeartBG");
             bg.Scale /= Controller.CurrentDrawCamera.zoom;

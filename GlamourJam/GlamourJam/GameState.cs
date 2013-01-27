@@ -52,6 +52,7 @@ namespace GlamourJam.States
             Controller.LayerController.AddLayer("bombLayer");
             FatBomb.state = this;
             Vetbol.state = this;
+            CapturePoint.state = this;
             TiledSprite bg = new TiledSprite(2000, 2000);
 
             bg.LoadTexture("background");

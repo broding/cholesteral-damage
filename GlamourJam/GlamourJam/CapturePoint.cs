@@ -12,6 +12,8 @@ namespace GlamourJam
 {
     class CapturePoint:Sprite
     {
+        public static State state;
+
         public bool captured = false;
         public bool isPlayerCapturing = false;
         public double timer = 0;
@@ -36,7 +38,7 @@ namespace GlamourJam
             AddAnimation("captured", new int[2] { 1, 1 }, 0);
 
             this.BloodParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("bloodParticle"));
-            Controller.LayerController.GetLayer("bombLayer").AddChild(this.BloodParticles);
+            state.AddChild(this.BloodParticles);
             this.BloodParticles.Position = this.Position;
             this.BloodParticles.Start();
 
@@ -148,9 +150,9 @@ namespace GlamourJam
         }
         private void CreateTakingOverRectangle()
         {
-            takingOverRectangle = Sprite.CreateRectangle(new Vector2(48, 5), Color.GreenYellow);
+            takingOverRectangle = Sprite.CreateRectangle(new Vector2(48, 10), Color.GreenYellow);
             takingOverRectangle.Origin = new Vector2(24f,24f);
-            takingOverRectangle.Position = new Vector2((this.Width / 2) - (takingOverRectangle.Width / 2), 0);
+            takingOverRectangle.Position = new Vector2((this.Width / 2), 125);
             takingOverRectangle.Visable = false;
             AddChild(takingOverRectangle);
             takingOverRectangle.Depth = 0.9f;
