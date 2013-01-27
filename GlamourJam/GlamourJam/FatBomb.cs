@@ -107,7 +107,7 @@ namespace GlamourJam
 
         private bool PlayerCollision(Node bomb, Node player)
         {
-            if (this.Vetbol != player)
+            if (this.Vetbol != player && !this.stuckToAWall)
             {
                 if(!(player as Vetbol).stunned)
                     (player as Vetbol).Stun(2500);

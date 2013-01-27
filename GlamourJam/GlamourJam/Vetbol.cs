@@ -118,7 +118,12 @@ namespace GlamourJam
 			base.Update(gameTime);
 			Controller.Collide(this, "tilemap", Collision);
 			gametime = gameTime;
-			Stun(stunnedTime);
+
+            stunnedTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (stunnedTime < 0)
+                stunned = false;
+
 			if (!stunned)
 			{
 				Controller.Collide(this, "capturePoint", null, BeingCaptured);
@@ -384,7 +389,6 @@ namespace GlamourJam
         {
             base.Deactivate();
             
-            this.Stun(0);
             this.stunned = false;
             image.PlayAnimation("IDLE");
             
@@ -467,10 +471,7 @@ namespace GlamourJam
 		public void Stun(float timeInMilis = 4000)
 		{
 			stunned = true;
-			stunnedTime = timeInMilis;
-			stunnedTime -= gametime.ElapsedGameTime.Milliseconds;
-			if (stunnedTime <= 0)
-				stunned = false;
+            stunnedTime = timeInMilis;
 
             image.PlayAnimation("STUNNED");
 		}
