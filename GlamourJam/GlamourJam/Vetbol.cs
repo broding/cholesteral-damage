@@ -154,7 +154,7 @@ namespace GlamourJam
 
             this.bombTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (padState.IsButtonDown(Buttons.B) && this.bombTimer > this.bombSpawnTime)
+            if ((padState.IsButtonDown(Buttons.B) || padState.IsButtonDown(Buttons.X)) && this.bombTimer > this.bombSpawnTime)
             {
                 this.bombTimer = 0;
                 state.SpawnBomb(this, padState.ThumbSticks.Left);
