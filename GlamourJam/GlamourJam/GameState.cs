@@ -203,7 +203,6 @@ namespace GlamourJam.States
 					if (playersAlive <= 1)
 					{
 						//TODO lastPlayerAlive = winner
-						isPlayable = false;
 					}
 
 				}

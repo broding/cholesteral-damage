@@ -20,7 +20,7 @@ namespace GlamourJam
         public bool isCollidingPlayer = false;
 
         private Texture2D GlowTexture;
-
+        private Sprite takingOverRectangle;
         private ParticleEngine BloodParticles;
 
 
@@ -39,7 +39,7 @@ namespace GlamourJam
             this.BloodParticles.Start();
 
             this.GlowTexture = Controller.Content.Load<Texture2D>("glow");
-
+            CreateTakingOverRectangle();
             AddAnimation("p1uncaptured", new int[1] { 0 }, 0);
             AddAnimation("p1captured", new int[3] { 1, 2, 3 },0.5f);
             AddAnimation("p2uncaptured", new int[1] { 0 }, 0);
@@ -61,12 +61,16 @@ namespace GlamourJam
                 timer = 0;
                 this.playerCapturing = null;
                 this.isPlayerCapturing = false;
+                takingOverRectangle.Visable = true;
             }
             if (isPlayerCapturing == true && playerCapturing != owner)
                 timer += gameTime.ElapsedGameTime.TotalSeconds;
+            takingOverRectangle.Width = (int)(16 + ((1.6f * timer) * 2));
+            takingOverRectangle.Visable = true;
 
             if (timer >= 2)
             {
+                takingOverRectangle.Visable = true;
                 timer = 0;
                 captured = true;
                 owner = playerCapturing;
@@ -127,6 +131,13 @@ namespace GlamourJam
                     this.Scale,
                     this.SpriteEffects,
                     0.001f);
+        }
+        private void CreateTakingOverRectangle()
+        {
+            takingOverRectangle = Sprite.CreateRectangle(new Vector2(48, 5), Color.GreenYellow);
+            takingOverRectangle.Position = Vector2.Zero;
+            AddChild(takingOverRectangle);
+            takingOverRectangle.Depth = 0.9f;
         }
     }
     
