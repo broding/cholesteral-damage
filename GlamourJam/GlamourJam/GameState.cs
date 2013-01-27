@@ -24,6 +24,7 @@ namespace GlamourJam.States
         private List<Vetbol> players;
 		private Random rnd = new Random();
 		private SoundEffect soundEffectBomb;
+		private SoundEffect ECGsound;
         private HUD hud;
         private Dictionary<Vetbol, TimeSpan> respawnTimers = new Dictionary<Vetbol,TimeSpan>();
 
@@ -104,6 +105,7 @@ namespace GlamourJam.States
             this.AddChild(hud);
 
 			deadSound = Controller.Content.Load<SoundEffect>("sounds/dead");
+			ECGsound = Controller.Content.Load<SoundEffect>("sounds/ecg");
         }
 
 
@@ -233,6 +235,8 @@ namespace GlamourJam.States
 			} else
 			{
 				tilemap.heartIsBeating = false;
+				if (countDownToEndscreen == 3000)
+					ECGsound.Play(0.25f, 0, 0);
 				countDownToEndscreen -= gameTime.ElapsedGameTime.Milliseconds;
 				//TODO: play beepsound
 				if (countDownToEndscreen <= 0)

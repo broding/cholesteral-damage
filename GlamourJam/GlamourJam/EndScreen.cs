@@ -16,6 +16,7 @@ namespace GlamourJam
     class EndScreen : State
     {
         private Sprite heart;
+		private Sprite slime;
 		public GamePadState padState;
 
 		private SoundEffect ECGsound;
@@ -26,13 +27,20 @@ namespace GlamourJam
             Sprite bg = new Sprite();
             bg.LoadTexture(@"Assets/HeartBG");
             bg.Scale /= Controller.CurrentDrawCamera.zoom;
-            this.AddChild(bg);
+			this.AddChild(bg);
 
-            heart = new Sprite();
-            heart.LoadTexture(@"Assets/Heart");
-            heart.Scale /= (Controller.CurrentDrawCamera.zoom * 1.1f);
-            heart.Position.X += 110;
-            this.AddChild(heart);
+			heart = new Sprite();
+			heart.LoadTexture(@"Assets/Heart");
+			heart.Scale /= (Controller.CurrentDrawCamera.zoom * 1.1f);
+			heart.Position.X += 110;
+			this.AddChild(heart);
+
+			slime = new Sprite();
+			slime.LoadTexture(@"Assets/HeartSlime");
+			slime.Scale /= (Controller.CurrentDrawCamera.zoom * 1.1f);
+			slime.Position.X += 110;
+			slime.Color = color;
+			this.AddChild(slime);
 
 			Label lbl = new Label("Player " + (float)(playerIndex + 1) + " has won!", Controller.FontController.GetFont("bigFont"));
 			lbl.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lbl.Width / 2);
@@ -51,14 +59,14 @@ namespace GlamourJam
 			base.Update(gameTime);
 			padState = GamePad.GetState(PlayerIndex.One);
 
-			if (soundTimer <= 0)
+			/*if (soundTimer <= 0)
 			{
-				soundTimer = ECGsound.Duration.Milliseconds - 100;
+				soundTimer = 300;
 				ECGsound.Play(0.05f, 0, 0);
 			} else
 			{
 				soundTimer -= gameTime.ElapsedGameTime.Milliseconds;
-			}
+			}*/
 
 			if (padState.Buttons.A == ButtonState.Pressed)
 			{
