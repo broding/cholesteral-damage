@@ -146,11 +146,6 @@ namespace GlamourJam
 				Controller.Collide(this, "capturePoint", null, BeingCaptured);
 				padState = GamePad.GetState(index);
 
-				if (padState.Buttons.Y == ButtonState.Pressed)
-				{
-					Stun();
-				}
-
 			} else
 			{
 				padState = new GamePadState();

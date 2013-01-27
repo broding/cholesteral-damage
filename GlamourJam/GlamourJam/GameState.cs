@@ -139,12 +139,6 @@ namespace GlamourJam.States
 
             foreach (Vetbol player in this.players)
             {
-                if (NotUsedSpawnPoints.Count == 0)
-                {
-                    NotUsedSpawnPoints = new List<Tile>();
-                    NotUsedSpawnPoints.AddRange(playerSpawn);
-                }
-
                 if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
                     Controller.Input.SetVibrationWithTimer(player.index, TimeSpan.FromMilliseconds(300));
@@ -194,7 +188,7 @@ namespace GlamourJam.States
                             {
                                 player.Deactivate();
                                 this.ShowText("Player " + (int)player.index + " is out!");
-								deadSound.Play(0.2f, 0, 0);
+								deadSound.Play(0.1f, 0, 0);
                                 //TODO feedback of dead player in HUD
                             }
                             
@@ -228,6 +222,7 @@ namespace GlamourJam.States
 						if (respawnTimers[players[i]].TotalMilliseconds <= 0)
 						{
 							this.RespawnPlayer(players[i]);
+                            this.players[i].Position = this.playerSpawn[i].Position;
 							respawnTimers.Remove(players[i]);
 						}
 					}
