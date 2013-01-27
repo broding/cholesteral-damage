@@ -52,8 +52,7 @@ namespace Flakcore.Display.ParticleEngine
             //this.Color = Particle.GetColorVariation(this.Emitter.Data.ReleaseColor, this.Emitter.Data.ReleaseColorVariation);
             this.Rotation = this.Emitter.Data.ReleaseRotation + Particle.GetVariantion(this.Emitter.Data.ReleaseRotationVariation) * Util.RandomPositiveNegative();
             this.LoadTexture(this.Emitter.Data.BaseTexture);
-
-            Console.WriteLine(this.Velocity);
+            this.Alpha = this.Emitter.Data.ReleaseAlpha;
 
             foreach (IParticleModifier modifier in this.Modifiers)
             {

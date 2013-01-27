@@ -55,6 +55,8 @@ namespace GlamourJam
 		public int score;
 
         private ParticleEngine captureParticles;
+        private ParticleEngine dirtyParticles;
+        private ParticleEngine deadParticles;
 
 		public Vetbol(PlayerIndex playerIndex)
 		{
@@ -67,6 +69,12 @@ namespace GlamourJam
 
             this.captureParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("captureParticle"));
             this.AddChild(this.captureParticles);
+
+            this.dirtyParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("dirtyParticle"));
+            this.AddChild(this.dirtyParticles);
+
+            this.deadParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("deadParticles"));
+            state.AddChild(this.deadParticles);
 
             image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
@@ -119,6 +127,8 @@ namespace GlamourJam
 			base.Update(gameTime);
 			Controller.Collide(this, "tilemap", Collision);
 			gametime = gameTime;
+
+            this.dirtyParticles.Position = this.Position + new Vector2(16, 16);
 
             stunnedTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -399,7 +409,8 @@ namespace GlamourJam
 			speedY = 0;
 
             image.PlayAnimation("IDLE");
-            
+            this.deadParticles.Position = this.Position;
+            this.deadParticles.Explode();
         }
 
         private void SwitchColor()
@@ -434,8 +445,13 @@ namespace GlamourJam
         }
 		public void Collision(Node player, Node collidingTile)
 		{
-			if (!onfloor || (speedY > 50 && (!player.Touching.Left && !player.Touching.Right)))//check with prevspeed
-				soundEffectLand.Play(0.5f, 0, 0);
+
+            if (!onfloor || (speedY > 50 && (!player.Touching.Left && !player.Touching.Right)))//check with prevspeed
+            {
+                soundEffectLand.Play(0.5f, 0, 0);
+                this.dirtyParticles.Explode();
+
+            }
 			if (player.Touching.Bottom)
 			{
 				onfloor = true;

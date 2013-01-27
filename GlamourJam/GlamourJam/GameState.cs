@@ -36,8 +36,17 @@ namespace GlamourJam.States
 		private bool isPlayable = true;
 		private int countDownToEndscreen = 3000;
 
+        public Label BigText;
+        public int BigTextTimer;
+
         public GameState()
         {
+            this.BigText = new Label("Player 1 is out", Controller.FontController.GetFont("bigFont"));
+            this.BigText.HorizontalAlign = HorizontalAlign.CENTER;
+            this.BigText.Visable = false;
+            this.BigText.Width = 1800;
+            this.BigText.Height = 1000;
+
             Controller.LayerController.AddLayer("bombLayer");
             FatBomb.state = this;
             Vetbol.state = this;
@@ -84,6 +93,8 @@ namespace GlamourJam.States
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
 
 			soundEffectBomb = Controller.Content.Load<SoundEffect>("sounds/explode");
+
+            this.AddChild(this.BigText);
 
             this.hud = new HUD(this.players, respawnTime);
             this.AddChild(hud);
@@ -139,6 +150,15 @@ namespace GlamourJam.States
 
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
+            if (this.BigText.Visable)
+            {
+                this.BigTextTimer -= (int)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (this.BigTextTimer < 0)
+                {
+                    this.BigText.Visable = false;
+                }
+            }
 			if (isPlayable)
 			{
 
@@ -228,6 +248,13 @@ namespace GlamourJam.States
             hud.PlayerSpawned(player);
             player.Activate();
             player.IsFlickering = true;
+        }
+
+        public void ShowText(string text)
+        {
+            this.BigText.Visable = true;
+            this.BigText.Text = text;
+            this.BigTextTimer = 1200;
         }
     }
 }

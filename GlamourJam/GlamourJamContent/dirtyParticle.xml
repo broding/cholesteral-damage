@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent xmlns:EmitterData="Flakcore.Display.ParticleEngine.EmitterData" xmlns:Modifiers="Flakcore.Display.ParticleEngine.Modifiers">
+  <Asset Type="Flakcore.Display.ParticleEngine.ParticleEffect">
+    <EmitterData>
+      <Item Type="EmitterData:BasicEmitterData">
+
+        <Name>splashBottom</Name>
+        <TextureName>splash</TextureName>
+        <TotalParticles>5</TotalParticles>
+        <Lifetime>300</Lifetime>
+
+        <ReleaseQuantity>5</ReleaseQuantity>
+        <ReleaseSpeed>1000</ReleaseSpeed>
+        <ReleaseSpeedVariation>0</ReleaseSpeedVariation>
+
+        <ReleaseVelocity>150 -150</ReleaseVelocity>
+        <ReleaseVelocityVariantion>200 200</ReleaseVelocityVariantion>
+
+        <ReleaseColor>00000000</ReleaseColor>
+        <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
+
+        <ReleaseAlpha>1</ReleaseAlpha>
+        <ReleaseAlphaVariation>0</ReleaseAlphaVariation>
+
+        <ReleaseRotation>1</ReleaseRotation>
+        <ReleaseRotationVariation>1</ReleaseRotationVariation>
+
+        <ReleaseScale>2 2</ReleaseScale>
+        <ReleaseScaleVariation>2 2</ReleaseScaleVariation>
+
+        <Modifiers>
+          <Item Type="Modifiers:LinearAlpha">
+            <FinalAlpha>1</FinalAlpha>
+          </Item>
+
+          <Item Type="Modifiers:LinearGravity">
+            <Gravity>0 20</Gravity>
+          </Item>
+
+          <Item Type="Modifiers:LinearScale">
+            <FinalScale>0.5 0.5</FinalScale>
+          </Item>
+
+        </Modifiers>
+      </Item>
+
+    </EmitterData>
+
+  </Asset>
+</XnaContent>
