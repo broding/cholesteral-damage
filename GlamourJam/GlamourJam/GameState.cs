@@ -32,12 +32,14 @@ namespace GlamourJam.States
 		private float updateScoreTime = 5000;
 		Vetbol lastPlayerAlive;
 		private int totalScore = 0;
-		private int playerStartScore = 50;
+		private int playerStartScore = 10;
 		private bool isPlayable = true;
 		private int countDownToEndscreen = 3000;
 
         public Label BigText;
         public int BigTextTimer;
+
+		SoundEffect deadSound;
 
         public GameState()
         {
@@ -99,6 +101,8 @@ namespace GlamourJam.States
 
             this.hud = new HUD(this.players, respawnTime);
             this.AddChild(hud);
+
+			deadSound = Controller.Content.Load<SoundEffect>("sounds/dead");
         }
 
 
@@ -187,6 +191,7 @@ namespace GlamourJam.States
                             {
                                 player.Deactivate();
                                 this.ShowText("Player " + (int)player.index + " is out!");
+								deadSound.Play(0.2f, 0, 0);
                                 //TODO feedback of dead player in HUD
                             }
                             

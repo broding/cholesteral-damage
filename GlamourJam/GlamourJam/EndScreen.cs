@@ -54,8 +54,11 @@ namespace GlamourJam
 
 			if (soundTimer <= 0)
 			{
-				soundTimer = ECGsound.Duration.Milliseconds;
-				ECGsound.Play(0.2f, 0, 0);
+				soundTimer = ECGsound.Duration.Milliseconds - 100;
+				ECGsound.Play(0.05f, 0, 0);
+			} else
+			{
+				soundTimer -= gameTime.ElapsedGameTime.Milliseconds;
 			}
 
 			if (padState.Buttons.A == ButtonState.Pressed)
