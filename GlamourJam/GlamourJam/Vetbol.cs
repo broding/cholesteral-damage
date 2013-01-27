@@ -72,7 +72,7 @@ namespace GlamourJam
             image.Position = new Vector2(24, 14);
             if (index == PlayerIndex.One)
             {
-                image.Color = Color.Orange;
+                image.Color = Color.Yellow;
             }
             else if (index==PlayerIndex.Two)
             {
@@ -360,7 +360,7 @@ namespace GlamourJam
                 {
                     IsFlickering = false;
                     flickerTime = flickeringTime;
-                    this.image.Color = Color.White;
+                    this.image.Alpha = 1;
                 }
             }
 
@@ -374,10 +374,10 @@ namespace GlamourJam
 
         private void SwitchColor()
         {
-            if (this.image.Color == Color.White)
-                this.image.Color = Color.Transparent;
+            if (this.image.Alpha == 0)
+                this.image.Alpha = 1;
             else
-                this.image.Color = Color.White;
+                this.image.Alpha = 0;
         }
 
         public bool BeingCaptured(Node player, Node capturePoint)
