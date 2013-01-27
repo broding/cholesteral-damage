@@ -391,6 +391,7 @@ namespace GlamourJam
             base.Deactivate();
             
             this.stunned = false;
+            this.stunnedTime = 0;
             image.PlayAnimation("IDLE");
             
         }
