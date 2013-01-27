@@ -15,6 +15,7 @@ namespace GlamourJam
 {
     class EndScreen : State
     {
+        private Sprite heart;
 		public Vetbol winner;
 		public GamePadState padState;
 
@@ -23,6 +24,17 @@ namespace GlamourJam
 			this.winner = winner;
 			//this.winner.Activate();
 			AddChild(this.winner);
+
+            Sprite bg = new Sprite();
+            bg.LoadTexture(@"Assets/HeartBG");
+            bg.Scale /= Controller.CurrentDrawCamera.zoom;
+            this.AddChild(bg);
+
+            heart = new Sprite();
+            heart.LoadTexture(@"Assets/Heart");
+            heart.Scale /= (Controller.CurrentDrawCamera.zoom * 1.1f);
+            heart.Position.X += 110;
+            this.AddChild(heart);
 
 			Label lbl = new Label("Player " + winner.index + " has won!", Controller.FontController.GetFont("bigFont"));
 			lbl.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lbl.Width / 2);
