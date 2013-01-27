@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent xmlns:EmitterData="Flakcore.Display.ParticleEngine.EmitterData" xmlns:Modifiers="Flakcore.Display.ParticleEngine.Modifiers">
+  <Asset Type="Flakcore.Display.ParticleEngine.ParticleEffect">
+    <EmitterData>
+      <Item Type="EmitterData:BasicEmitterData">
+
+        <Name>bloodSprite</Name>
+        <TextureName>dead</TextureName>
+        <TotalParticles>5</TotalParticles>
+        <Lifetime>1500</Lifetime>
+
+        <ReleaseQuantity>5</ReleaseQuantity>
+        <ReleaseSpeed>2500</ReleaseSpeed>
+        <ReleaseSpeedVariation>1000</ReleaseSpeedVariation>
+
+        <ReleaseVelocity>0 0</ReleaseVelocity>
+        <ReleaseVelocityVariantion>0 0</ReleaseVelocityVariantion>
+
+        <ReleaseColor>FFFFFFFF</ReleaseColor>
+        <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
+
+        <ReleaseAlpha>1</ReleaseAlpha>
+        <ReleaseAlphaVariation>0</ReleaseAlphaVariation>
+
+        <ReleaseRotation>0</ReleaseRotation>
+        <ReleaseRotationVariation>0</ReleaseRotationVariation>
+
+        <ReleaseScale>2 2</ReleaseScale>
+        <ReleaseScaleVariation>0 0</ReleaseScaleVariation>
+
+        <Modifiers>
+
+          <Item Type="Modifiers:LinearGravity">
+            <Gravity>0 -10</Gravity>
+          </Item>
+
+          <Item Type="Modifiers:LinearScale">
+            <FinalScale>3 3</FinalScale>
+          </Item>
+
+        </Modifiers>
+      </Item>
+    </EmitterData>
+
+  </Asset>
+</XnaContent>

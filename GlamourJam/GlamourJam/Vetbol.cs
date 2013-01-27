@@ -55,6 +55,8 @@ namespace GlamourJam
 		public int score;
 
         private ParticleEngine captureParticles;
+        private ParticleEngine dirtyParticles;
+        private ParticleEngine deadParticles;
 
 		public Vetbol(PlayerIndex playerIndex)
 		{
@@ -67,6 +69,12 @@ namespace GlamourJam
 
             this.captureParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("captureParticle"));
             this.AddChild(this.captureParticles);
+
+            this.dirtyParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("dirtyParticle"));
+            this.AddChild(this.dirtyParticles);
+
+            this.deadParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("deadParticles"));
+            state.AddChild(this.deadParticles);
 
             image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
@@ -120,6 +128,8 @@ namespace GlamourJam
 			Controller.Collide(this, "tilemap", Collision);
 			gametime = gameTime;
 
+            this.dirtyParticles.Position = this.Position + new Vector2(16, 16);
+
             stunnedTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             if (stunnedTime < 0)
@@ -154,7 +164,7 @@ namespace GlamourJam
 
             this.bombTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (padState.IsButtonDown(Buttons.B) && this.bombTimer > this.bombSpawnTime)
+            if ((padState.IsButtonDown(Buttons.B) || padState.IsButtonDown(Buttons.X)) && this.bombTimer > this.bombSpawnTime)
             {
                 this.bombTimer = 0;
                 state.SpawnBomb(this, padState.ThumbSticks.Left);
@@ -392,8 +402,15 @@ namespace GlamourJam
             
             this.stunned = false;
             this.stunnedTime = 0;
+
+			CollisionState = "idle";
+			onfloor = true;
+			speedX = 0;
+			speedY = 0;
+
             image.PlayAnimation("IDLE");
-            
+
+            this.deadParticles.Explode();
         }
 
         private void SwitchColor()
@@ -428,8 +445,13 @@ namespace GlamourJam
         }
 		public void Collision(Node player, Node collidingTile)
 		{
-			if (!onfloor || (speedY > 50 && (!player.Touching.Left && !player.Touching.Right)))//check with prevspeed
-				soundEffectLand.Play(0.5f, 0, 0);
+
+            if (!onfloor || (speedY > 50 && (!player.Touching.Left && !player.Touching.Right)))//check with prevspeed
+            {
+                soundEffectLand.Play(0.5f, 0, 0);
+                this.dirtyParticles.Explode();
+
+            }
 			if (player.Touching.Bottom)
 			{
 				onfloor = true;
@@ -472,11 +494,12 @@ namespace GlamourJam
 
 		public void Stun(float timeInMilis = 4000)
 		{
-            if (this.flickerTime.TotalMilliseconds > 0)
+            if(IsFlickering)
                 return;
 
 			stunned = true;
             stunnedTime = timeInMilis;
+            this.speedY = -500;
 
             image.PlayAnimation("STUNNED");
 		}

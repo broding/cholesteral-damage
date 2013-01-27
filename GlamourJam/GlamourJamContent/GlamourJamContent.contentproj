@@ -258,6 +258,23 @@
     </Compile>
     <Compile Include="Assets\HeartBG.png">
       <Name>HeartBG</Name>
+    </Compile>
+    <Compile Include="dirtyParticle.xml">
+      <Name>dirtyParticle</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="deadParticles.xml">
+      <Name>deadParticles</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="dead.png">
+      <Name>dead</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
