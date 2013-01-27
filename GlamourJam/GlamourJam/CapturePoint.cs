@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Flakcore;
 using Flakcore.Display.ParticleEngine;
+using Microsoft.Xna.Framework.Audio;
 namespace GlamourJam
 {
     class CapturePoint:Sprite
@@ -22,7 +23,7 @@ namespace GlamourJam
         private Texture2D GlowTexture;
         private Sprite takingOverRectangle;
         private ParticleEngine BloodParticles;
-
+		SoundEffect soundTakeOver;
 
         public CapturePoint()
         {
@@ -48,6 +49,8 @@ namespace GlamourJam
             AddAnimation("p3captured", new int[3] { 7, 8, 9 }, 0.5f);
             AddAnimation("p4uncaptured", new int[1] { 0 }, 0);
             AddAnimation("p4captured", new int[3] { 10, 11, 12 }, 0.5f);
+
+			soundTakeOver = Controller.Content.Load<SoundEffect>("sounds/takeOver");
         }
 
         public override void Update(GameTime gameTime)
@@ -100,6 +103,9 @@ namespace GlamourJam
 
         public void startCapturing(Vetbol vetblob)
         {
+			if (!isPlayerCapturing)
+				soundTakeOver.Play();
+
             isPlayerCapturing = true;
             playerCapturing = vetblob;
         }

@@ -57,6 +57,7 @@ namespace GlamourJam
         private ParticleEngine captureParticles;
         private ParticleEngine dirtyParticles;
         private ParticleEngine deadParticles;
+        public ParticleEngine spawnParticle;
 
 		public Vetbol(PlayerIndex playerIndex)
 		{
@@ -111,6 +112,11 @@ namespace GlamourJam
 			soundEffectJump = Controller.Content.Load<SoundEffect>("sounds/jump");
 
             this.AddCollisionGroup("player");
+
+            ParticleEffect effect = Controller.Content.Load<ParticleEffect>("spawnParticle");
+            effect.EmitterData[0].ReleaseColor = this.image.Color;
+            this.spawnParticle = new ParticleEngine(effect);
+            state.AddChild(this.spawnParticle);
 
 			/*Sprite bb = new Sprite();
 			bb = Sprite.CreateRectangle(new Vector2(Width, Height), Color.Aqua);
@@ -411,6 +417,13 @@ namespace GlamourJam
             image.PlayAnimation("IDLE");
             this.deadParticles.Position = this.Position;
             this.deadParticles.Explode();
+        }
+
+        public override void Activate()
+        {
+            base.Activate();
+
+            this.spawnParticle.Explode();
         }
 
         private void SwitchColor()

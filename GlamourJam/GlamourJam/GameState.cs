@@ -32,7 +32,7 @@ namespace GlamourJam.States
 		private float updateScoreTime = 5000;
 		Vetbol lastPlayerAlive;
 		private int totalScore = 0;
-		private int playerStartScore = 10;
+		private int playerStartScore = 100;
 		private bool isPlayable = true;
 		private int countDownToEndscreen = 3000;
 
@@ -89,6 +89,7 @@ namespace GlamourJam.States
                 this.players[j].Position = this.getAvailablePosition();
                 this.AddChild(this.players[j]);
             }
+			lastPlayerAlive = players[0];
 
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
 
@@ -187,7 +188,6 @@ namespace GlamourJam.States
 						} else
                         {
 							playersAlive++;
-							lastPlayerAlive = player;
 						}
 						//TODO: update HUD score
 
@@ -203,6 +203,7 @@ namespace GlamourJam.States
 					if (playersAlive <= 1)
 					{
 						//TODO lastPlayerAlive = winner
+						//isPlayable = false;
 					}
 
 				}
@@ -225,7 +226,22 @@ namespace GlamourJam.States
 				countDownToEndscreen -= gameTime.ElapsedGameTime.Milliseconds;
 				//TODO: play beepsound
 				if (countDownToEndscreen <= 0)
+				{
+					lastPlayerAlive = players[0];
+					foreach (Vetbol player in players)
+					{
+						if (player.score >= lastPlayerAlive.score)
+						{
+							lastPlayerAlive = player;
+						}
+					}
+
 					Controller.SwitchState(new EndScreen(lastPlayerAlive));
+				} else if (countDownToEndscreen <= 1000)
+				{
+					//TODO: fade black in
+					Alpha -= 0.1f;
+				}
 			}
 
 			base.Update(gameTime);
@@ -246,6 +262,7 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             hud.PlayerSpawned(player);
+            player.spawnParticle.Position = player.Position + new Vector2(12, 12);
             player.Activate();
             player.IsFlickering = true;
         }
