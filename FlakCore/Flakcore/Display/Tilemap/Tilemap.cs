@@ -32,6 +32,7 @@ namespace Display.Tilemap
 		private float timeBetween = 200;
 		private SoundEffect soundHeartbeat;
 		public float beatRate = 1000;
+		public bool heartIsBeating = true;
 
         public Tilemap()
         {
