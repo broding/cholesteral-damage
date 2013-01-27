@@ -35,8 +35,10 @@ namespace GlamourJam.States
             FatBomb.state = this;
             Vetbol.state = this;
             TiledSprite bg = new TiledSprite(2000, 2000);
+
             bg.LoadTexture("background");
             bg.Depth = 0f;
+
             tilemap = new Tilemap();
             tilemap.LoadMap("Content/testmap.tmx", 32, 32);
             this.AddChild(bg);
@@ -151,7 +153,7 @@ namespace GlamourJam.States
 						lastPlayerAlive = player;
 					}
 					//TODO: update HUD score
-					tilemap.beatRate -= 1;
+					tilemap.beatRate -= 10;
 					//TODO: adjust beatrate of the map
 				}
 				if (playersAlive == 1)

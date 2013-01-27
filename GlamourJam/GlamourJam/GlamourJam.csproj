@@ -93,6 +93,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CapturePoint.cs" />
+    <Compile Include="EndScreen.cs" />
+    <Compile Include="MenuState.cs" />
     <Compile Include="FatBomb.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="HUD.cs" />
@@ -100,7 +102,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Vetbol.cs" />
-    <Compile Include="Vetbol2.cs" />
     <Compile Include="WhiteBloodCell.cs" />
   </ItemGroup>
   <ItemGroup>
