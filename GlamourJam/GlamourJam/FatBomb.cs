@@ -15,7 +15,7 @@ namespace GlamourJam
     class FatBomb : Node, IPoolable
     {
         public static GameState state;
-        private const int bombTime = 3;
+        private const int bombTime = 2;
         private TimeSpan timeSpan = TimeSpan.FromSeconds(bombTime);
         private bool stuckToAWall = false;
         public int PoolIndex { get; set; }

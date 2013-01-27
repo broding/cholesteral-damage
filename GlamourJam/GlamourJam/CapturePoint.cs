@@ -12,6 +12,8 @@ namespace GlamourJam
 {
     class CapturePoint:Sprite
     {
+        public static State state;
+
         public bool captured = false;
         public bool isPlayerCapturing = false;
         public double timer = 0;
@@ -36,7 +38,7 @@ namespace GlamourJam
             AddAnimation("captured", new int[2] { 1, 1 }, 0);
 
             this.BloodParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("bloodParticle"));
-            Controller.LayerController.GetLayer("bombLayer").AddChild(this.BloodParticles);
+            state.AddChild(this.BloodParticles);
             this.BloodParticles.Position = this.Position;
             this.BloodParticles.Start();
 
