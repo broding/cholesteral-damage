@@ -472,11 +472,12 @@ namespace GlamourJam
 
 		public void Stun(float timeInMilis = 4000)
 		{
-            if (this.flickerTime.TotalMilliseconds > 0)
+            if(IsFlickering)
                 return;
 
 			stunned = true;
             stunnedTime = timeInMilis;
+            this.speedY = -500;
 
             image.PlayAnimation("STUNNED");
 		}
