@@ -127,7 +127,8 @@ namespace GlamourJam.States
                 {
                     Controller.Input.SetVibrationWithTimer(player.index, TimeSpan.FromMilliseconds(300));
                     player.Deactivate();
-                    respawnTimers.Add(player, respawnTime);
+                    if(!respawnTimers.ContainsKey(player))
+                        respawnTimers.Add(player, respawnTime);
                     hud.PlayerDied(player);
                 }
             }
