@@ -33,7 +33,7 @@ namespace GlamourJam.States
 		private float updateScoreTime = 5000;
 		Vetbol lastPlayerAlive;
 		private int totalScore = 0;
-		private int playerStartScore = 10;
+		private int playerStartScore = 50;
 		private bool isPlayable = true;
 		private int countDownToEndscreen = 3000;
 
@@ -236,7 +236,7 @@ namespace GlamourJam.States
 			{
 				tilemap.heartIsBeating = false;
 				if (countDownToEndscreen == 3000)
-					ECGsound.Play(0.25f, 0, 0);
+					ECGsound.Play(0.15f, 0, 0);
 				countDownToEndscreen -= gameTime.ElapsedGameTime.Milliseconds;
 				//TODO: play beepsound
 				if (countDownToEndscreen <= 0)
