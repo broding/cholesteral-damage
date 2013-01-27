@@ -33,6 +33,7 @@ namespace GlamourJam
 		public GamePadState prevPadState;
 		public int maxSpeed = 350;
 		public int jumpSpeed = 500;
+		public int finalJumpSpeed = 800;
 		public int extraJump = 150;
         private int wallJumpCount = 0;
 		public float speedX = 0;
@@ -69,7 +70,7 @@ namespace GlamourJam
 
             image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
-			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0.5f);
+			image.AddAnimation("CRAWLING", new int[2] { 1, 2 }, 0.5f);
             image.AddAnimation("JUMP", new int[1] { 3 }, 0);
             image.AddAnimation("ONWALL", new int[1] { 4 }, 0);
             image.AddAnimation("CAPTURING", new int[1] { 5 }, 0);
@@ -205,7 +206,7 @@ namespace GlamourJam
 							soundEffectJump.Play(0.5f, 0, 0);
 							//Jump();
 							onfloor = false;
-                            speedY = -650;
+							speedY = -finalJumpSpeed;
 						}
 					}
 				}
@@ -229,7 +230,7 @@ namespace GlamourJam
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
                         Vector2 speed = new Vector2(speedX, speedY);
                         speed.Normalize();
-                        speed *= 650;
+						speed *= finalJumpSpeed;
                         speedX = speed.X;
                         speedY = speed.Y;
                     }
@@ -240,7 +241,7 @@ namespace GlamourJam
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
                         Vector2 speed = new Vector2(speedX, speedY);
                         speed.Normalize();
-                        speed *= 650;
+						speed *= finalJumpSpeed;
                         speedX = speed.X;
                         speedY = speed.Y;
                         wallJumpCount = 10;
@@ -266,7 +267,7 @@ namespace GlamourJam
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
                         Vector2 speed = new Vector2(speedX, speedY);
                         speed.Normalize();
-                        speed *= 650;
+						speed *= finalJumpSpeed;
                         speedX = speed.X;
                         speedY = speed.Y;
                     }
@@ -277,7 +278,7 @@ namespace GlamourJam
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
                         Vector2 speed = new Vector2(speedX, speedY);
                         speed.Normalize();
-                        speed *= 650;
+						speed *= finalJumpSpeed;
                         speedX = speed.X;
                         speedY = speed.Y;
                         wallJumpCount =10;

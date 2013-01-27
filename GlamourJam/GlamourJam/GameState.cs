@@ -108,7 +108,7 @@ namespace GlamourJam.States
 
         public void ExplodeBomb(FatBomb bomb)
         {
-			soundEffectBomb.Play(0.5f, 0, 0);
+			soundEffectBomb.Play();
 
             int width = 136;
             int height = 136;
