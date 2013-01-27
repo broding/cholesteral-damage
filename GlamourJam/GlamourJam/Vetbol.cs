@@ -470,6 +470,9 @@ namespace GlamourJam
 
 		public void Stun(float timeInMilis = 4000)
 		{
+            if (this.flickerTime.TotalMilliseconds > 0)
+                return;
+
 			stunned = true;
             stunnedTime = timeInMilis;
 
