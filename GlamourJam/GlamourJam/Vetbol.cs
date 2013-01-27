@@ -87,11 +87,11 @@ namespace GlamourJam
             image.Position = new Vector2(24, 14);
             if (index == PlayerIndex.One)
             {
-                image.Color = Color.Yellow;
+                image.Color = Color.Yellow;//yellow
             }
             else if (index==PlayerIndex.Two)
             {
-                image.Color = Color.Azure;
+                image.Color = Color.CornflowerBlue;
             }
             else if (index == PlayerIndex.Three)
             {
