@@ -15,9 +15,11 @@ namespace GlamourJam
         public bool isPlayerCapturing = false;
         public double timer = 0;
         public bool contested = false;
-        private Vetbol owner;
+        public Vetbol owner;
         private Vetbol playerCapturing;
         public bool isCollidingPlayer = false;
+
+        private Texture2D GlowTexture;
 
         private ParticleEngine BloodParticles;
 
@@ -35,6 +37,8 @@ namespace GlamourJam
             Controller.LayerController.GetLayer("bombLayer").AddChild(this.BloodParticles);
             this.BloodParticles.Position = this.Position;
             this.BloodParticles.Start();
+
+            this.GlowTexture = Controller.Content.Load<Texture2D>("glow");
 
             AddAnimation("p1uncaptured", new int[1] { 0 }, 0);
             AddAnimation("p1captured", new int[3] { 1, 2, 3 },0.5f);
@@ -96,6 +100,30 @@ namespace GlamourJam
             playerCapturing = vetblob;
         }
 
+        public override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        {
+            base.DrawCall(spriteBatch, worldProperties);
+
+            this.DrawColor(spriteBatch);
+        }
+
+
+        internal void DrawColor(SpriteBatch spriteBatch)
+        {
+            Color color = Color.White;
+            if (this.owner != null)
+                color = this.owner.image.Color;
+
+            spriteBatch.Draw(this.GlowTexture,
+                    this.Position + new Vector2(50, 50),
+                    new Rectangle(0, 0, 600, 600),
+                    color * 0.3f,
+                    this.Rotation,
+                    new Vector2(300, 300),
+                    this.Scale,
+                    this.SpriteEffects,
+                    0.001f);
+        }
     }
     
 	

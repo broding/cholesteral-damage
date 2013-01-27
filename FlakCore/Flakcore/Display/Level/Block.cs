@@ -57,7 +57,7 @@ namespace Flakcore.Display.Level
             this.Borders = borders;
         }
 
-        protected override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             base.Draw(spriteBatch, worldProperties);
 

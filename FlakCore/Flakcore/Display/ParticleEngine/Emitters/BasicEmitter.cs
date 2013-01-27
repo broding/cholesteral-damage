@@ -40,7 +40,7 @@ namespace Flakcore.Display.ParticleEngine
             }
         }
 
-        internal override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             // we need to pass a zero vector to the draw call, because the particle engine always is at 0,0
             worldProperties.Position = Vector2.Zero;
