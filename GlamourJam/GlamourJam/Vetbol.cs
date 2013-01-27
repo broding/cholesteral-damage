@@ -21,7 +21,7 @@ namespace GlamourJam
         private float bombTimer;
         private float bombSpawnTime = 1000;
         private readonly TimeSpan flickeringTime = TimeSpan.FromSeconds(2);
-        private readonly TimeSpan changeColorTime = TimeSpan.FromMilliseconds(200);
+        private readonly TimeSpan changeColorTime = TimeSpan.FromMilliseconds(40);
         private TimeSpan flickerTime;
         private TimeSpan ColorTimer;
 
@@ -33,6 +33,7 @@ namespace GlamourJam
 		public GamePadState prevPadState;
 		public int maxSpeed = 350;
 		public int jumpSpeed = 500;
+		public int finalJumpSpeed = 800;
 		public int extraJump = 150;
         private int wallJumpCount = 0;
 		public float speedX = 0;
@@ -42,7 +43,7 @@ namespace GlamourJam
 		public PlayerIndex index;
 		public string CollisionState = "idle";
 
-		private bool stunned = false;
+		public bool stunned = false;
 		private float stunnedTime = 0;
 		private GameTime gametime;
 
@@ -69,7 +70,7 @@ namespace GlamourJam
 
             image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
-			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0.5f);
+			image.AddAnimation("CRAWLING", new int[2] { 1, 2 }, 0.5f);
             image.AddAnimation("JUMP", new int[1] { 3 }, 0);
             image.AddAnimation("ONWALL", new int[1] { 4 }, 0);
             image.AddAnimation("CAPTURING", new int[1] { 5 }, 0);
@@ -118,7 +119,12 @@ namespace GlamourJam
 			base.Update(gameTime);
 			Controller.Collide(this, "tilemap", Collision);
 			gametime = gameTime;
-			Stun(stunnedTime);
+
+            stunnedTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (stunnedTime < 0)
+                stunned = false;
+
 			if (!stunned)
 			{
 				Controller.Collide(this, "capturePoint", null, BeingCaptured);
@@ -155,7 +161,7 @@ namespace GlamourJam
             }
 
 			//Move when sticking
-			speedY += 15;
+			speedY += 18;
 			if (CollisionState == "idle")
 			{
 				//Move Horizontally
@@ -205,7 +211,7 @@ namespace GlamourJam
 							soundEffectJump.Play(0.5f, 0, 0);
 							//Jump();
 							onfloor = false;
-                            speedY = -650;
+							speedY = -finalJumpSpeed;
 						}
 					}
 				}
@@ -229,7 +235,7 @@ namespace GlamourJam
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
                         Vector2 speed = new Vector2(speedX, speedY);
                         speed.Normalize();
-                        speed *= 650;
+						speed *= finalJumpSpeed;
                         speedX = speed.X;
                         speedY = speed.Y;
                     }
@@ -240,7 +246,7 @@ namespace GlamourJam
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
                         Vector2 speed = new Vector2(speedX, speedY);
                         speed.Normalize();
-                        speed *= 650;
+						speed *= finalJumpSpeed;
                         speedX = speed.X;
                         speedY = speed.Y;
                         wallJumpCount = 10;
@@ -266,7 +272,7 @@ namespace GlamourJam
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
                         Vector2 speed = new Vector2(speedX, speedY);
                         speed.Normalize();
-                        speed *= 650;
+						speed *= finalJumpSpeed;
                         speedX = speed.X;
                         speedY = speed.Y;
                     }
@@ -277,7 +283,7 @@ namespace GlamourJam
                         speedY -= ((jumpSpeed) * padState.ThumbSticks.Left.Y) + extraJump;
                         Vector2 speed = new Vector2(speedX, speedY);
                         speed.Normalize();
-                        speed *= 650;
+						speed *= finalJumpSpeed;
                         speedX = speed.X;
                         speedY = speed.Y;
                         wallJumpCount =10;
@@ -380,6 +386,16 @@ namespace GlamourJam
 			prevPadState = padState;
 		}
 
+        public override void Deactivate()
+        {
+            base.Deactivate();
+            
+            this.stunned = false;
+            this.stunnedTime = 0;
+            image.PlayAnimation("IDLE");
+            
+        }
+
         private void SwitchColor()
         {
             if (this.image.Alpha == 0)
@@ -395,7 +411,7 @@ namespace GlamourJam
 
             GamePadState state = GamePad.GetState(this.index);
 
-            if (state.Triggers.Right > 0.5 && state.Triggers.Left > 0.5)
+            if (state.Triggers.Right > 0.5 && state.Triggers.Left > 0.5 && this.onfloor)
             {
                 (capturePoint as CapturePoint).startCapturing(this);
 
@@ -456,11 +472,11 @@ namespace GlamourJam
 
 		public void Stun(float timeInMilis = 4000)
 		{
+            if (this.flickerTime.TotalMilliseconds > 0)
+                return;
+
 			stunned = true;
-			stunnedTime = timeInMilis;
-			stunnedTime -= gametime.ElapsedGameTime.Milliseconds;
-			if (stunnedTime <= 0)
-				stunned = false;
+            stunnedTime = timeInMilis;
 
             image.PlayAnimation("STUNNED");
 		}
