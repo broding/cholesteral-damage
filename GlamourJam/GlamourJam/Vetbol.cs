@@ -409,7 +409,7 @@ namespace GlamourJam
 			speedY = 0;
 
             image.PlayAnimation("IDLE");
-
+            this.deadParticles.Position = this.Position;
             this.deadParticles.Explode();
         }
 
