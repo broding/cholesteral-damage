@@ -34,7 +34,10 @@ namespace GlamourJam.States
             FatBomb.state = this;
             Vetbol.state = this;
             TiledSprite bg = new TiledSprite(2000, 2000);
+
             bg.LoadTexture("background");
+            bg.Depth = 0f;
+
             tilemap = new Tilemap();
             tilemap.LoadMap("Content/testmap.tmx", 32, 32);
             this.AddChild(bg);
@@ -49,12 +52,8 @@ namespace GlamourJam.States
 			foreach (Tile tile in capturePointTiles)
             {
                 CapturePoint capturepoint = new CapturePoint();
-<<<<<<< HEAD
-                capturepoint.Position = tile.Position + ( new Vector2(-27, -62));
-				capturePoints.Add(capturepoint);
-=======
                 capturepoint.Position = tile.Position + ( new Vector2(-27, -61));
->>>>>>> f4a60a485eae95f76715dfa44d7b2c0d749d8b4a
+				capturePoints.Add(capturepoint);
                 AddChild(capturepoint);
             }
 
@@ -69,7 +68,7 @@ namespace GlamourJam.States
 
             for (int j = 0; j < players.Count; j++)
             {
-				this.players[j].score = 10;
+				this.players[j].score = 100;
                 this.players[j].Position = this.getAvailablePosition();
                 this.AddChild(this.players[j]);
             }
@@ -150,13 +149,25 @@ namespace GlamourJam.States
 						lastPlayerAlive = player;
 					}
 					//TODO: update HUD score
+<<<<<<< HEAD
+
+					int minBeat = 1000;
+					int maxBeat = 270;
+					int minPoints = capturePoints.Count;
+					int maxPoints = playerStartScore * players.Count;
+					int score = ((minBeat - maxBeat) / (maxPoints - minPoints)) * totalScore;
+					score += 270;
+					tilemap.beatRate = score;
+=======
+					tilemap.beatRate -= 10;
+>>>>>>> 63966c2afc033e5d992d109fb024ff2e882a62b1
+					//TODO: adjust beatrate of the map
 				}
-				if (playersAlive == 1)
+				if (playersAlive <= 1)
 				{
 					//TODO lastPlayerAlive = winner
 				}
 			}
-
 			base.Update(gameTime);
 		}
 
