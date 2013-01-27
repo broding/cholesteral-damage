@@ -236,7 +236,7 @@ namespace GlamourJam.States
 						}
 					}
 
-					Controller.SwitchState(new EndScreen(lastPlayerAlive));
+					Controller.SwitchState(new EndScreen(lastPlayerAlive.index, lastPlayerAlive.image.Color));
 				} else if (countDownToEndscreen <= 1000)
 				{
 					//TODO: fade black in
