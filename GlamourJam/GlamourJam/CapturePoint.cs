@@ -115,9 +115,9 @@ namespace GlamourJam
                 color = this.owner.image.Color;
 
             spriteBatch.Draw(this.GlowTexture,
-                    this.Position + new Vector2(50, 50),
-                    new Rectangle(0, 0, 600, 600),
-                    color * 0.3f,
+                    this.Position - new Vector2(50, 50),
+                    new Rectangle(0, 0, 900, 900),
+                    color * 0.1f,
                     this.Rotation,
                     new Vector2(300, 300),
                     this.Scale,
