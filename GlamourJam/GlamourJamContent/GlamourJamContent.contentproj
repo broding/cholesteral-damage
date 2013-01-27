@@ -218,6 +218,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="glow.png">
+      <Name>glow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="sounds\heartbeat.wav">
       <Name>heartbeat</Name>
       <Importer>WavImporter</Importer>

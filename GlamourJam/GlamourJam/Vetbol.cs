@@ -73,6 +73,9 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0.5f);
             image.AddAnimation("JUMP", new int[1] { 3 }, 0);
             image.AddAnimation("ONWALL", new int[1] { 4 }, 0);
+            image.AddAnimation("CAPTURING", new int[1] { 5 }, 0);
+            image.AddAnimation("STUNNED", new int[3] { 6, 7, 8 }, 0.1f);
+
             image.Position = new Vector2(24, 14);
             if (index==PlayerIndex.Two)
             {
@@ -237,7 +240,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
                         speed *= 650;
                         speedX = speed.X;
                         speedY = speed.Y;
-                        wallJumpCount =10;
+                        wallJumpCount = 10;
                     }
                     CollisionState = "idle";
 				}
@@ -364,6 +367,9 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
                 }
             }
 
+            if(this.stunned)
+                image.PlayAnimation("STUNNED");
+
 			//RESET FOR NEXT FRAME
 			isSticking = false;
 			prevPadState = padState;
@@ -436,6 +442,8 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 			stunnedTime -= gametime.ElapsedGameTime.Milliseconds;
 			if (stunnedTime <= 0)
 				stunned = false;
+
+            image.PlayAnimation("STUNNED");
 		}
     }
 }

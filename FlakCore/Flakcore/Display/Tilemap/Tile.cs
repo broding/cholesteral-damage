@@ -47,7 +47,7 @@ namespace Display.Tilemap
             return new BoundingRectangle(Position.X, Position.Y, Tilemap.tileWidth, Tilemap.tileHeight);
         }
 
-        protected override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             this.Texture = CurrentTexture;
 

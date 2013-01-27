@@ -30,7 +30,7 @@ namespace Flakcore.Display
             this.Height = height * this.TiledHeight;
         }
 
-        protected override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             int amountX = this.TiledWidth / this.Texture.Width;
             int amountY = this.TiledHeight / this.Texture.Height;
