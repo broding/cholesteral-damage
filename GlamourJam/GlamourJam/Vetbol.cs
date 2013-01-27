@@ -21,7 +21,7 @@ namespace GlamourJam
         private float bombTimer;
         private float bombSpawnTime = 1000;
         private readonly TimeSpan flickeringTime = TimeSpan.FromSeconds(2);
-        private readonly TimeSpan changeColorTime = TimeSpan.FromMilliseconds(200);
+        private readonly TimeSpan changeColorTime = TimeSpan.FromMilliseconds(40);
         private TimeSpan flickerTime;
         private TimeSpan ColorTimer;
 
@@ -43,7 +43,7 @@ namespace GlamourJam
 		public PlayerIndex index;
 		public string CollisionState = "idle";
 
-		private bool stunned = false;
+		public bool stunned = false;
 		private float stunnedTime = 0;
 		private GameTime gametime;
 
@@ -156,7 +156,7 @@ namespace GlamourJam
             }
 
 			//Move when sticking
-			speedY += 15;
+			speedY += 18;
 			if (CollisionState == "idle")
 			{
 				//Move Horizontally
@@ -381,6 +381,16 @@ namespace GlamourJam
 			prevPadState = padState;
 		}
 
+        public override void Deactivate()
+        {
+            base.Deactivate();
+            
+            this.Stun(0);
+            this.stunned = false;
+            image.PlayAnimation("IDLE");
+            
+        }
+
         private void SwitchColor()
         {
             if (this.image.Alpha == 0)
@@ -396,7 +406,7 @@ namespace GlamourJam
 
             GamePadState state = GamePad.GetState(this.index);
 
-            if (state.Triggers.Right > 0.5 && state.Triggers.Left > 0.5)
+            if (state.Triggers.Right > 0.5 && state.Triggers.Left > 0.5 && this.onfloor)
             {
                 (capturePoint as CapturePoint).startCapturing(this);
 
