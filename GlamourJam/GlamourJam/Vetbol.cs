@@ -50,7 +50,7 @@ namespace GlamourJam
 		private SoundEffect soundEffectJump;
 		private float soundTimer = 0;
 
-		public int score;  
+		public int score;
 
 		public Vetbol(PlayerIndex playerIndex)
 		{
@@ -385,8 +385,6 @@ namespace GlamourJam
                 (capturePoint as CapturePoint).startCapturing(this);
 
                 (capturePoint as CapturePoint).isCollidingPlayer = true;
-
-                image.PlayAnimation("CAPTURING");
 
             return false;
         }

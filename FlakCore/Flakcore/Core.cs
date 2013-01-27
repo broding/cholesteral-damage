@@ -40,6 +40,7 @@ namespace Flakcore
 
             Controller.WorldBounds = new Rectangle(0, 0, 2500,2000);
 
+            Controller.LayerController.AddLayer("base");
             SetupQuadTree();
 
             this.Stopwatch = new Stopwatch();
@@ -74,11 +75,10 @@ namespace Flakcore
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
 
-            for (int i = 0; i < Controller.LayerController.Layers.Count; i++)
+            foreach (Layer layer in Controller.LayerController.Layers)
             {
-                Controller.LayerController.Layers[i].Update(gameTime);
+                layer.PostUpdate(gameTime);
             }
-
             this.Stopwatch.Stop();
             DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedMilliseconds + " ms");
 
@@ -124,7 +124,7 @@ namespace Flakcore
 
                 Controller.Graphics.GraphicsDevice.SetRenderTarget(null);
 
-                foreach (Layer layer in Controller.LayerController.Layers.ToList())
+                foreach (Layer layer in Controller.LayerController.Layers)
                 {
                     if (layer.Parent != null)
                         continue;
@@ -164,9 +164,6 @@ namespace Flakcore
 
         public void SwitchState(State state)
         {
-            Controller.LayerController.ClearLayers();
-            Controller.LayerController.AddLayer("base");
-
             this.CurrentState = null;
             this.CurrentState = state;
             Controller.LayerController.GetLayer("base").AddChild(this.CurrentState);
