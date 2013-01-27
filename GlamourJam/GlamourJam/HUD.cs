@@ -24,7 +24,7 @@ namespace GlamourJam
 
             for (int i = 0; i < playerList.Count; i++)
             {
-                hudPlayers.Add(playerList[i].index, new PlayerHUDStatus(new Vector2((1024 / Controller.CurrentDrawCamera.zoom) / playerList.Count, 96), playerList[i], timer));
+                hudPlayers.Add(playerList[i].index, new PlayerHUDStatus(new Vector2((1024f / Controller.CurrentDrawCamera.zoom) / playerList.Count, 96), playerList[i], timer));
                 this.AddChild(hudPlayers[playerList[i].index]);
             }
         }
@@ -57,7 +57,7 @@ namespace GlamourJam
             playerImage = new Sprite();
             playerFrame = new Sprite();
 
-            playerFrame.Position.X = (size.X / 2) -(96 / 2) + (float)player.index * size.X;
+            playerFrame.Position.X = (size.X / 2) -((96 / Controller.CurrentDrawCamera.zoom) / 2) + (float)player.index * size.X;
             playerFrame.Position.Y = this.Position.Y;
             playerFrame.Scale /= Controller.CurrentDrawCamera.zoom;
 
