@@ -64,16 +64,21 @@ namespace GlamourJam
                 timer = 0;
                 this.playerCapturing = null;
                 this.isPlayerCapturing = false;
-                takingOverRectangle.Visable = true;
             }
             if (isPlayerCapturing == true && playerCapturing != owner)
+            {
                 timer += gameTime.ElapsedGameTime.TotalSeconds;
-            takingOverRectangle.Width = (int)(16 + ((1.6f * timer) * 2));
-            takingOverRectangle.Visable = true;
+                takingOverRectangle.Scale.X = (float)(1-(timer / 2));
+                takingOverRectangle.Visable = true;
+            }
+            else
+            {
+                takingOverRectangle.Visable = false;
+            }
 
             if (timer >= 2)
             {
-                takingOverRectangle.Visable = true;
+                takingOverRectangle.Visable = false;
                 timer = 0;
                 captured = true;
                 owner = playerCapturing;
@@ -141,7 +146,9 @@ namespace GlamourJam
         private void CreateTakingOverRectangle()
         {
             takingOverRectangle = Sprite.CreateRectangle(new Vector2(48, 5), Color.GreenYellow);
-            takingOverRectangle.Position = Vector2.Zero;
+            takingOverRectangle.Origin = new Vector2(24f,24f);
+            takingOverRectangle.Position = new Vector2((this.Width / 2) - (takingOverRectangle.Width / 2), 0);
+            takingOverRectangle.Visable = false;
             AddChild(takingOverRectangle);
             takingOverRectangle.Depth = 0.9f;
         }
