@@ -89,6 +89,7 @@ namespace GlamourJam.States
                 this.players[j].Position = this.getAvailablePosition();
                 this.AddChild(this.players[j]);
             }
+			lastPlayerAlive = players[0];
 
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
 
@@ -186,7 +187,6 @@ namespace GlamourJam.States
 						} else
 						{
 							playersAlive++;
-							lastPlayerAlive = player;
 						}
 						//TODO: update HUD score
 
@@ -225,7 +225,22 @@ namespace GlamourJam.States
 				countDownToEndscreen -= gameTime.ElapsedGameTime.Milliseconds;
 				//TODO: play beepsound
 				if (countDownToEndscreen <= 0)
+				{
+					lastPlayerAlive = players[0];
+					foreach (Vetbol player in players)
+					{
+						if (player.score >= lastPlayerAlive.score)
+						{
+							lastPlayerAlive = player;
+						}
+					}
+
 					Controller.SwitchState(new EndScreen(lastPlayerAlive));
+				} else if (countDownToEndscreen <= 1000)
+				{
+					//TODO: fade black in
+					Alpha -= 0.1f;
+				}
 			}
 
 			base.Update(gameTime);
