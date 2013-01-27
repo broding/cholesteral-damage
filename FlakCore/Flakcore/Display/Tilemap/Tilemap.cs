@@ -11,15 +11,12 @@ using Flakcore.Display;
 using Flakcore;
 using Flakcore.Utils;
 using Flakcore.Physics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Display.Tilemap
 {
     public class Tilemap : Node
     {
-        private float GlobalTimer;
-        private float BeatTimer;
-        private float BeatAmount;
-
         public static int tileWidth { get; private set; }
         public static int tileHeight { get; private set; }
 
@@ -28,7 +25,13 @@ namespace Display.Tilemap
         public Dictionary<string, string> Properties;
 
         private List<TileLayer> Layers;
-        private List<Tileset> Tilesets;
+		private List<Tileset> Tilesets;
+
+		private bool firstBeatDone = false;
+		private float countdownTimer = 0;
+		private float timeBetween = 200;
+		private SoundEffect soundHeartbeat;
+		public float beatRate = 1000;
 
         public Tilemap()
         {
@@ -38,6 +41,8 @@ namespace Display.Tilemap
             this.Properties = new Dictionary<string, string>();
 
             CollisionSolver.Tilemap = this;
+
+			soundHeartbeat = Controller.Content.Load<SoundEffect>("sounds/heartbeat");
         }
 
         public void LoadMap(string path, int tileWidth, int tileHeight)
@@ -137,7 +142,38 @@ namespace Display.Tilemap
         {
             base.Update(gameTime);
 
-            this.GlobalTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+			if (firstBeatDone)
+			{
+				if (Tile.CurrentTexture == Tile.SmallMap && countdownTimer < beatRate - 10)
+				{
+					Tile.CurrentTexture = Tile.NormalMap;
+				}
+				countdownTimer -= gameTime.ElapsedGameTime.Milliseconds;
+				if (countdownTimer <= 0)
+				{
+					//beat once
+					Tile.CurrentTexture = Tile.SmallMap;
+					firstBeatDone = false;
+					countdownTimer = timeBetween;
+					soundHeartbeat.Play(0.5f, 0, 0);
+				}
+			} else
+			{
+				if (Tile.CurrentTexture == Tile.SmallMap && countdownTimer < timeBetween - 10)
+				{
+					Tile.CurrentTexture = Tile.NormalMap;
+				}
+				countdownTimer -= gameTime.ElapsedGameTime.Milliseconds;
+				if (countdownTimer <= 0)
+				{
+					//beat once
+					Tile.CurrentTexture = Tile.SmallMap;
+					firstBeatDone = true;
+					countdownTimer = beatRate;
+				}
+			}
+
+            /*this.GlobalTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             if (this.GlobalTimer > 600)
             {
@@ -157,7 +193,7 @@ namespace Display.Tilemap
                         Tile.CurrentTexture = Tile.NormalMap;
                     }
                 }
-            }
+            }*/
         }
 
         private Tileset getCorrectTileset(int gid)

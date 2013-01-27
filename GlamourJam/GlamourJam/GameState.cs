@@ -65,7 +65,7 @@ namespace GlamourJam.States
 
             for (int j = 0; j < players.Count; j++)
             {
-				this.players[j].score = 10;
+				this.players[j].score = 100;
                 this.players[j].Position = this.getAvailablePosition();
                 this.AddChild(this.players[j]);
             }
