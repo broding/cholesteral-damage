@@ -28,7 +28,7 @@ namespace Flakcore.Display
         {
             this.Text = text;
             this.SpriteFont = spriteFont;
-            this.SpriteFont = Controller.Content.Load<SpriteFont>("DefaultFont");
+            this.SpriteFont = Controller.Content.Load<SpriteFont>("fonts/DefaultFont");
             this.HorizontalAlign = HorizontalAlign.LEFT;
             this.VerticalAlign = VerticalAlign.TOP;
 
@@ -51,7 +51,7 @@ namespace Flakcore.Display
             worldProperties.Position.Y += this.Height / 2 - this.TextSize.Y / 2;
 
             spriteBatch.DrawString(
-                Controller.FontDefault,
+                this.SpriteFont,
                 this.Text,
                 worldProperties.Position,
                 this.Color * worldProperties.Alpha,
