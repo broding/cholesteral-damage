@@ -24,6 +24,7 @@ namespace GlamourJam
 
         private ParticleEngine BloodParticles;
 		SoundEffect soundTakeOver;
+		SoundEffect soundTaken;
 
         public CapturePoint()
         {
@@ -51,6 +52,7 @@ namespace GlamourJam
             AddAnimation("p4captured", new int[3] { 10, 11, 12 }, 0.5f);
 
 			soundTakeOver = Controller.Content.Load<SoundEffect>("sounds/takeOver");
+			soundTaken = Controller.Content.Load<SoundEffect>("sounds/winCapture");
         }
 
         public override void Update(GameTime gameTime)
@@ -73,6 +75,7 @@ namespace GlamourJam
                 timer = 0;
                 captured = true;
                 owner = playerCapturing;
+				soundTaken.Play();
 
                 if (owner.index == PlayerIndex.One) 
                 {
