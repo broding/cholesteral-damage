@@ -10,6 +10,7 @@ using Flakcore.Utils;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
+using GlamourJam.States;
 
 namespace GlamourJam
 {
@@ -98,7 +99,7 @@ namespace GlamourJam
             if(GamePad.GetState(PlayerIndex.Four).Buttons.A == ButtonState.Pressed)
                 player4Ready = true;
 
-            if (playerReady)
+            if (playerReady == true)
                 Controller.SwitchState(new GameState());
 
             base.Update(gameTime);

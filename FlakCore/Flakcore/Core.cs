@@ -59,7 +59,7 @@ namespace Flakcore
 
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
-            foreach (Layer layer in Controller.LayerController.Layers)
+            foreach (Layer layer in Controller.LayerController.Layers.ToList())
             {
                 layer.Update(gameTime);
             }
