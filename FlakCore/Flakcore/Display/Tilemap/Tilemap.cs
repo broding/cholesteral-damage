@@ -32,6 +32,7 @@ namespace Display.Tilemap
 		private float timeBetween = 200;
 		private SoundEffect soundHeartbeat;
 		public float beatRate = 1000;
+		public bool heartIsBeating = true;
 
         public Tilemap()
         {
@@ -142,34 +143,37 @@ namespace Display.Tilemap
         {
             base.Update(gameTime);
 
-			if (firstBeatDone)
+			if (heartIsBeating)
 			{
-				if (Tile.CurrentTexture == Tile.SmallMap && countdownTimer < beatRate - 10)
+				if (firstBeatDone)
 				{
-					Tile.CurrentTexture = Tile.NormalMap;
-				}
-				countdownTimer -= gameTime.ElapsedGameTime.Milliseconds;
-				if (countdownTimer <= 0)
+					if (Tile.CurrentTexture == Tile.SmallMap && countdownTimer < beatRate - 10)
+					{
+						Tile.CurrentTexture = Tile.NormalMap;
+					}
+					countdownTimer -= gameTime.ElapsedGameTime.Milliseconds;
+					if (countdownTimer <= 0)
+					{
+						//beat once
+						Tile.CurrentTexture = Tile.SmallMap;
+						firstBeatDone = false;
+						countdownTimer = timeBetween;
+						soundHeartbeat.Play(0.5f, 0, 0);
+					}
+				} else
 				{
-					//beat once
-					Tile.CurrentTexture = Tile.SmallMap;
-					firstBeatDone = false;
-					countdownTimer = timeBetween;
-					soundHeartbeat.Play(0.5f, 0, 0);
-				}
-			} else
-			{
-				if (Tile.CurrentTexture == Tile.SmallMap && countdownTimer < timeBetween - 10)
-				{
-					Tile.CurrentTexture = Tile.NormalMap;
-				}
-				countdownTimer -= gameTime.ElapsedGameTime.Milliseconds;
-				if (countdownTimer <= 0)
-				{
-					//beat once
-					Tile.CurrentTexture = Tile.SmallMap;
-					firstBeatDone = true;
-					countdownTimer = beatRate;
+					if (Tile.CurrentTexture == Tile.SmallMap && countdownTimer < timeBetween - 10)
+					{
+						Tile.CurrentTexture = Tile.NormalMap;
+					}
+					countdownTimer -= gameTime.ElapsedGameTime.Milliseconds;
+					if (countdownTimer <= 0)
+					{
+						//beat once
+						Tile.CurrentTexture = Tile.SmallMap;
+						firstBeatDone = true;
+						countdownTimer = beatRate;
+					}
 				}
 			}
 

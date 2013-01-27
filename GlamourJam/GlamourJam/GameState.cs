@@ -27,6 +27,7 @@ namespace GlamourJam.States
 		List<CapturePoint> capturePoints = new List<CapturePoint>();
 		private float updateScoreTime = 5000;
 		Vetbol lastPlayerAlive;
+		private int playerStartScore = 100;
 
         public GameState()
         {
@@ -66,7 +67,7 @@ namespace GlamourJam.States
 
             for (int j = 0; j < players.Count; j++)
             {
-				this.players[j].score = 100;
+				this.players[j].score = playerStartScore;
                 this.players[j].Position = this.getAvailablePosition();
                 this.AddChild(this.players[j]);
             }
@@ -127,6 +128,7 @@ namespace GlamourJam.States
 			if (updateScoreTime <= 0)
 			{
 				updateScoreTime = 5000;
+				int totalScore = 0;
 				int playersAlive = 0;
 				foreach (Vetbol player in this.players)
 				{
@@ -136,6 +138,7 @@ namespace GlamourJam.States
 						if (point.owner == player)
 							pointsOwned++;
 					}
+					totalScore += player.score;
 					player.score -= (capturePoints.Count - pointsOwned);
 					if (player.score <= 0)
 					{
@@ -147,11 +150,12 @@ namespace GlamourJam.States
 						lastPlayerAlive = player;
 					}
 					//TODO: update HUD score
-					tilemap.beatRate -= 10;
+					tilemap.beatRate = 270; // iets met playerStartScore*players.Count en totlaScore
 					//TODO: adjust beatrate of the map
 				}
 				if (playersAlive == 1)
 				{
+					tilemap.heartIsBeating = false;
 					//TODO lastPlayerAlive = winner
 				}
 			}
