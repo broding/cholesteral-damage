@@ -28,7 +28,6 @@ namespace Flakcore.Display
         {
             this.Text = text;
             this.SpriteFont = spriteFont;
-            this.SpriteFont = Controller.Content.Load<SpriteFont>("fonts/DefaultFont");
             this.HorizontalAlign = HorizontalAlign.LEFT;
             this.VerticalAlign = VerticalAlign.TOP;
 
