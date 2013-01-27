@@ -402,6 +402,12 @@ namespace GlamourJam
             
             this.stunned = false;
             this.stunnedTime = 0;
+
+			CollisionState = "idle";
+			onfloor = true;
+			speedX = 0;
+			speedY = 0;
+
             image.PlayAnimation("IDLE");
 
             this.deadParticles.Explode();
