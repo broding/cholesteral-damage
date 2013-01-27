@@ -18,6 +18,9 @@ namespace GlamourJam
         private Sprite heart;
 		public GamePadState padState;
 
+		private SoundEffect ECGsound;
+		private float soundTimer = 0;
+
 		public EndScreen(PlayerIndex playerIndex, Color color)
 		{
 
@@ -40,12 +43,20 @@ namespace GlamourJam
 			lblAdvance.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lblAdvance.Width / 2);
 			lblAdvance.Position.Y = 550;
 			AddChild(lblAdvance);
+
+			ECGsound = Controller.Content.Load<SoundEffect>("sounds/ecg");
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
 			padState = GamePad.GetState(PlayerIndex.One);
+
+			if (soundTimer <= 0)
+			{
+				soundTimer = ECGsound.Duration.Milliseconds;
+				ECGsound.Play(0.2f, 0, 0);
+			}
 
 			if (padState.Buttons.A == ButtonState.Pressed)
 			{
