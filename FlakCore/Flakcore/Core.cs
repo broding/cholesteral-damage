@@ -59,9 +59,9 @@ namespace Flakcore
 
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
-            foreach (Layer layer in Controller.LayerController.Layers)
+            for(int i = 0; i < Controller.LayerController.Layers.Count; i++)
             {
-                layer.Update(gameTime);
+                Controller.LayerController.Layers[i].Update(gameTime);
             }
             this.Stopwatch.Stop();
             DebugInfo.AddDebugItem("Update", this.Stopwatch.ElapsedMilliseconds + " ms");
@@ -164,6 +164,9 @@ namespace Flakcore
 
         public void SwitchState(State state)
         {
+            if (this.CurrentState != null)
+                Controller.LayerController.GetLayer("base").RemoveChild(this.CurrentState);
+
             this.CurrentState = null;
             this.CurrentState = state;
             Controller.LayerController.GetLayer("base").AddChild(this.CurrentState);
