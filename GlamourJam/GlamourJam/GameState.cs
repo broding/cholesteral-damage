@@ -146,13 +146,14 @@ namespace GlamourJam.States
 						lastPlayerAlive = player;
 					}
 					//TODO: update HUD score
+					tilemap.beatRate -= 1;
+					//TODO: adjust beatrate of the map
 				}
 				if (playersAlive == 1)
 				{
 					//TODO lastPlayerAlive = winner
 				}
 			}
-
 			base.Update(gameTime);
 		}
 
