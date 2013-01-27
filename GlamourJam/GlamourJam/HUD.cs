@@ -11,10 +11,10 @@ namespace GlamourJam
 {
     class HUD : Node
     {
-        PlayerHUDStatus playerHUD;
+        Dictionary<PlayerIndex, PlayerHUDStatus> hudPlayers = new Dictionary<PlayerIndex, PlayerHUDStatus>();
         Sprite background;
 
-        public HUD(List<Vetbol> playerList)
+        public HUD(List<Vetbol> playerList, TimeSpan timer)
         {
             background = new Sprite();
             background.LoadTexture(@"Assets/HudBG");
@@ -22,18 +22,21 @@ namespace GlamourJam
             background.Scale /= Controller.CurrentDrawCamera.zoom;
             this.AddChild(background);
 
-            playerHUD = new PlayerHUDStatus(new Vector2((1024 / Controller.CurrentDrawCamera.zoom) / playerList.Count, 96), playerList[0], TimeSpan.FromSeconds(2));
-            this.AddChild(playerHUD);
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                hudPlayers.Add(playerList[i].index, new PlayerHUDStatus(new Vector2((1024 / Controller.CurrentDrawCamera.zoom) / playerList.Count, 96), playerList[i], timer));
+                this.AddChild(hudPlayers[playerList[i].index]);
+            }
         }
 
         public void PlayerDied(Vetbol player)
         {
-            playerHUD.Load();
+            hudPlayers[player.index].Load();
         }
 
         public void PlayerSpawned(Vetbol player)
         {
-            playerHUD.ToNormal();
+            hudPlayers[player.index].ToNormal();
         }
     };
 
@@ -54,7 +57,7 @@ namespace GlamourJam
             playerImage = new Sprite();
             playerFrame = new Sprite();
 
-            playerFrame.Position.X = (size.X / 2) -(96 / 2);
+            playerFrame.Position.X = (size.X / 2) -(96 / 2) + (float)player.index * size.X;
             playerFrame.Position.Y = this.Position.Y;
             playerFrame.Scale /= Controller.CurrentDrawCamera.zoom;
 
@@ -83,16 +86,19 @@ namespace GlamourJam
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            this.playerTickets.Text = player.score.ToString();
         }
 
         public void Load()
         {
             playerFrame.PlayAnimation("LOADING");
+            playerImage.Color = Color.LightGray;
         }
 
         public void ToNormal()
         {
             playerFrame.PlayAnimation("IDLE");
+            playerImage.Color = player.image.Color;
         }
     };
 }

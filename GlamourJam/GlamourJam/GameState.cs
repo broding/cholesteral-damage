@@ -16,6 +16,8 @@ namespace GlamourJam.States
     class GameState : State
     {
         public Tilemap tilemap;
+
+        private readonly TimeSpan respawnTime = TimeSpan.FromSeconds(2);
         private FatBomb fatBomb;
         private List<Tile> playerSpawn;
         private List<Tile> NotUsedSpawnPoints;
@@ -23,6 +25,7 @@ namespace GlamourJam.States
 		private Random rnd = new Random();
 		private SoundEffect soundEffectBomb;
         private HUD hud;
+        private Dictionary<Vetbol, TimeSpan> respawnTimers = new Dictionary<Vetbol,TimeSpan>();
 
 		public Pool<FatBomb> BombPool;
 		List<CapturePoint> capturePoints = new List<CapturePoint>();
@@ -80,7 +83,7 @@ namespace GlamourJam.States
 
 			soundEffectBomb = Controller.Content.Load<SoundEffect>("sounds/explode");
 
-            this.hud = new HUD(this.players);
+            this.hud = new HUD(this.players, respawnTime);
             this.AddChild(hud);
         }
 
@@ -124,7 +127,8 @@ namespace GlamourJam.States
                 {
                     Controller.Input.SetVibrationWithTimer(player.index, TimeSpan.FromMilliseconds(300));
                     player.Deactivate();
-                    this.RespawnPlayer(player);
+                    respawnTimers.Add(player, respawnTime);
+                    hud.PlayerDied(player);
                 }
             }
         }
@@ -171,7 +175,22 @@ namespace GlamourJam.States
 				{
 					//TODO lastPlayerAlive = winner
 				}
-			}
+
+            }
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (respawnTimers.ContainsKey(players[i]))
+                {
+                    respawnTimers[players[i]] -= gameTime.ElapsedGameTime;
+                    if (respawnTimers[players[i]].TotalMilliseconds <= 0)
+                    {
+                        this.RespawnPlayer(players[i]);
+                        respawnTimers.Remove(players[i]);
+                    }
+                }
+            }
+
 			base.Update(gameTime);
 		}
 
@@ -189,6 +208,7 @@ namespace GlamourJam.States
         private void RespawnPlayer(Vetbol player)
         {
             player.Position = getAvailablePosition();
+            hud.PlayerSpawned(player);
             player.Activate();
             player.IsFlickering = true;
         }
