@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlamourJam", "GlamourJam\GlamourJam\GlamourJam.csproj", "{DBD35A2F-3123-430C-8861-2D9B96FBE765}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlamourJamContent", "GlamourJam\GlamourJamContent\GlamourJamContent.contentproj", "{1F8EE800-9277-4096-A76A-6A0E6D1913EB}"
