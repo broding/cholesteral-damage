@@ -40,7 +40,6 @@ namespace Flakcore
 
             Controller.WorldBounds = new Rectangle(0, 0, 2500,2000);
 
-            Controller.LayerController.AddLayer("base");
             SetupQuadTree();
 
             this.Stopwatch = new Stopwatch();
@@ -165,8 +164,8 @@ namespace Flakcore
 
         public void SwitchState(State state)
         {
-            if (this.CurrentState != null)
-                Controller.LayerController.GetLayer("base").RemoveChild(this.CurrentState);
+            Controller.LayerController.ClearLayers();
+            Controller.LayerController.AddLayer("base");
 
             this.CurrentState = null;
             this.CurrentState = state;

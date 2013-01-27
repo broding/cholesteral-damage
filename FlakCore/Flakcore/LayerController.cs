@@ -45,5 +45,10 @@ namespace Flakcore
         {
             this.Layers = this.Layers.OrderBy(o => o.Depth).ToList();
         }
+
+        internal void ClearLayers()
+        {
+            this.Layers.Clear();
+        }
     }
 }
