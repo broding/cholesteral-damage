@@ -6,10 +6,10 @@
 
         <Name>bloodSprite</Name>
         <TextureName>dead</TextureName>
-        <TotalParticles>5</TotalParticles>
-        <Lifetime>1500</Lifetime>
+        <TotalParticles>1</TotalParticles>
+        <Lifetime>1000</Lifetime>
 
-        <ReleaseQuantity>5</ReleaseQuantity>
+        <ReleaseQuantity>1</ReleaseQuantity>
         <ReleaseSpeed>2500</ReleaseSpeed>
         <ReleaseSpeedVariation>1000</ReleaseSpeedVariation>
 
@@ -19,23 +19,70 @@
         <ReleaseColor>FFFFFFFF</ReleaseColor>
         <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
 
-        <ReleaseAlpha>1</ReleaseAlpha>
+        <ReleaseAlpha>0.7</ReleaseAlpha>
         <ReleaseAlphaVariation>0</ReleaseAlphaVariation>
 
         <ReleaseRotation>0</ReleaseRotation>
         <ReleaseRotationVariation>0</ReleaseRotationVariation>
 
-        <ReleaseScale>2 2</ReleaseScale>
+        <ReleaseScale>1 1</ReleaseScale>
         <ReleaseScaleVariation>0 0</ReleaseScaleVariation>
 
         <Modifiers>
 
+          <Item Type="Modifiers:LinearAlpha">
+            <FinalAlpha>0</FinalAlpha>
+          </Item>
+          
           <Item Type="Modifiers:LinearGravity">
-            <Gravity>0 -10</Gravity>
+            <Gravity>0 -7</Gravity>
           </Item>
 
           <Item Type="Modifiers:LinearScale">
-            <FinalScale>3 3</FinalScale>
+            <FinalScale>2 2</FinalScale>
+          </Item>
+
+        </Modifiers>
+      </Item>
+
+      <Item Type="EmitterData:BasicEmitterData">
+
+        <Name>bloodSprite</Name>
+        <TextureName>blood</TextureName>
+        <TotalParticles>10</TotalParticles>
+        <Lifetime>1000</Lifetime>
+
+        <ReleaseQuantity>10</ReleaseQuantity>
+        <ReleaseSpeed>2500</ReleaseSpeed>
+        <ReleaseSpeedVariation>1000</ReleaseSpeedVariation>
+
+        <ReleaseVelocity>300 200</ReleaseVelocity>
+        <ReleaseVelocityVariantion>100 100</ReleaseVelocityVariantion>
+
+        <ReleaseColor>FFFFFFFF</ReleaseColor>
+        <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
+
+        <ReleaseAlpha>0.3</ReleaseAlpha>
+        <ReleaseAlphaVariation>0</ReleaseAlphaVariation>
+
+        <ReleaseRotation>0</ReleaseRotation>
+        <ReleaseRotationVariation>0</ReleaseRotationVariation>
+
+        <ReleaseScale>4 4</ReleaseScale>
+        <ReleaseScaleVariation>1 1</ReleaseScaleVariation>
+
+        <Modifiers>
+
+          <Item Type="Modifiers:LinearAlpha">
+            <FinalAlpha>1</FinalAlpha>
+          </Item>
+
+          <Item Type="Modifiers:LinearGravity">
+            <Gravity>0 10</Gravity>
+          </Item>
+
+          <Item Type="Modifiers:LinearScale">
+            <FinalScale>0.1 0.1</FinalScale>
           </Item>
 
         </Modifiers>
