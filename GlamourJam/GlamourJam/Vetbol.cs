@@ -395,7 +395,7 @@ namespace GlamourJam
 
             GamePadState state = GamePad.GetState(this.index);
 
-            if (state.Triggers.Right > 0.5 && state.Triggers.Left > 0.5)
+            if (state.Triggers.Right > 0.5 && state.Triggers.Left > 0.5 && this.onfloor)
             {
                 (capturePoint as CapturePoint).startCapturing(this);
 
