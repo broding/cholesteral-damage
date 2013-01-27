@@ -181,10 +181,11 @@ namespace GlamourJam.States
 						if (player.score <= 0)
 						{
 							player.score = 0;
-							player.Deactivate();
+                            player.Deactivate();
+                            this.ShowText("Player " + (int)player.index + " is out!");
 							//TODO feedback of dead player in HUD
 						} else
-						{
+                        {
 							playersAlive++;
 							lastPlayerAlive = player;
 						}
@@ -254,7 +255,7 @@ namespace GlamourJam.States
         {
             this.BigText.Visable = true;
             this.BigText.Text = text;
-            this.BigTextTimer = 1200;
+            this.BigTextTimer = 1500;
         }
     }
 }
