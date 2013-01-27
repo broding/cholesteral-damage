@@ -285,9 +285,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\logo.png">
-      <Name>logo</Name>
-    </Compile>
     <Compile Include="blood.png">
       <Name>blood</Name>
       <Importer>TextureImporter</Importer>
@@ -302,6 +299,13 @@
     </Compile>
     <Compile Include="Assets\smallStartMessage.png">
       <Name>smallStartMessage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\logo.png">
+      <Name>logo</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
