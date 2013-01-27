@@ -418,7 +418,8 @@ namespace GlamourJam
         {
             base.Activate();
 
-            this.spawnParticle.Explode();
+            //this.spawnParticle.Position = this.Position;
+            //this.spawnParticle.Explode();
         }
 
         private void SwitchColor()

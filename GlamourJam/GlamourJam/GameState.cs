@@ -136,7 +136,6 @@ namespace GlamourJam.States
 
             BoundingRectangle rect = new BoundingRectangle((int)bomb.Position.X - width / 2, (int)bomb.Position.Y - height / 2, width, height);
 
-
             foreach (Vetbol player in this.players)
             {
                 if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
@@ -187,7 +186,7 @@ namespace GlamourJam.States
                             if (player.Active)
                             {
                                 player.Deactivate();
-                                this.ShowText("Player " + (int)player.index + " is out!");
+                                this.ShowText("Player " + (int)player.index + 1 " is out!");
 								deadSound.Play(0.1f, 0, 0);
                                 //TODO feedback of dead player in HUD
                             }
@@ -270,7 +269,6 @@ namespace GlamourJam.States
         private void RespawnPlayer(Vetbol player)
         {
             hud.PlayerSpawned(player);
-            player.spawnParticle.Position = player.Position + new Vector2(12, 12);
             player.Activate();
             player.IsFlickering = true;
         }
