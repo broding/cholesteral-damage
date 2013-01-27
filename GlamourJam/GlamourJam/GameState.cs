@@ -22,6 +22,7 @@ namespace GlamourJam.States
         private List<Vetbol> players;
 		private Random rnd = new Random();
 		private SoundEffect soundEffectBomb;
+        private HUD hud;
 
 		public Pool<FatBomb> BombPool;
 		List<CapturePoint> capturePoints = new List<CapturePoint>();
@@ -74,6 +75,9 @@ namespace GlamourJam.States
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
 
 			soundEffectBomb = Controller.Content.Load<SoundEffect>("sounds/explode");
+
+            this.hud = new HUD(this.players);
+            this.AddChild(hud);
         }
 
 
