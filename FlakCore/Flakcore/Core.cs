@@ -164,6 +164,9 @@ namespace Flakcore
 
         public void SwitchState(State state)
         {
+            if (this.CurrentState != null)
+                Controller.LayerController.GetLayer("base").RemoveChild(this.CurrentState);
+
             this.CurrentState = null;
             this.CurrentState = state;
             Controller.LayerController.GetLayer("base").AddChild(this.CurrentState);
