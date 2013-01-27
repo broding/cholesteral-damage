@@ -62,6 +62,11 @@ namespace Flakcore
             Controller.SwitchState(state, StateTransition.IMMEDIATELY, StateTransition.IMMEDIATELY);
         }
 
+        public static void SwitchState(State state)
+        {
+            Core.SwitchState(state);
+        }
+
         public static void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)
         {
             Core.SwitchState(state, startTransition, endTransition);
