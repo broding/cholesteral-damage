@@ -17,6 +17,7 @@ namespace GlamourJam
         public static GameState state;
         private const int bombTime = 3;
         private TimeSpan timeSpan = TimeSpan.FromSeconds(bombTime);
+        private bool stuckToAWall = false;
         public int PoolIndex { get; set; }
         public Action<int> ReportDeadToPool { get; set; }
 
@@ -42,7 +43,7 @@ namespace GlamourJam
             this.Sprite.AddAnimation("CLOSETOEXPLODE", new int[4] { 0, 1, 0, 2 }, 0.3f);
             this.Sprite.AddAnimation("EXPLODE", new int[6] { 0, 1, 2, 3, 4, 5 }, 0.17f);
             this.AddChild(this.Sprite);
-            this.gravity = 0;
+            this.gravity = 5;
             Controller.LayerController.GetLayer("bombLayer").AddChild(this.BoomParticles);
             this.Sprite.Scale *= 1.5f;
 
@@ -69,7 +70,10 @@ namespace GlamourJam
                 Explode();
             }
 
-            this.Velocity.Y += gravity;
+            if(!stuckToAWall)
+            {
+                this.Velocity.Y += gravity;
+            }
 
             this.ColorTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (this.ColorTimer > this.ColorTime)
@@ -98,6 +102,7 @@ namespace GlamourJam
         private void TilemapCollision(Node bomb, Node tilemap)
         {
             this.Velocity = Vector2.Zero;
+            stuckToAWall = true;
         }
 
         private bool PlayerCollision(Node bomb, Node player)
@@ -113,6 +118,7 @@ namespace GlamourJam
             this.BoomParticles.Position = this.Position + new Vector2(16, 16);
             this.BoomParticles.Explode();
             this.Deactivate();
+            this.stuckToAWall = false;
             state.ExplodeBomb(this);
         }
 
