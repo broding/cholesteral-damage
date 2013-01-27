@@ -60,15 +60,8 @@ namespace GlamourJam
             this.flickerTime = flickeringTime;
             this.ColorTimer = changeColorTime;
             Position = new Vector2(100, 100);
-            if (index == PlayerIndex.One)
-            {
-                image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
-            }
-            else
-            {
-                
-image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
-            }
+
+            image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
 			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0.5f);
             image.AddAnimation("JUMP", new int[1] { 3 }, 0);
@@ -77,7 +70,11 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
             image.AddAnimation("STUNNED", new int[3] { 6, 7, 8 }, 0.1f);
 
             image.Position = new Vector2(24, 14);
-            if (index==PlayerIndex.Two)
+            if (index == PlayerIndex.One)
+            {
+                image.Color = Color.Orange;
+            }
+            else if (index==PlayerIndex.Two)
             {
                 image.Color = Color.Azure;
             }
