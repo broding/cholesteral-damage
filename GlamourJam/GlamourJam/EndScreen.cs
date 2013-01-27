@@ -33,7 +33,7 @@ namespace GlamourJam
             heart.Position.X += 110;
             this.AddChild(heart);
 
-			Label lbl = new Label("Player " + (float)playerIndex + " has won!", Controller.FontController.GetFont("bigFont"));
+			Label lbl = new Label("Player " + (float)(playerIndex + 1) + " has won!", Controller.FontController.GetFont("bigFont"));
 			lbl.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lbl.Width / 2);
 			AddChild(lbl);
 
