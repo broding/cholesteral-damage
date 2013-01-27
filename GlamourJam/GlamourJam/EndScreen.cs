@@ -16,8 +16,10 @@ namespace GlamourJam
     class EndScreen : State
     {
         private Sprite heart;
-		public Vetbol winner;
 		public GamePadState padState;
+
+		private SoundEffect ECGsound;
+		private float soundTimer = 0;
 
 		public EndScreen(PlayerIndex playerIndex, Color color)
 		{
@@ -33,7 +35,7 @@ namespace GlamourJam
             heart.Position.X += 110;
             this.AddChild(heart);
 
-			Label lbl = new Label("Player " + (float)playerIndex + " has won!", Controller.FontController.GetFont("bigFont"));
+			Label lbl = new Label("Player " + (float)(playerIndex + 1) + " has won!", Controller.FontController.GetFont("bigFont"));
 			lbl.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lbl.Width / 2);
 			AddChild(lbl);
 
@@ -41,12 +43,20 @@ namespace GlamourJam
 			lblAdvance.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lblAdvance.Width / 2);
 			lblAdvance.Position.Y = 550;
 			AddChild(lblAdvance);
+
+			ECGsound = Controller.Content.Load<SoundEffect>("sounds/ecg");
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
 			padState = GamePad.GetState(PlayerIndex.One);
+
+			if (soundTimer <= 0)
+			{
+				soundTimer = ECGsound.Duration.Milliseconds;
+				ECGsound.Play(0.2f, 0, 0);
+			}
 
 			if (padState.Buttons.A == ButtonState.Pressed)
 			{
