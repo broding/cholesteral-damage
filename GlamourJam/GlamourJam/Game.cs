@@ -25,7 +25,7 @@ namespace GlamourJam
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            //this.graphics.IsFullScreen = true;
+            this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -52,7 +52,7 @@ namespace GlamourJam
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             this.Core = new Core(new Vector2(1024, 768), graphics, Content);
-            this.Core.SwitchState(new EndScreen(PlayerIndex.One, Color.Crimson));
+            this.Core.SwitchState(new MenuState());
 
             // TODO: use this.Content to load your game content here
         }
