@@ -21,7 +21,7 @@ namespace GlamourJam
         public bool isCollidingPlayer = false;
 
         private Texture2D GlowTexture;
-
+        private Sprite takingOverRectangle;
         private ParticleEngine BloodParticles;
 		SoundEffect soundTakeOver;
 		SoundEffect soundTaken;
@@ -41,7 +41,7 @@ namespace GlamourJam
             this.BloodParticles.Start();
 
             this.GlowTexture = Controller.Content.Load<Texture2D>("glow");
-
+            CreateTakingOverRectangle();
             AddAnimation("p1uncaptured", new int[1] { 0 }, 0);
             AddAnimation("p1captured", new int[3] { 1, 2, 3 },0.5f);
             AddAnimation("p2uncaptured", new int[1] { 0 }, 0);
@@ -68,10 +68,19 @@ namespace GlamourJam
                 this.isPlayerCapturing = false;
             }
             if (isPlayerCapturing == true && playerCapturing != owner)
+            {
                 timer += gameTime.ElapsedGameTime.TotalSeconds;
+                takingOverRectangle.Scale.X = (float)(1-(timer / 2));
+                takingOverRectangle.Visable = true;
+            }
+            else
+            {
+                takingOverRectangle.Visable = false;
+            }
 
             if (timer >= 2)
             {
+                takingOverRectangle.Visable = false;
                 timer = 0;
                 captured = true;
                 owner = playerCapturing;
@@ -136,6 +145,15 @@ namespace GlamourJam
                     this.Scale,
                     this.SpriteEffects,
                     0.001f);
+        }
+        private void CreateTakingOverRectangle()
+        {
+            takingOverRectangle = Sprite.CreateRectangle(new Vector2(48, 5), Color.GreenYellow);
+            takingOverRectangle.Origin = new Vector2(24f,24f);
+            takingOverRectangle.Position = new Vector2((this.Width / 2) - (takingOverRectangle.Width / 2), 0);
+            takingOverRectangle.Visable = false;
+            AddChild(takingOverRectangle);
+            takingOverRectangle.Depth = 0.9f;
         }
     }
     
