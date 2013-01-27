@@ -18,11 +18,12 @@ namespace GlamourJam
     {
         private Dictionary<PlayerIndex, bool> playersReady = new Dictionary<PlayerIndex, bool>();
         private readonly TimeSpan scaleTime = TimeSpan.FromMilliseconds(500);
+        private readonly TimeSpan timeBetweenHeartBeat = TimeSpan.FromMilliseconds(75);
         private TimeSpan scaleTimer;
         private Dictionary<Color, Vector2> playerData = new Dictionary<Color, Vector2>()
         {
             { Color.Yellow, new Vector2(300, 1180) },
-            { Color.Azure, new Vector2(700, 1180) },
+            { Color.CornflowerBlue, new Vector2(700, 1180) },
             { Color.Lime, new Vector2(1100, 1180) },
             { Color.HotPink, new Vector2(1500, 1180) }
         };
@@ -30,6 +31,9 @@ namespace GlamourJam
         private Sprite[] player;
         private float heartScale = 1;
         private Sprite heart;
+        private bool firstHeartBeat = true;
+
+        private Label[] label = new Label[4];
 
         public MenuState()
         {
@@ -45,6 +49,12 @@ namespace GlamourJam
             heart.Scale /= (Controller.CurrentDrawCamera.zoom * 1.1f);
             heart.Position.X += 200;
             this.AddChild(heart);
+
+            Sprite logo = new Sprite();
+            logo.LoadTexture(@"Assets/logo");
+            logo.Position.X = 300;
+            logo.Scale *= 0.7f;
+            this.AddChild(logo);
 
             Sprite backgroundBehindPlayer = new Sprite();
             backgroundBehindPlayer.LoadTexture(@"Assets/HudBG");
@@ -65,6 +75,14 @@ namespace GlamourJam
 
                 this.AddChild(player[i]);
             }
+
+            for(int k = 0; k < 4; k++)
+            {
+                label[k] = new Label("", Controller.FontController.GetFont("DefaultFont"));
+                label[k].Position = player[k].Position + new Vector2(-40, 100);
+                label[k].Scale /= Controller.CurrentDrawCamera.zoom - 0.2f;
+                this.AddChild(label[k]);
+            }
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -78,15 +96,18 @@ namespace GlamourJam
                 {
                     playersReady.Add((PlayerIndex)i, false);
                     player[i].Alpha = 1.0f;
+                    label[i].Text = "Press A when you're ready";
                 }
                 else if (!gamePadStates[i].IsConnected && playersReady.ContainsKey((PlayerIndex)i))
                 {
                     playersReady.Remove((PlayerIndex)i);
                     player[i].Alpha = 0.2f;
+                    label[i].Text = "Connect a controller";
                 }
                 else if(!gamePadStates[i].IsConnected)
                 {
                     player[i].Alpha = 0.2f;
+                    label[i].Text = "Connect a controller";
                 }
             }
 
@@ -95,6 +116,14 @@ namespace GlamourJam
                 if(Controller.Input.JustPressed(playersReady.ElementAt(j).Key, Buttons.A))
                 {
                     playersReady[playersReady.ElementAt(j).Key] = !playersReady.ElementAt(j).Value;
+                    if (playersReady[playersReady.ElementAt(j).Key])
+                    {
+                        label[j].Text = "You're Ready";
+                    }
+                    else
+                    {
+                        label[j].Text = "Press A when you're ready";
+                    }
                 }
             }
 
@@ -102,12 +131,25 @@ namespace GlamourJam
             {
                 Controller.SwitchState(new GameState());
             }
-
-            scaleTimer -= gameTime.ElapsedGameTime;
-            if (scaleTimer.TotalMilliseconds <= 0)
+            if (firstHeartBeat)
             {
-                Heartbeat();
-                scaleTimer = scaleTime;
+                scaleTimer -= gameTime.ElapsedGameTime;
+                if (scaleTimer.TotalMilliseconds <= 0)
+                {
+                    firstHeartBeat = false;
+                    Heartbeat();
+                    scaleTimer = timeBetweenHeartBeat;
+                }
+            }
+            else
+            {
+                scaleTimer -= gameTime.ElapsedGameTime;
+                if (scaleTimer.TotalMilliseconds <= 0)
+                {
+                    firstHeartBeat = true;
+                    Heartbeat();
+                    scaleTimer = scaleTime;
+                }
             }
         }
 
