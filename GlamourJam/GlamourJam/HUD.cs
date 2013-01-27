@@ -55,11 +55,11 @@ namespace GlamourJam
             playerFrame = new Sprite();
 
             playerFrame.Position.X = (size.X / 2) -(96 / 2);
-            playerFrame.Position.Y = this.Position.Y - 15;
+            playerFrame.Position.Y = this.Position.Y;
             playerFrame.Scale /= Controller.CurrentDrawCamera.zoom;
 
             playerImage.Position.X = playerFrame.Position.X + ((96 - 20) / 2) - (playerImage.Width / 2);
-            playerImage.Position.Y = this.Position.Y + ((96 - 32) / 2);
+            playerImage.Position.Y = this.Position.Y + ((96 - 65) / 2);
             playerImage.Scale /= Controller.CurrentDrawCamera.zoom;
 
             playerFrame.LoadTexture(Controller.Content.Load<Texture2D>(@"Assets/peter4croisants"), 96, 96);
@@ -72,8 +72,8 @@ namespace GlamourJam
             this.playerImage.Color = player.image.Color;
 
             this.playerTickets = new Label(player.score.ToString(), Controller.FontController.GetFont("DefaultFont"));
-            this.playerTickets.Position = new Vector2(playerImage.Position.X, this.Position.Y + 90);
-            this.playerTickets.Scale /= Controller.CurrentDrawCamera.zoom;
+            this.playerTickets.Position = new Vector2(playerImage.Position.X + 10, this.Position.Y + 115);
+            this.playerTickets.Scale /= Controller.CurrentDrawCamera.zoom - 0.3f;
 
             this.AddChild(playerFrame);
             this.AddChild(playerImage);

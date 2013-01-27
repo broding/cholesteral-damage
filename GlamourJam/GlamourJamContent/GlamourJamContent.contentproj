@@ -243,6 +243,7 @@
       <Name>HudBG</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="captureParticle.xml">
       <Name>captureParticle</Name>
       <Importer>XmlImporter</Importer>
