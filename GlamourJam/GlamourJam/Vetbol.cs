@@ -21,7 +21,7 @@ namespace GlamourJam
         private float bombTimer;
         private float bombSpawnTime = 1000;
         private readonly TimeSpan flickeringTime = TimeSpan.FromSeconds(2);
-        private readonly TimeSpan changeColorTime = TimeSpan.FromMilliseconds(200);
+        private readonly TimeSpan changeColorTime = TimeSpan.FromMilliseconds(80);
         private TimeSpan flickerTime;
         private TimeSpan ColorTimer;
 
