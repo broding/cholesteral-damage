@@ -117,13 +117,17 @@ namespace GlamourJam
         internal void DrawColor(SpriteBatch spriteBatch)
         {
             Color color = Color.White;
+            float alpha = 0.1f;
             if (this.owner != null)
+            {
                 color = this.owner.image.Color;
+                alpha = 0.3f;
+            }
 
             spriteBatch.Draw(this.GlowTexture,
                     this.Position - new Vector2(50, 50),
                     new Rectangle(0, 0, 900, 900),
-                    color * 0.2f,
+                    color * alpha,
                     this.Rotation,
                     new Vector2(300, 300),
                     this.Scale,

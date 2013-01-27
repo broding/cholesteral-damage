@@ -32,7 +32,7 @@ namespace GlamourJam.States
 		private float updateScoreTime = 5000;
 		Vetbol lastPlayerAlive;
 		private int totalScore = 0;
-		private int playerStartScore = 10;
+		private int playerStartScore = 100;
 		private bool isPlayable = true;
 		private int countDownToEndscreen = 3000;
 
@@ -182,10 +182,11 @@ namespace GlamourJam.States
 						if (player.score <= 0)
 						{
 							player.score = 0;
-							player.Deactivate();
+                            player.Deactivate();
+                            this.ShowText("Player " + (int)player.index + " is out!");
 							//TODO feedback of dead player in HUD
 						} else
-						{
+                        {
 							playersAlive++;
 						}
 						//TODO: update HUD score
@@ -202,7 +203,7 @@ namespace GlamourJam.States
 					if (playersAlive <= 1)
 					{
 						//TODO lastPlayerAlive = winner
-						isPlayable = false;
+						//isPlayable = false;
 					}
 
 				}
@@ -261,6 +262,7 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             hud.PlayerSpawned(player);
+            player.spawnParticle.Position = player.Position + new Vector2(12, 12);
             player.Activate();
             player.IsFlickering = true;
         }
@@ -269,7 +271,7 @@ namespace GlamourJam.States
         {
             this.BigText.Visable = true;
             this.BigText.Text = text;
-            this.BigTextTimer = 1200;
+            this.BigTextTimer = 1500;
         }
     }
 }
