@@ -147,7 +147,7 @@ namespace GlamourJam.States
 						lastPlayerAlive = player;
 					}
 					//TODO: update HUD score
-					tilemap.beatRate -= 1;
+					tilemap.beatRate -= 10;
 					//TODO: adjust beatrate of the map
 				}
 				if (playersAlive == 1)

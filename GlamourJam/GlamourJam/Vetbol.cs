@@ -390,7 +390,7 @@ namespace GlamourJam
         }
 		public void Collision(Node player, Node collidingTile)
 		{
-			if (!onfloor || speedY > 50)
+			if (!onfloor || (speedY > 50 && (!player.Touching.Left && !player.Touching.Right)))//check with prevspeed
 				soundEffectLand.Play(0.5f, 0, 0);
 			if (player.Touching.Bottom)
 			{

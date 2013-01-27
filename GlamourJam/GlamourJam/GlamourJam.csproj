@@ -99,7 +99,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Vetbol.cs" />
-    <Compile Include="Vetbol2.cs" />
     <Compile Include="WhiteBloodCell.cs" />
   </ItemGroup>
   <ItemGroup>
