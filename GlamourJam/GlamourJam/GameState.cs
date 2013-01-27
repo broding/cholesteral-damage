@@ -110,8 +110,8 @@ namespace GlamourJam.States
         {
 			soundEffectBomb.Play(0.5f, 0, 0);
 
-            int width = 136;
-            int height = 136;
+            int width = 186;
+            int height = 186;
 
             BoundingRectangle rect = new BoundingRectangle((int)bomb.Position.X - width / 2, (int)bomb.Position.Y - height / 2, width, height);
 
