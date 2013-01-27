@@ -155,7 +155,7 @@ namespace GlamourJam
             }
 
 			//Move when sticking
-			speedY += 15;
+			speedY += 18;
 			if (CollisionState == "idle")
 			{
 				//Move Horizontally
