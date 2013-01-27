@@ -382,9 +382,11 @@ namespace GlamourJam
 
         public bool BeingCaptured(Node player, Node capturePoint)
         {
-                (capturePoint as CapturePoint).startCapturing(this);
+            (capturePoint as CapturePoint).startCapturing(this);
 
-                (capturePoint as CapturePoint).isCollidingPlayer = true;
+            (capturePoint as CapturePoint).isCollidingPlayer = true;
+
+            this.image.PlayAnimation("CAPTURING");
 
             return false;
         }
