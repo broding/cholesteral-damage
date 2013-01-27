@@ -31,6 +31,7 @@ namespace GlamourJam
         private Sprite[] player;
         private float heartScale = 1;
         private Sprite heart;
+        private Sprite controls;
         private bool firstHeartBeat = true;
 
         private Label[] label = new Label[4];
@@ -47,14 +48,28 @@ namespace GlamourJam
             heart = new Sprite();
             heart.LoadTexture(@"Assets/Heart");
             heart.Scale /= (Controller.CurrentDrawCamera.zoom * 1.1f);
-            heart.Position.X += 100;
+            heart.Position.X += 110;
             this.AddChild(heart);
 
             Sprite logo = new Sprite();
             logo.LoadTexture(@"Assets/logo");
             logo.Position.X = 300;
+            logo.Position.Y = 20;
             logo.Scale *= 0.7f;
             this.AddChild(logo);
+
+            controls = new Sprite();
+            controls.LoadTexture(@"Assets/Controlls");
+            controls.Scale /= Controller.CurrentDrawCamera.zoom;
+            controls.Deactivate();
+            this.AddChild(controls);
+
+            Sprite controllsMessage = new Sprite();
+            controllsMessage.LoadTexture(@"Assets/smallStartMessage");
+            controllsMessage.Position.X = (1024 / Controller.CurrentDrawCamera.zoom) - (300 / Controller.CurrentDrawCamera.zoom);
+            controllsMessage.Position.Y = (768 / Controller.CurrentDrawCamera.zoom) - (96 / Controller.CurrentDrawCamera.zoom) - (150 / Controller.CurrentDrawCamera.zoom);
+            controllsMessage.Scale /= Controller.CurrentDrawCamera.zoom;
+            this.AddChild(controllsMessage);
 
             Sprite backgroundBehindPlayer = new Sprite();
             backgroundBehindPlayer.LoadTexture(@"Assets/HudBG");
@@ -124,6 +139,19 @@ namespace GlamourJam
                     {
                         label[j].Text = "Press A when you're ready";
                     }
+                }
+            }
+
+            if (Controller.Input.JustPressed(PlayerIndex.One, Buttons.Start) || Controller.Input.JustPressed(PlayerIndex.Two, Buttons.Start)
+                || Controller.Input.JustPressed(PlayerIndex.Three, Buttons.Start) || Controller.Input.JustPressed(PlayerIndex.Four, Buttons.Start))
+            {
+                if (controls.Active)
+                {
+                    controls.Deactivate();
+                }
+                else
+                {
+                    controls.Activate();
                 }
             }
 
