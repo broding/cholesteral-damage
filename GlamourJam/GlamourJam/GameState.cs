@@ -150,10 +150,17 @@ namespace GlamourJam.States
 						lastPlayerAlive = player;
 					}
 					//TODO: update HUD score
-					tilemap.beatRate = 270; // iets met playerStartScore*players.Count en totlaScore
+
+					int minBeat = 1000;
+					int maxBeat = 270;
+					int minPoints = capturePoints.Count;
+					int maxPoints = playerStartScore * players.Count;
+					int score = ((minBeat - maxBeat) / (maxPoints - minPoints)) * totalScore;
+					score += 270;
+					tilemap.beatRate = score;
 					//TODO: adjust beatrate of the map
 				}
-				if (playersAlive == 1)
+				if (playersAlive <= 1)
 				{
 					tilemap.heartIsBeating = false;
 					//TODO lastPlayerAlive = winner

@@ -158,7 +158,7 @@ namespace Display.Tilemap
 						Tile.CurrentTexture = Tile.SmallMap;
 						firstBeatDone = false;
 						countdownTimer = timeBetween;
-						soundHeartbeat.Play(0.5f, 0, 0);
+						soundHeartbeat.Play(0.2f, 0, 0);
 					}
 				} else
 				{
