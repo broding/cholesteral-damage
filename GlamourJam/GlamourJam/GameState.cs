@@ -269,7 +269,6 @@ namespace GlamourJam.States
 
         private void RespawnPlayer(Vetbol player)
         {
-            player.Position = getAvailablePosition();
             hud.PlayerSpawned(player);
             player.spawnParticle.Position = player.Position + new Vector2(12, 12);
             player.Activate();
