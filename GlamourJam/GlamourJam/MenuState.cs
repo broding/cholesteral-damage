@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -99,7 +99,7 @@ namespace GlamourJam
             if(GamePad.GetState(PlayerIndex.Four).Buttons.A == ButtonState.Pressed)
                 player4Ready = true;
 
-            if (playerReady == true)
+            if (playerReady)
                 Controller.SwitchState(new GameState());
 
             base.Update(gameTime);
