@@ -10,6 +10,7 @@ using Flakcore;
 using System.Diagnostics;
 using GlamourJam.States;
 using Microsoft.Xna.Framework.Audio;
+using Flakcore.Display.ParticleEngine;
 
 namespace GlamourJam
 {
@@ -50,7 +51,9 @@ namespace GlamourJam
 		private SoundEffect soundEffectJump;
 		private float soundTimer = 0;
 
-		public int score;  
+		public int score;
+
+        private ParticleEngine captureParticles;
 
 		public Vetbol(PlayerIndex playerIndex)
 		{
@@ -60,6 +63,9 @@ namespace GlamourJam
             this.flickerTime = flickeringTime;
             this.ColorTimer = changeColorTime;
             Position = new Vector2(100, 100);
+
+            this.captureParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("captureParticle"));
+            this.AddChild(this.captureParticles);
 
             image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
@@ -367,6 +373,8 @@ namespace GlamourJam
             if(this.stunned)
                 image.PlayAnimation("STUNNED");
 
+            this.captureParticles.Stop();
+
 			//RESET FOR NEXT FRAME
 			isSticking = false;
 			prevPadState = padState;
@@ -382,11 +390,23 @@ namespace GlamourJam
 
         public bool BeingCaptured(Node player, Node capturePoint)
         {
+            if ((capturePoint as CapturePoint).owner == this)
+                return false;
+
+            GamePadState state = GamePad.GetState(this.index);
+
+            if (state.Triggers.Right > 0.5 && state.Triggers.Left > 0.5)
+            {
                 (capturePoint as CapturePoint).startCapturing(this);
 
                 (capturePoint as CapturePoint).isCollidingPlayer = true;
-
                 image.PlayAnimation("CAPTURING");
+
+                this.captureParticles.Position = this.Position;
+                this.captureParticles.Start();
+
+                this.Velocity = Vector2.Zero;
+            }
 
             return false;
         }
