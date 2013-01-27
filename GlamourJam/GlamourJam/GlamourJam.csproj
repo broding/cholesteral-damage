@@ -92,7 +92,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundLayer.cs" />
     <Compile Include="CapturePoint.cs" />
     <Compile Include="FatBomb.cs" />
     <Compile Include="Game.cs" />
