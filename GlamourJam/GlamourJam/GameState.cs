@@ -32,7 +32,7 @@ namespace GlamourJam.States
 		private float updateScoreTime = 5000;
 		Vetbol lastPlayerAlive;
 		private int totalScore = 0;
-		private int playerStartScore = 10;
+		private int playerStartScore = 100;
 		private bool isPlayable = true;
 		private int countDownToEndscreen = 3000;
 
@@ -203,7 +203,7 @@ namespace GlamourJam.States
 					if (playersAlive <= 1)
 					{
 						//TODO lastPlayerAlive = winner
-						isPlayable = false;
+						//isPlayable = false;
 					}
 
 				}
@@ -247,6 +247,7 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             hud.PlayerSpawned(player);
+            player.spawnParticle.Position = player.Position + new Vector2(12, 12);
             player.Activate();
             player.IsFlickering = true;
         }
