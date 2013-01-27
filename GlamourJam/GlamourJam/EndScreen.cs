@@ -19,11 +19,8 @@ namespace GlamourJam
 		public Vetbol winner;
 		public GamePadState padState;
 
-		public EndScreen(Vetbol winner)
+		public EndScreen(PlayerIndex playerIndex, Color color)
 		{
-			this.winner = winner;
-			//this.winner.Activate();
-			AddChild(this.winner);
 
             Sprite bg = new Sprite();
             bg.LoadTexture(@"Assets/HeartBG");
@@ -36,7 +33,7 @@ namespace GlamourJam
             heart.Position.X += 110;
             this.AddChild(heart);
 
-			Label lbl = new Label("Player " + winner.index + " has won!", Controller.FontController.GetFont("bigFont"));
+			Label lbl = new Label("Player " + (float)playerIndex + " has won!", Controller.FontController.GetFont("bigFont"));
 			lbl.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lbl.Width / 2);
 			AddChild(lbl);
 
