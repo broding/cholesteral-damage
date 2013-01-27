@@ -12,10 +12,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GlamourJam
 {
-    class FatBomb : Sprite, IPoolable
+    class FatBomb : Node, IPoolable
     {
         public static GameState state;
-        private const int bombTime = 4;
+        private const int bombTime = 3;
         private TimeSpan timeSpan = TimeSpan.FromSeconds(bombTime);
         public int PoolIndex { get; set; }
         public Action<int> ReportDeadToPool { get; set; }
@@ -23,19 +23,31 @@ namespace GlamourJam
         private float ColorTimer;
         private float ColorTime;
 
+        private Sprite Sprite;
+
         private ParticleEngine BoomParticles;
+
+        private Vetbol Vetbol;
 
         public FatBomb()
         {
+            this.Collidable = true;
             this.BoomParticles = new ParticleEngine(Controller.Content.Load<ParticleEffect>("splashBottom"));
             this.AddCollisionGroup("bomb");
-            this.LoadTexture(Controller.Content.Load<Texture2D>(@"Assets/Bomb"), 48, 48);
-            this.AddAnimation("IDLE", new int[1] {0}, 0);
-            this.AddAnimation("CLOSETOEXPLODE", new int[4] { 0, 1, 0, 2 }, 0.3f);
-            this.AddAnimation("EXPLODE", new int[6] { 0, 1, 2, 3, 4, 5 }, 0.17f);
+
+            this.Sprite = new Sprite();
+            this.Sprite.LoadTexture(Controller.Content.Load<Texture2D>(@"Assets/Bomb"), 48, 48);
+            this.Sprite.Position = new Vector2(-32, -32);
+            this.Sprite.AddAnimation("IDLE", new int[1] { 0 }, 0);
+            this.Sprite.AddAnimation("CLOSETOEXPLODE", new int[4] { 0, 1, 0, 2 }, 0.3f);
+            this.Sprite.AddAnimation("EXPLODE", new int[6] { 0, 1, 2, 3, 4, 5 }, 0.17f);
+            this.AddChild(this.Sprite);
             this.gravity = 0;
             Controller.LayerController.GetLayer("bombLayer").AddChild(this.BoomParticles);
-            this.Scale *= 1.5f;
+            this.Sprite.Scale *= 1.5f;
+
+            this.Width = 16;
+            this.Height = 16;
         }
 
         public float gravity { get; set; }
@@ -48,6 +60,7 @@ namespace GlamourJam
             base.Update(gameTime);
 
             Controller.Collide(this, "tilemap", this.TilemapCollision);
+            Controller.Collide(this, "player", null, this.PlayerCollision);
 
             timeSpan -= gameTime.ElapsedGameTime;
 
@@ -68,23 +81,31 @@ namespace GlamourJam
             if (timeSpan.TotalMilliseconds > 3000)
             {
                 this.ColorTime = 800;
-                this.PlayAnimation("IDLE");
+                this.Sprite.PlayAnimation("IDLE");
             }
             else if (timeSpan.TotalMilliseconds < 3000 && timeSpan.TotalMilliseconds > 1000)
             {
                 this.ColorTime = 200;
-                this.PlayAnimation("CLOSETOEXPLODE");
+                this.Sprite.PlayAnimation("CLOSETOEXPLODE");
             }
             else
             {
                 this.ColorTime = 50;
-                this.PlayAnimation("EXPLODE");
+                this.Sprite.PlayAnimation("EXPLODE");
             }
         }
 
         private void TilemapCollision(Node bomb, Node tilemap)
         {
             this.Velocity = Vector2.Zero;
+        }
+
+        private bool PlayerCollision(Node bomb, Node player)
+        {
+            if(this.Vetbol != player)
+                (player as Vetbol).Stun(2500);
+
+            return false;
         }
 
         public void Explode()
@@ -103,15 +124,22 @@ namespace GlamourJam
 
         private void SwitchColor()
         {
-            if (this.Color == Color.IndianRed)
-                this.Color = Color.White;
+            if (this.Sprite.Color == Color.MediumVioletRed)
+                this.Sprite.Color = Color.White;
             else
-                this.Color = Color.IndianRed;
+                this.Sprite.Color = Color.MediumVioletRed;
         }
 
         public static bool IsValid(FatBomb bomb)
         {
             return !bomb.Active;
+        }
+
+        internal void Activate(Vetbol vetbol)
+        {
+            this.Vetbol = vetbol;
+
+            this.Activate();
         }
     }
 }

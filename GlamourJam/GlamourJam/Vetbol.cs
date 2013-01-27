@@ -50,30 +50,31 @@ namespace GlamourJam
 		private SoundEffect soundEffectJump;
 		private float soundTimer = 0;
 
-		private int score;
+		public int score;
 
 		public Vetbol(PlayerIndex playerIndex)
 		{
+            this.Collidable = true;
 			index = playerIndex;
             this.IsFlickering = true;
             this.flickerTime = flickeringTime;
             this.ColorTimer = changeColorTime;
             Position = new Vector2(100, 100);
-            if (index == PlayerIndex.One)
-            {
-                image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblob"), 48, 48);
-            }
-            else
-            {
-                
-image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
-            }
+
+            image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
 			image.AddAnimation("IDLE", new int[1] { 0 }, 0);
 			image.AddAnimation("CRAWLING", new int[2] { 1,2 }, 0.5f);
             image.AddAnimation("JUMP", new int[1] { 3 }, 0);
             image.AddAnimation("ONWALL", new int[1] { 4 }, 0);
+            image.AddAnimation("CAPTURING", new int[1] { 5 }, 0);
+            image.AddAnimation("STUNNED", new int[3] { 6, 7, 8 }, 0.1f);
+
             image.Position = new Vector2(24, 14);
-            if (index==PlayerIndex.Two)
+            if (index == PlayerIndex.One)
+            {
+                image.Color = Color.Orange;
+            }
+            else if (index==PlayerIndex.Two)
             {
                 image.Color = Color.Azure;
             }
@@ -93,6 +94,8 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 			soundEffectWalk = Controller.Content.Load<SoundEffect>("sounds/walking");
 			soundEffectLand = Controller.Content.Load<SoundEffect>("sounds/landing");
 			soundEffectJump = Controller.Content.Load<SoundEffect>("sounds/jump");
+
+            this.AddCollisionGroup("player");
 
 			/*Sprite bb = new Sprite();
 			bb = Sprite.CreateRectangle(new Vector2(Width, Height), Color.Aqua);
@@ -142,7 +145,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
             if (padState.IsButtonDown(Buttons.B) && this.bombTimer > this.bombSpawnTime)
             {
                 this.bombTimer = 0;
-                state.SpawnBomb(this.Position, padState.ThumbSticks.Left);
+                state.SpawnBomb(this, padState.ThumbSticks.Left);
             }
 
 			//Move when sticking
@@ -234,7 +237,7 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
                         speed *= 650;
                         speedX = speed.X;
                         speedY = speed.Y;
-                        wallJumpCount =10;
+                        wallJumpCount = 10;
                     }
                     CollisionState = "idle";
 				}
@@ -361,6 +364,9 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
                 }
             }
 
+            if(this.stunned)
+                image.PlayAnimation("STUNNED");
+
 			//RESET FOR NEXT FRAME
 			isSticking = false;
 			prevPadState = padState;
@@ -433,6 +439,8 @@ image.LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 4
 			stunnedTime -= gametime.ElapsedGameTime.Milliseconds;
 			if (stunnedTime <= 0)
 				stunned = false;
+
+            image.PlayAnimation("STUNNED");
 		}
     }
 }

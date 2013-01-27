@@ -7,11 +7,9 @@ using Display.Tilemap;
 using Microsoft.Xna.Framework;
 using Flakcore;
 using Flakcore.Utils;
-<<<<<<< HEAD
-using Microsoft.Xna.Framework.Graphics;
-=======
 using Microsoft.Xna.Framework.Input;
->>>>>>> fee46fefe8f2b81f65687a4570feb89115bc6ee1
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GlamourJam.States
 {
@@ -19,13 +17,16 @@ namespace GlamourJam.States
     {
         public Tilemap tilemap;
         private FatBomb fatBomb;
-        private Array capturepointarray;
         private List<Tile> playerSpawn;
         private List<Tile> NotUsedSpawnPoints;
         private List<Vetbol> players;
-        private Random rnd = new Random();
+		private Random rnd = new Random();
+		private SoundEffect soundEffectBomb;
 
-        public Pool<FatBomb> BombPool;
+		public Pool<FatBomb> BombPool;
+		List<CapturePoint> capturePoints = new List<CapturePoint>();
+		private float updateScoreTime = 5000;
+		Vetbol lastPlayerAlive;
 
         public GameState()
         {
@@ -43,12 +44,17 @@ namespace GlamourJam.States
 
             playerSpawn = tilemap.RemoveTiles(7);
             int playerRespawn = rnd.Next(playerSpawn.Count);
-            
-            List<Tile> removeTiles = tilemap.RemoveTiles(3);
-            foreach (Tile tile in removeTiles)
+
+			List<Tile> capturePointTiles = tilemap.RemoveTiles(3);
+			foreach (Tile tile in capturePointTiles)
             {
                 CapturePoint capturepoint = new CapturePoint();
+<<<<<<< HEAD
                 capturepoint.Position = tile.Position + ( new Vector2(-27, -62));
+				capturePoints.Add(capturepoint);
+=======
+                capturepoint.Position = tile.Position + ( new Vector2(-27, -61));
+>>>>>>> f4a60a485eae95f76715dfa44d7b2c0d749d8b4a
                 AddChild(capturepoint);
             }
 
@@ -63,11 +69,14 @@ namespace GlamourJam.States
 
             for (int j = 0; j < players.Count; j++)
             {
+				this.players[j].score = 10;
                 this.players[j].Position = this.getAvailablePosition();
                 this.AddChild(this.players[j]);
             }
 
             this.BombPool = new Pool<FatBomb>(50, false, FatBomb.IsValid, this.NewBomb);
+
+			soundEffectBomb = Controller.Content.Load<SoundEffect>("sounds/explode");
         }
 
 
@@ -80,15 +89,19 @@ namespace GlamourJam.States
             return bomb;
         }
 
-        public void SpawnBomb(Vector2 position)
+        public void SpawnBomb(Vetbol vetbol, Vector2 direction)
         {
             FatBomb bomb = this.BombPool.New();
-            bomb.Position = position;
-            bomb.Activate();
+            direction.Y *= -1;
+            bomb.Velocity = direction * 1200;
+            bomb.Position = vetbol.Position;
+            bomb.Activate(vetbol);
         }
 
         public void ExplodeBomb(FatBomb bomb)
         {
+			soundEffectBomb.Play(0.5f, 0, 0);
+
             int width = 136;
             int height = 136;
 
@@ -102,9 +115,9 @@ namespace GlamourJam.States
 
             foreach (Vetbol player in this.players)
             {
-                if (player.GetBoundingBox().Intersects(rect))
+                if (player.GetBoundingBox().Intersects(rect) && !player.IsFlickering)
                 {
-                    GamePad.SetVibration(player.index, 1, 1);
+                    Controller.Input.SetVibrationWithTimer(player.index, TimeSpan.FromMilliseconds(300));
                     player.Deactivate();
                     this.RespawnPlayer(player);
                 }
@@ -113,6 +126,37 @@ namespace GlamourJam.States
 
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
+			updateScoreTime -= gameTime.ElapsedGameTime.Milliseconds;
+			if (updateScoreTime <= 0)
+			{
+				updateScoreTime = 5000;
+				int playersAlive = 0;
+				foreach (Vetbol player in this.players)
+				{
+					int pointsOwned = 0;
+					foreach (CapturePoint point in capturePoints)
+					{
+						if (point.owner == player)
+							pointsOwned++;
+					}
+					player.score -= (capturePoints.Count - pointsOwned);
+					if (player.score <= 0)
+					{
+						player.Deactivate();
+						//TODO feedback of dead player in HUD
+					} else
+					{
+						playersAlive++;
+						lastPlayerAlive = player;
+					}
+					//TODO: update HUD score
+				}
+				if (playersAlive == 1)
+				{
+					//TODO lastPlayerAlive = winner
+				}
+			}
+
 			base.Update(gameTime);
 		}
 
@@ -131,6 +175,7 @@ namespace GlamourJam.States
         {
             player.Position = getAvailablePosition();
             player.Activate();
+            player.IsFlickering = true;
         }
     }
 }

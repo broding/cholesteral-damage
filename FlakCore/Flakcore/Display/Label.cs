@@ -38,7 +38,7 @@ namespace Flakcore.Display
         }
 
 
-        protected override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
         {
             if (this.Text == "")
                 return;

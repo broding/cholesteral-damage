@@ -178,18 +178,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="images\bloodCells.png">
-      <Name>bloodCells</Name>
-=======
     <Compile Include="images\slimeblobOther.png">
       <Name>slimeblobOther</Name>
->>>>>>> 0e169abac2480d150d486cd8949d51adb4c6a025
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-<<<<<<< HEAD
+  <ItemGroup>
+    <Compile Include="images\bloodCells.png">
+      <Name>bloodCells</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="sounds\walking.wav">
       <Name>walking</Name>
@@ -216,8 +217,20 @@
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="sounds\heartbeat.wav">
+      <Name>heartbeat</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
 =======
->>>>>>> 0e169abac2480d150d486cd8949d51adb4c6a025
+    <Compile Include="glow.png">
+      <Name>glow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+>>>>>>> 632bb518c3b3eca6d455611f7ca12abedec098d2
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
