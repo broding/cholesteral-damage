@@ -117,7 +117,7 @@ namespace Flakcore
                     Controller.Graphics.GraphicsDevice.SetRenderTarget(layer.RenderTarget);
                     Controller.Graphics.GraphicsDevice.Clear(Color.Transparent);
 
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
+                    spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
                     layer.DrawCall(spriteBatch);
                     spriteBatch.End();
                 }

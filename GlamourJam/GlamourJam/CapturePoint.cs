@@ -100,6 +100,13 @@ namespace GlamourJam
             playerCapturing = vetblob;
         }
 
+        public override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        {
+            base.DrawCall(spriteBatch, worldProperties);
+
+            this.DrawColor(spriteBatch);
+        }
+
 
         internal void DrawColor(SpriteBatch spriteBatch)
         {
@@ -115,7 +122,7 @@ namespace GlamourJam
                     new Vector2(300, 300),
                     this.Scale,
                     this.SpriteEffects,
-                    0f);
+                    0.001f);
         }
     }
     

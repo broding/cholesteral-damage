@@ -35,6 +35,7 @@ namespace GlamourJam.States
             Vetbol.state = this;
             TiledSprite bg = new TiledSprite(2000, 2000);
             bg.LoadTexture("background");
+            bg.Depth = 0f;
             tilemap = new Tilemap();
             tilemap.LoadMap("Content/testmap.tmx", 32, 32);
             this.AddChild(bg);
