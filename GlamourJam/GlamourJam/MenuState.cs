@@ -47,7 +47,7 @@ namespace GlamourJam
             heart = new Sprite();
             heart.LoadTexture(@"Assets/Heart");
             heart.Scale /= (Controller.CurrentDrawCamera.zoom * 1.1f);
-            heart.Position.X += 200;
+            heart.Position.X += 100;
             this.AddChild(heart);
 
             Sprite logo = new Sprite();
