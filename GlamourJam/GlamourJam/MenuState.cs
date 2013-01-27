@@ -17,22 +17,34 @@ namespace GlamourJam
     class MenuState : State
     {
         private Dictionary<PlayerIndex, bool> playersReady = new Dictionary<PlayerIndex, bool>();
+        private readonly TimeSpan scaleTime = TimeSpan.FromMilliseconds(500);
+        private TimeSpan scaleTimer;
         private Dictionary<Color, Vector2> playerData = new Dictionary<Color, Vector2>()
         {
-            { Color.Yellow, new Vector2(500, 700) },
-            { Color.Azure, new Vector2(700) },
-            { Color.Lime, new Vector2(900, 700) },
-            { Color.HotPink, new Vector2(1100, 700) }
+            { Color.Yellow, new Vector2(300, 1180) },
+            { Color.Azure, new Vector2(700, 1180) },
+            { Color.Lime, new Vector2(1100, 1180) },
+            { Color.HotPink, new Vector2(1500, 1180) }
         };
         private GamePadState[] gamePadStates = new GamePadState[4];
         private Sprite[] player;
+        private float heartScale = 1;
+        private Sprite heart;
 
         public MenuState()
         {
+            scaleTimer = scaleTime;
 
-            TiledSprite bg = new TiledSprite(2000, 2000);
-            bg.LoadTexture("background");
+            Sprite bg = new Sprite();
+            bg.LoadTexture(@"Assets/HeartBG");
+            bg.Scale /= Controller.CurrentDrawCamera.zoom;
             this.AddChild(bg);
+
+            heart = new Sprite();
+            heart.LoadTexture(@"Assets/Heart");
+            heart.Scale /= (Controller.CurrentDrawCamera.zoom * 1.1f);
+            heart.Position.X += 200;
+            this.AddChild(heart);
 
             Sprite backgroundBehindPlayer = new Sprite();
             backgroundBehindPlayer.LoadTexture(@"Assets/HudBG");
@@ -45,6 +57,7 @@ namespace GlamourJam
             {
                 player[i] = new Sprite();
                 player[i].LoadTexture(Controller.Content.Load<Texture2D>("images/slimeblobOther"), 48, 48);
+                player[i].Scale /= Controller.CurrentDrawCamera.zoom;
                 player[i].AddAnimation("IDLE", new int[1] { 0 }, 0);
 
                 player[i].Color = playerData.ElementAt(i).Key;
@@ -85,10 +98,30 @@ namespace GlamourJam
                 }
             }
 
-            if (playersReady.Where(c => c.Value == true).Count() == playersReady.Count && playersReady.Count  > 0)
+            if (playersReady.Where(c => c.Value == true).Count() == playersReady.Count && playersReady.Count  > 1)
             {
                 Controller.SwitchState(new GameState());
             }
+
+            scaleTimer -= gameTime.ElapsedGameTime;
+            if (scaleTimer.TotalMilliseconds <= 0)
+            {
+                Heartbeat();
+                scaleTimer = scaleTime;
+            }
+        }
+
+        public void Heartbeat()
+        {
+            if (heartScale >= 1)
+            {
+                this.heartScale = 0.99f;
+            }else
+            {
+                heartScale = 1.01f;
+            }
+
+            heart.Scale *= heartScale;
         }
     }
 }
