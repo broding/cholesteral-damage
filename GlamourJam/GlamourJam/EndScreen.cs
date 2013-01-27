@@ -24,13 +24,13 @@ namespace GlamourJam
 			//this.winner.Activate();
 			AddChild(this.winner);
 
-			Label lbl = new Label("Player " + winner.player + " has won!", Controller.FontController.GetFont("DefaultFont"));
-			lbl.Position.X = (Controller.ScreenSize.X / 2) - (lbl.Width / 2);
+			Label lbl = new Label("Player " + winner.index + " has won!", Controller.FontController.GetFont("bigFont"));
+			lbl.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lbl.Width / 2);
 			AddChild(lbl);
 
-			Label lblAdvance = new Label("Press A to apply CPR", Controller.FontController.GetFont("DefaultFont"));
-			lblAdvance.Position.X = (Controller.ScreenSize.X / 2) - (lblAdvance.Width / 2);
-			lblAdvance.Position.Y = 50;
+			Label lblAdvance = new Label("Press A to apply CPR", Controller.FontController.GetFont("bigFont"));
+			lblAdvance.Position.X = ((Controller.ScreenSize.X / Controller.CurrentDrawCamera.zoom) / 2) - (lblAdvance.Width / 2);
+			lblAdvance.Position.Y = 550;
 			AddChild(lblAdvance);
 		}
 
