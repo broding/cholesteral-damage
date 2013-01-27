@@ -57,7 +57,7 @@ namespace GlamourJam
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-
+            base.Update(gameTime);
             gamePadStates[0] = GamePad.GetState(PlayerIndex.One);
             gamePadStates[1] = GamePad.GetState(PlayerIndex.Two);
             gamePadStates[2] = GamePad.GetState(PlayerIndex.Three);
@@ -101,8 +101,6 @@ namespace GlamourJam
 
             if (playerReady)
                 Controller.SwitchState(new GameState());
-
-            base.Update(gameTime);
         }
 
     }
