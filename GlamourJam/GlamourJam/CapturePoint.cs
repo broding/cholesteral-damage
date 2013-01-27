@@ -148,9 +148,9 @@ namespace GlamourJam
         }
         private void CreateTakingOverRectangle()
         {
-            takingOverRectangle = Sprite.CreateRectangle(new Vector2(48, 5), Color.GreenYellow);
+            takingOverRectangle = Sprite.CreateRectangle(new Vector2(48, 10), Color.GreenYellow);
             takingOverRectangle.Origin = new Vector2(24f,24f);
-            takingOverRectangle.Position = new Vector2((this.Width / 2) - (takingOverRectangle.Width / 2), 0);
+            takingOverRectangle.Position = new Vector2((this.Width / 2), 125);
             takingOverRectangle.Visable = false;
             AddChild(takingOverRectangle);
             takingOverRectangle.Depth = 0.9f;
