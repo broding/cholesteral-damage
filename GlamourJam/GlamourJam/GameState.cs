@@ -35,7 +35,7 @@ namespace GlamourJam.States
 		private int totalScore = 0;
 		private int playerStartScore = 50;
 		private bool isPlayable = true;
-		private int countDownToEndscreen = 3000;
+		private int countDownToEndscreen = 3100;
 
         public Label BigText;
         public int BigTextTimer;
@@ -186,7 +186,7 @@ namespace GlamourJam.States
                             if (player.Active)
                             {
                                 player.Deactivate();
-                                this.ShowText("Player " + (int)player.index + 1 " is out!");
+                                this.ShowText("Player " + (int)(player.index + 1) + " is out!");
 								deadSound.Play(0.1f, 0, 0);
                                 //TODO feedback of dead player in HUD
                             }

@@ -29,6 +29,7 @@ Content\Assets\Heart.xnb
 Content\Assets\HeartBG.xnb
 Content\Assets\logo.xnb
 Content\Assets\smallStartMessage.xnb
+Content\Assets\HeartSlime.xnb
 Content\splashBottom.xnb
 Content\bloodParticle.xnb
 Content\captureParticle.xnb
@@ -41,5 +42,8 @@ Content\sounds\landing.xnb
 Content\sounds\explode.xnb
 Content\sounds\heartbeat.xnb
 Content\sounds\takeOver.xnb
+Content\sounds\ecg.xnb
+Content\sounds\winCapture.xnb
+Content\sounds\dead.xnb
 Content\testmap.tmx
 FlakCoreContent\fontDefault.xnb
